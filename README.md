@@ -1,7 +1,5 @@
-# color-polution
-Color Pollution Lecture Materials
 # Goals of this repository
-We are hoping to gather clear lecture materials for a course we are designing **sensor systems and color polution**.
+We are hoping to gather and devleop lecture materials for a course we are designing **sensor systems and color polution**.
 
 ## Outline
 - Introduction
