@@ -9,6 +9,8 @@ We are hoping to gather and devleop lecture materials for a course we are design
     - What is color
         - [Matamerism Wiki] (https://en.wikipedia.org/wiki/Metamerism_(color))
     - How do sensory systems, capture light and color
+        - What types elements produce refraction light
+        - Ray tracing with refraction and reflection
     - Human eye
 - Filters and content goals
 - Types of sensor systems/architecture
