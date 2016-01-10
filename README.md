@@ -1,3 +1,6 @@
+# For Project
+[markdown guide](https://help.github.com/articles/github-flavored-markdown/)
+
 # Goals of this repository
 We are hoping to gather and devleop lecture materials for a course we are designing **sensor systems and color polution**.
 
