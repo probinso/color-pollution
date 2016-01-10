@@ -33,5 +33,3 @@ We are hoping to gather and devleop lecture materials for a course we are design
         - Low pressure sodium with filter
         - Other light options
 
-
-![screencast](https://raw.githubusercontent.com/probinso/color-polution/master/Screenshot.png?token=ABCCD7PWMaQbqA1yKzTY7hH4DNz5-kkbks5WnBcHwA%3D%3D)
