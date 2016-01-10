@@ -6,10 +6,10 @@ We are hoping to gather and devleop lecture materials for a course we are design
 
 ## Outline
 - Introduction
-    - Human eye
     - What is color
         - [Matamerism Wiki] (https://en.wikipedia.org/wiki/Metamerism_(color))
     - How do sensory systems, capture light and color
+    - Human eye
 - Filters and content goals
 - Types of sensor systems/architecture
     - Keck
