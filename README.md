@@ -9,6 +9,7 @@ We are hoping to gather and devleop lecture materials for a course we are design
     - Human eye
     - What is color
     - How do sensory systems, capture light and color
+    - Metamerism [markdown guide] (https://en.wikipedia.org/wiki/Metamerism_(color))
 - Filters and content goals
 - Types of sensor systems/architecture
     - Keck
