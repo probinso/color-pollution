@@ -8,6 +8,7 @@ We are hoping to gather and devleop lecture materials for a course we are design
 - Introduction
     - What is color
         - [Matamerism Wiki] (https://en.wikipedia.org/wiki/Metamerism_(color))
+        - What is color history
     - How do sensory systems, capture light and color
         - What types elements produce refraction light
         - Ray tracing with refraction and reflection
