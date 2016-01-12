@@ -8,6 +8,7 @@ When studying color, your goal is to understand:
     - CIE charts
 	- Color-maps
 	- RGB
+- metamerism
 
 # Electromagnetic Radiation
 *... All elements who have energy produce electromagnetic radiation*
