@@ -17,4 +17,3 @@ Traditionally color refers to **human visible light**. Although this is a very l
 
 ## Human Eye
 The human eye is a focusing lens containing cone cells of three types that act as sensors. L-cone, M-cone, S-cone cells have peak sensor response around wavelengths perceived as red, green, and blue light respectively. The spectra rendered to the human eye spans ~400nm-700nm
-![cone cell](https://en.wikipedia.org/wiki/File:Cone_cell_en.png)
