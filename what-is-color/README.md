@@ -11,7 +11,7 @@ When studying color, your goal is to understand:
 - metamerism
 
 # Electromagnetic Radiation
-*... All elements who have energy produce electromagnetic radiation*
+*... All elements who have energy radiate electromagnetic waves*
 
 # Sensor Systems
 Traditionally color refers to **human visible light**. Although this is a very limited definition, lets explore how to define this spectra.
