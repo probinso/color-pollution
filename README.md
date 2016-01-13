@@ -2,6 +2,7 @@
 
 - [markdown guide](https://help.github.com/articles/github-flavored-markdown/)
 - [colormaps for oceanography](https://www.youtube.com/watch?v=XjHzLUnHeM0)
+- [topographical maps](https://stackoverflow.com/questions/263305/drawing-a-topographical-map)
 
 # Goals of this repository
 We are hoping to gather and devleop lecture materials for a course we are designing **sensor systems and color polution**.
