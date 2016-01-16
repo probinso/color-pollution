@@ -32,4 +32,4 @@ discussion about percentage of cones needed
 ## Cameras
 
 ## Metamers
-# Color systems
+# Color maps
