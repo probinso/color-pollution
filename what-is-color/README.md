@@ -23,7 +23,7 @@ Terestrial eyes evolved to discern colors in this limited spectrum as a result o
 
 ![atmospheric opacity](https://upload.wikimedia.org/wikipedia/commons/3/34/Atmospheric_electromagnetic_opacity.svg)
 
-Due to the valley represented in this graphic, you may ask why we are unable to discern colors in the 5cm to 20m range...
+Due to the valley represented in this graphic... what about 9μm-10μm or 5cm-20m range... ?
 
 discussion about percentage of cones needed
 
