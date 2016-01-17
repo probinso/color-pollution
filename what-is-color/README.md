@@ -29,7 +29,9 @@ Due to the valley represented in this graphic... what about 9μm-10μm or 5cm-20
 
 discussion about percentage of cones needed
 
-## Imitating Sensors
+## Imitating Sensor Systems
+Sensor systems on cameras are designed to mimick the human eye, whereas sensor systems for telescopes are designed to take full advantage of the visible light spectrum. We will first discuss the physics of these differing sensor systems, and then use them to establish an understanding of metamerism.
+
 ### Modern Cameras
 ### KECK Telescope
 ### Metamers
