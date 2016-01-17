@@ -29,7 +29,10 @@ Due to the valley represented in this graphic... what about 9μm-10μm or 5cm-20
 
 discussion about percentage of cones needed
 
-## Cameras
+## Imitating Sensors
+### Modern Cameras
+### KECK Telescope
+### Metamers
 
 ## Metamers
 # Color maps
