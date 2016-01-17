@@ -38,7 +38,10 @@ Although the design goals of **visible light** sensor systems are very similar, 
 
 
 #### Quantum Efficintcy
+Quantum efficintcy is the term we use to describe the probability of triggering a sensor as a funciton of wavelength. We have observed that silicon sensors have a fairly high efficintcy spanning **visible light**.
+
 ![Quantum Efficintcy](http://www.awaiba.com/v4/wp-content/uploads/2014/03/technology-6.jpg)
+
 #### Color Filters
 
 ### Modern Cameras
