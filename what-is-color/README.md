@@ -30,10 +30,18 @@ Due to the valley represented in this graphic... what about 9μm-10μm or 5cm-20
 discussion about percentage of cones needed
 
 ## Imitating Sensor Systems
-Sensor systems on cameras are designed to mimick the human eye, whereas sensor systems for telescopes are designed to take full advantage of the visible light spectrum. We will first discuss the physics of these differing sensor systems, and then use them to establish an understanding of metamerism.
+Sensor systems on cameras are designed to mimick the human eye, whereas sensor systems for telescopes are designed to take full advantage of **visible light** spectrum. We will discuss the physics of silicon sensors used in these systems, then the design of cameras and telescopes. Finally, we will use this to establish a new understanding of metamerism.
 
+Although the design goals of **visible light** sensor systems are very similar, the differences will be paramount in defining and understanding **color polution**.
+
+### Silicon Sensor Systems
+#### Quantum Efficintcy
+![Quantum Efficintcy](http://www.awaiba.com/v4/wp-content/uploads/2014/03/technology-6.jpg)
+#### Color Filters
 ### Modern Cameras
+
 ### KECK Telescope
+
 ### Metamers
 
 # Color maps
