@@ -20,8 +20,8 @@ Traditionally, the term *color* refers to **human visible light**. Although this
 The human eye is a focusing lens containing cone cells of three types that act as sensors of electromagnetic radiation. L-cone, M-cone, S-cone cells have peak sensor response around wavelengths perceived as red, green, and blue light respectively. The spectra rendered by these cone cells in the human eye span ~400nm-700nm.
 
 ![Human Eye](http://cdn.picturecorrect.com/wp-content/uploads/2015/02/image-sensors-11.jpg)
-Discussion about cones, photopigment moleculs and cone type density
-[resource](http://hyperphysics.phy-astr.gsu.edu/hbase/vision/rodcone.html#c1)
+
+Discussion about cones, photopigment moleculs and cone type density [...resource](http://hyperphysics.phy-astr.gsu.edu/hbase/vision/rodcone.html#c1)
 
 Terestrial eyes evolved to discern colors in this limited spectrum as a result of **atmostpheric opacity**; a term we use to describe the spectral range of electromagnetic radiation able to pass through our atmosphere. The graphic below shows that 400-780nm (highlighted by the rainbow) is a consistant range with low *atmopheric distortion*.
 
