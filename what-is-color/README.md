@@ -34,5 +34,4 @@ discussion about percentage of cones needed
 ### KECK Telescope
 ### Metamers
 
-## Metamers
 # Color maps
