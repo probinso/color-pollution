@@ -19,25 +19,28 @@ Traditionally, the term *color* refers to **human visible light**. Although this
 ## Human Eye
 The human eye is a focusing lens containing cone cells of three types that act as sensors of electromagnetic radiation. L-cone, M-cone, S-cone cells have peak sensor response around wavelengths perceived as red, green, and blue light respectively. The spectra rendered by these cone cells in the human eye span ~400nm-700nm.
 
+![Human Eye](http://cdn.picturecorrect.com/wp-content/uploads/2015/02/image-sensors-11.jpg)
+Discussion about cones, photopigment moleculs and cone type density
+[resource](http://hyperphysics.phy-astr.gsu.edu/hbase/vision/rodcone.html#c1)
+
 Terestrial eyes evolved to discern colors in this limited spectrum as a result of **atmostpheric opacity**; a term we use to describe the spectral range of electromagnetic radiation able to pass through our atmosphere. The graphic below shows that 400-780nm (highlighted by the rainbow) is a consistant range with low *atmopheric distortion*.
 
 ![atmospheric opacity](https://upload.wikimedia.org/wikipedia/commons/3/34/Atmospheric_electromagnetic_opacity.svg)
 
-cones are identified by photopigment moleculs that act like filter-sensor pairs
-
 Due to the valley represented in this graphic... what about 9μm-10μm or 5cm-20m range... ?
 
-discussion about percentage of cones needed
 
 ## Imitating Sensor Systems
-Sensor systems on cameras are designed to mimick the human eye, whereas sensor systems for telescopes are designed to take full advantage of **visible light** spectrum. We will discuss the physics of silicon sensors used in these systems, then the design of cameras and telescopes. Finally, we will use this to establish a new understanding of metamerism.
+Sensor systems on cameras are designed to mimick the human eye, whereas sensor systems for telescopes are designed to take full advantage of **visible light** spectrum. We will discuss the physics of silicon sensors used in these systems, then the design of cameras and telescopes. Finally, we will use this to establish a clear understanding of metamerism.
 
-Although the design goals of **visible light** sensor systems are very similar, the differences will be paramount in defining and understanding **color polution**.
+Although the design goals of **visible light** sensor systems are very similar, the differences will be paramount in defining and understanding **color polution** (the topic of this course).
 
 ### Silicon Sensor Systems
+
 #### Quantum Efficintcy
 ![Quantum Efficintcy](http://www.awaiba.com/v4/wp-content/uploads/2014/03/technology-6.jpg)
 #### Color Filters
+
 ### Modern Cameras
 
 ### KECK Telescope
