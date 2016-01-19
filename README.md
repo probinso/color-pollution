@@ -13,7 +13,10 @@ When studying color, your goal is to understand:
 - metamerism
 
 # Electromagnetic Radiation
+## Rays
+## Waves
 *need to talk about electromagnetic radiation in form of waves*
+## Particles
 
 # Sensor Systems
 Traditionally, the term *color* refers to **human visible light**. Although this is a very limited definition, it establishes a good starting point for understanding perception of color. Because of this, the first sensor system we will discuss is the human eye, it's evolution and design. Next we will discuss imitating sensor systems like cameras and telescopes which will lead to a discussion about metamerism and RGB color mapping. Finally, we will discuss ways to express and communicate color like CIE charts and other color mapping options.
