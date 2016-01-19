@@ -15,7 +15,7 @@ When studying color, your goal is to understand:
 # Electromagnetic Radiation
 For this course, we will need a basic knowledge of **electromagnetic radiation**. In this section we will introduce this in increasing detail, through Ray Tracing, Waves, and Particles. Finally, we will discuss different bands of measured electromagnetic radiation.
 
-For this color pollution course, most of our data and example material is limited to terestrial color, however a good understanding of electromagnetic radiation in these forms will allow you to abstract the information of this course to non terestrial atmospheres.
+For this color pollution course, most of our data and example material is limited to terestrial color, however a good understanding of electromagnetic radiation in these forms will allow you to abstract the information of this course environments dissimilar to terestrial atmospheres.
 
 ## Ray Tracing
 ## Waves
@@ -58,6 +58,8 @@ Sensors hit by photons will either *absorb* and redistribute the energy as heat,
 It has been observed that silicon sensors have a fairly high efficiency spanning the **visible light**.
 
 ![Silicon Quantum Efficiency](http://www.awaiba.com/v4/wp-content/uploads/2014/03/technology-6.jpg)
+
+
 
 #### Color Filters
 Although we can observe photo triggered chemical reactions, the only information that we gather is whether a sensor has been triggered **success** or **failure**. Without some way to limit the **transmission band** sent to a sensor, we would only ever render gray-scale information. We use filters to control our limit processed photons to those traveling in our desired **transmission band**.
