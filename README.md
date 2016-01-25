@@ -34,6 +34,12 @@ The human eye refracts electromagnetic radiation at the cornia, through a focusi
 
 ![Human Eye](http://cdn.picturecorrect.com/wp-content/uploads/2015/02/image-sensors-11.jpg)
 
+Transduction of light into an electrical signal has four steps
+1. light activates rhodopsin
+2. activated rhodopsin stimulates a G protine to activate a phosphodiesterase enzyme
+3. phosphodiesterase enzyme decreases the concentration of cyclic GMP in the photoreceptor cytoplasm
+4. the decrease in cyclic (guanosine monophosphate) GMP closes cyclic nucleotide-gated ion channels similar to the channels in olfactory receptor cells. When the channels close, the Na⁺ influx decreases and the photoreceptor hyperpolarizes rather than depolarizes. 
+
 - Discussion about cones, photopigment molecules and cone type density [...resource](http://hyperphysics.phy-astr.gsu.edu/hbase/vision/rodcone.html#c1)
 
 Terrestrial eyes evolved to discern colors in this limited spectrum as a result of exposure to light least influenced by **atmospheric opacity**; a term we use to describe the spectral range of electromagnetic radiation able to pass through our atmosphere. The graphic below shows that 400-780nm (highlighted by the rainbow) is a consistent range with low *atmospheric distortion*.
