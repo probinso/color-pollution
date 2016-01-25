@@ -18,6 +18,7 @@ For this course, we will need a basic knowledge of **electromagnetic radiation**
 For this color pollution course, most of our data and example material is limited to terestrial color, however a good understanding of electromagnetic radiation in these forms will allow you to abstract the information of this course environments dissimilar to terestrial atmospheres.
 
 ## Ray Tracing
+
 ## Waves
 *need to talk about electromagnetic radiation in form of waves*
 ## Particles
@@ -59,8 +60,6 @@ It has been observed that silicon sensors have a fairly high efficiency spanning
 
 ![Silicon Quantum Efficiency](http://www.awaiba.com/v4/wp-content/uploads/2014/03/technology-6.jpg)
 
-
-
 #### Color Filters
 Although we can observe photo triggered chemical reactions, the only information that we gather is whether a sensor has been triggered **success** or **failure**. Without some way to limit the **transmission band** sent to a sensor, we would only ever render gray-scale information. We use filters to control our limit processed photons to those traveling in our desired **transmission band**.
 
@@ -70,7 +69,7 @@ Although we can observe photo triggered chemical reactions, the only information
 
 ### KECK Telescope
 
-### Metamers
+# Metamers
 
 # Color maps
 
