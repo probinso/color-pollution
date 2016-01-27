@@ -35,6 +35,7 @@ The human eye refracts electromagnetic radiation at the cornia, through a focusi
 ![Human Eye](http://cdn.picturecorrect.com/wp-content/uploads/2015/02/image-sensors-11.jpg)
 
 Transduction of light into an electrical signal has four steps
+
 1. light activates rhodopsin
 2. activated rhodopsin stimulates a G protine to activate a phosphodiesterase enzyme
 3. phosphodiesterase enzyme decreases the concentration of cyclic GMP in the photoreceptor cytoplasm
