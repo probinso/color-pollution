@@ -33,9 +33,12 @@ def image_split(filename, dst):
 
   [r_image, g_image, b_image] = map(np_one_color, np_lst)
 
-  misc.imsave(osp.join(dst, "r_" +name+ "." + img_type), r_image)
-  misc.imsave(osp.join(dst, "b_" +name+ "." + img_type), b_image)
-  misc.imsave(osp.join(dst, "g_" +name+ "." + img_type), g_image)
+  def save_color(prefix, image):
+    misc.imsave(osp.join(dst, prefix + name + "." + img_type), image)
+
+  save_color("r_", r_image)
+  save_color("b_", b_image)
+  save_color("g_", g_image)
 
 
 def image_split_cli(arguments):
