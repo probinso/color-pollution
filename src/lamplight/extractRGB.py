@@ -22,7 +22,7 @@ def np_one_color((keep_index, img)):
 
 def image_info(filename):
   img_type   = imghdr.what(filename)
-  name, suffix = osp.basename(filename).split('.')
+  name, suffix = osp.basename(filename).rsplit('.', 1)
   src_image  = misc.imread(filename)
   return img_type, name, src_image
 

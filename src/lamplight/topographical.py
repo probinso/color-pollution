@@ -8,20 +8,21 @@ import os.path as osp
 import sys
 
 
-def topograph_image(image, step=30, delta=5):
-    def f(center):
-        tops, bots = center+delta, center-delta
-        cond = lambda x: (x < tops) and (x > bots)
+def topograph_image(image, step=5, delta=5):
+  def f(center):
+    tops, bots = center + delta, center - delta
+    cond = lambda x: (x < tops) and (x > bots)
 
-        def g(cont):
-            def h(x):
-                return center if cond(x) else cont(x)
-            return h
-        return g
+    def g(cont):
+      def h(x):
+        return center if cond(x) else cont(x)
+      return h
+    return g
 
-    tail = lambda x: 0
-    helper = reduce(lambda a, b: a(b), map(f, range(step, 255, step)) + [tail])
-    return np.vectorize(helper)(image)
+  tail      = lambda x: 0
+  series    = map(f, range(step, 255, step)) + [tail]
+  topograph = reduce(lambda a, b: a(b), series)
+  return numpy.vectorize(topograph)(image)
 
 
 def image_split_cli(arguments):
@@ -32,9 +33,8 @@ def image_split_cli(arguments):
   filename  = arguments.image_filename
   directory = arguments.dst_directory
   img_type, name, src_image = image_info(filename)
-  r_image, g_image, b_image = image_split(src_image)
   top_image = topograph_image(src_image)
-  save_images(directory, name, img_type, top_=top_image)
+  save_images(directory, name, img_type, new_=top_image)
 
 
 def generate_parser(parser):
