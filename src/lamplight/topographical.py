@@ -16,12 +16,11 @@ def topograph_image(image, step=30, delta=5):
         def g(cont):
             def h(x):
                 return center if cond(x) else cont(x)
-
             return h
         return g
 
     tail = lambda x: 0
-    helper = reduce(lambda a, b: a(b), map(f, range(20, 255, step)) + [tail])
+    helper = reduce(lambda a, b: a(b), map(f, range(step, 255, step)) + [tail])
     return np.vectorize(helper)(image)
 
 
