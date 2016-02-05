@@ -18,7 +18,7 @@ For this course, we will need a basic knowledge of **electromagnetic radiation**
 For this color pollution course, most of our data and example material is limited to terestrial color, however a good understanding of electromagnetic radiation in these forms will allow you to abstract the information of this course environments dissimilar to terestrial atmospheres.
 
 ## Ray Tracing
-The simplest, and oldest consistent means of discussing light traveling, is to think of it has a series of rays. We claim that light is emitted from a source, with a color property, and travels in a straight line. These rays then bounce off of impeding objects, until they have either been perceived or absorbed.
+The simplest, and oldest consistent means of discussing traveling light, is to think of it has a series of rays. We claim that light is emitted from a source, with a color property, and travels in a straight line. These rays then bounce off of impeding objects, until they have either been perceived or absorbed.
 
 This is the model we used to design old *camera obscura* and *pinhole cameras* of the 18th century. Because light is bouncing off in every direction from an impeding object, if you create a dark enough chamber with a pinhole opening then you can view an inverted image of the original object. The walls of the chamber block out light that would white wash the image. In other words, the use of a pinhole limits the **signal to noise ratio.**
 
@@ -29,9 +29,9 @@ Although thinking of **electromagnetic radiation** in the form of rays is helpfu
 
 ![Prism Expiriment](http://www-psych.stanford.edu/~lera/psych115s/notes/lecture5/images/floyd.jpg)
 
-
 *need to talk about electromagnetic radiation in form of waves*
 ## Particles
+
 ## Bands
 
 # Absorption, Reflection, Refraction
