@@ -8,7 +8,11 @@ import os.path as osp
 import sys
 
 
-def topograph_image(image, step=5, delta=5):
+def topograph_image(image, step=10, delta=5):
+  """
+    Takes in NxMxC matrix and a step size and a delta
+    returns NxMxC matrix with contours in each C cell
+  """
   def f(center):
     tops, bots = center + delta, center - delta
     cond = lambda x: (x < tops) and (x > bots)
