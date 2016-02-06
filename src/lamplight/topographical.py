@@ -8,25 +8,27 @@ import os.path as osp
 import sys
 
 
-def topograph_image(image, step=10, delta=5):
+def topograph_image(image, step=30, delta=5):
   """
     Takes in NxMxC matrix and a step size and a delta
     returns NxMxC matrix with contours in each C cell
   """
+
   def f(center):
+    assert(type(center) is IntType)
     tops, bots = center + delta, center - delta
     cond = lambda x: (x < tops) and (x > bots)
 
     def g(cont):
-      def h(x):
-        return center if cond(x) else cont(x)
+      def h(pixel_color):
+        return center if cond(pixel_color) else cont(pixel_color)
       return h
     return g
 
   tail      = lambda x: 0
-  series    = map(f, range(step, 255, step)) + [tail]
-  topograph = reduce(lambda a, b: a(b), series)
-  return numpy.vectorize(topograph)(image)
+  series    = map(f, range(step, 255, step))
+  topograph = np.vectorize(reduce(lambda a, b: b(a), [tail] + series))
+  return topograph(image)
 
 
 def image_split_cli(arguments):
@@ -37,8 +39,10 @@ def image_split_cli(arguments):
   filename  = arguments.image_filename
   directory = arguments.dst_directory
   img_type, name, src_image = image_info(filename)
-  top_image = topograph_image(src_image)
-  save_images(directory, name, img_type, new_=top_image)
+  r, g, b = image_split(src_image)
+  top_image = topograph_image(r+b)
+  
+  save_images(directory, name, img_type, top_=top_image)
 
 
 def generate_parser(parser):
