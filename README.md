@@ -25,7 +25,7 @@ This is the model we used to design old *camera obscura* and *pinhole cameras* o
 ![Pinhole Camera](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Pinhole-camera.svg/2000px-Pinhole-camera.svg.png)
 
 ## Waves
-Although thinking of **electromagnetic radiation** in the form of rays is helpful, it is an incomplete view of the world. We see this when we take a white light and shine it at a prism. If the light was traveling as a ray, then the light that leaves the prism would come out as white as well. This is not the case. We find that, in fact, white light is a composite of colors that all bend at different angles when leaving with a prism, as a product of actually being insident to the prism at different angles.
+Although thinking of **electromagnetic radiation** in the form of rays is helpful, it is an incomplete view of the world. We see this when we take a white light and shine it at a prism. If the light was traveling as a ray, then the light that leaves the prism would come out as white as well. This is not the case. We find that, in fact, white light is a composite span of wavelengths which bend at different angles in different mediums. 
 
 ![Prism Expiriment](http://www-psych.stanford.edu/~lera/psych115s/notes/lecture5/images/floyd.jpg)
 
