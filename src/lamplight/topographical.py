@@ -15,7 +15,6 @@ def topograph_image(image, step=30, delta=5):
   """
 
   def f(center):
-    assert(type(center) is IntType)
     tops, bots = center + delta, center - delta
     cond = lambda x: (x < tops) and (x > bots)
 
