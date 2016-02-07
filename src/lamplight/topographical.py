@@ -24,9 +24,18 @@ def topograph_image(image, step=30, delta=5):
       return h
     return g
 
-  tail      = lambda x: 0
   series    = map(f, range(step, 255, step))
+  tail      = lambda x: 0
   topograph = np.vectorize(reduce(lambda a, b: b(a), [tail] + series))
+  
+  def myfunc(color, maxvalue=255):
+    for value in range(step, maxvalue, step):
+      tops, bots = value + delta, value - delta
+      if (color < tops) and (color > bots):
+        return value
+    return 0
+  topograph = np.vectorize(myfunc)
+  
   return topograph(image)
 
 
