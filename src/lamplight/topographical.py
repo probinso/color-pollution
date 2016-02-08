@@ -14,13 +14,14 @@ def topograph_image(image, step=30, delta=5):
     returns NxMxC matrix with contours in each C cell
   """
 
-  def myfunc(color, maxvalue=255):
+  to_type = lambda x: type(np.amax(image))(x)
+  def myfunc(color, maxvalue=int(np.amax(image))):
     for value in range(step, maxvalue, step):
       tops, bots = value + delta, value - delta
       if color < bots:
         break
       if (color < tops) and (color > bots):
-        return value
+        return to_type(value)
     return 0
   topograph = np.vectorize(myfunc)
   
