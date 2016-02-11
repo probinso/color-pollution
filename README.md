@@ -98,6 +98,7 @@ Although we can observe photo triggered chemical reactions, the only information
 - [markdown guide](https://help.github.com/articles/github-flavored-markdown/)
 - [colormaps for oceanography](https://www.youtube.com/watch?v=XjHzLUnHeM0)
 - [topographical maps](https://stackoverflow.com/questions/263305/drawing-a-topographical-map)
+- [keyhole telescopes](https://en.wikipedia.org/wiki/KH-11_Kennan)
 
 # Goals of this repository
 We are hoping to gather and develop lecture materials for a course we are designing **sensor systems and color pollution**.
