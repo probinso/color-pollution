@@ -7,7 +7,9 @@ from itertools import tee
 import argparse, argcomplete
 import os.path as osp
 import sys
-
+from sklearn.cluster import DBSCAN
+from sklearn import metrics
+from sklearn.preprocessing import StandardScaler
 
 
 class step_range_gen:
@@ -47,14 +49,27 @@ def topograph_image(image, step_gen):
 
 def get_index_of(image, step_gen):
   from collections import defaultdict
-  ret = defaultdict(lambda : defaultdict(list))
+  ret = defaultdict(lambda : defaultdict(lambda : np.ndarray((0, 2))))
   for target_color in step_gen.range:
-    for i, row in enumerate(image):
-      for j, pixel in enumerate(row):
-        for k, value in enumerate(pixel):
+    for y, row in enumerate(image):
+      for x, pixel in enumerate(row):
+        for c, value in enumerate(pixel):
           if value == target_color:
-            ret[k][value].append((j, k))
+            ret[c][target_color] = np.append(ret[c][target_color], [[x, y]], axis=0)
   return ret
+
+
+"""
+##############################################################################
+# Compute DBSCAN
+db = DBSCAN(eps=0.3, min_samples=10).fit(X)
+core_samples_mask = np.zeros_like(db.labels_, dtype=bool)
+core_samples_mask[db.core_sample_indices_] = True
+labels = db.labels_
+
+# Number of clusters in labels, ignoring noise if present.
+n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
+"""
 
 def image_split_cli(arguments):
   """
@@ -68,10 +83,10 @@ def image_split_cli(arguments):
 
   step_gen = step_range_gen()
 
-  top_image = topograph_image(src_image, step_gen)
-  points_dict = get_index_of(top_image,  step_gen)
+  top_image = src_image if True else topograph_image(src_image, step_gen)
+  points_dict = get_index_of(top_image, step_gen)
 
-  save_images(directory, name, img_type, top_=top_image+g)
+  #save_images(directory, name, img_type, top_=top_image)
 
 
 def generate_parser(parser):
