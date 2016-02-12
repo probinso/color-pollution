@@ -3,43 +3,75 @@
 
 import numpy as np
 from extractRGB import image_info, image_split, save_images
+from itertools import tee
 import argparse, argcomplete
 import os.path as osp
 import sys
 
 
-def topograph_image(image, step=30, delta=5):
+
+class step_range_gen:
+  def __init__(self, step=8, delta=4, maxvalue=255):
+    self.__delta = delta
+    self.__step  = step
+    self.__range = (maxvalue - delta - i for i in xrange(0, maxvalue, step))
+
+  @property
+  def delta(self):
+    return self.__delta
+
+  @property
+  def range(self):
+    local, self.__range = tee(self.__range)
+    for i in local:
+      yield i
+
+def topograph_image(image, step_gen):
   """
     Takes in NxMxC matrix and a step size and a delta
     returns NxMxC matrix with contours in each C cell
   """
 
-  to_type = lambda x: type(np.amax(image))(x)
-  def myfunc(color, maxvalue=int(np.amax(image))):
-    for value in range(step, maxvalue, step):
-      tops, bots = value + delta, value - delta
-      if color < bots:
+  def myfunc(color):
+    for value in step_gen.range:
+      tops, bots = value + step_gen.delta, value - step_gen.delta
+      if (color <= tops) and (color >= bots):
+        return value
+      if color > tops:
         break
-      if (color < tops) and (color > bots):
-        return to_type(value)
     return 0
   topograph = np.vectorize(myfunc)
-  
+
   return topograph(image)
 
+
+def get_index_of(image, step_gen):
+  from collections import defaultdict
+  ret = defaultdict(lambda : defaultdict(list))
+  for target_color in step_gen.range:
+    for i, row in enumerate(image):
+      for j, pixel in enumerate(row):
+        for k, value in enumerate(pixel):
+          if value == target_color:
+            ret[k][value].append((j, k))
+  return ret
 
 def image_split_cli(arguments):
   """
     by convention it is helpful to have a wrapper_cli method that interfaces
     from commandline to function space.
   """
+
   filename  = arguments.image_filename
   directory = arguments.dst_directory
   img_type, name, src_image = image_info(filename)
-  r, g, b = image_split(src_image)
-  top_image = topograph_image(r+b)
-  
-  save_images(directory, name, img_type, top_=top_image)
+
+  step_gen = step_range_gen()
+
+  top_image = topograph_image(src_image, step_gen)
+  points_dict = get_index_of(top_image,  step_gen)
+
+  save_images(directory, name, img_type, top_=top_image+g)
 
 
 def generate_parser(parser):
