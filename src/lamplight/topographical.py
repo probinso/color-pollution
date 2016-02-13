@@ -1,22 +1,21 @@
 #!/usr/bin/env python
 # PYTHON_ARGCOMPLETE_OK
 
-import numpy as np
-from extractRGB import image_info, image_split, save_images
-from itertools import tee
 import argparse, argcomplete
+from   collections import defaultdict
+from   itertools   import tee
+import numpy   as np
 import os.path as osp
 import sys
-from sklearn.cluster import DBSCAN
-from sklearn import metrics
-from sklearn.preprocessing import StandardScaler
+
+from extractRGB import image_info, image_split, save_images
 
 
 class step_range_gen:
-  def __init__(self, step=8, delta=4, maxvalue=255):
+  def __init__(self, step=25, delta=15, maxvalue=255):
     self.__delta = delta
     self.__step  = step
-    self.__range = (maxvalue - delta - i for i in xrange(0, maxvalue, step))
+    self.__range = (maxvalue - i for i in xrange(0, maxvalue, step))
 
   @property
   def delta(self):
@@ -27,6 +26,7 @@ class step_range_gen:
     local, self.__range = tee(self.__range)
     for i in local:
       yield i
+
 
 def topograph_image(image, step_gen):
   """
@@ -39,6 +39,8 @@ def topograph_image(image, step_gen):
       tops, bots = value + step_gen.delta, value - step_gen.delta
       if (color <= tops) and (color >= bots):
         return value
+      if True : break
+
       if color > tops:
         break
     return 0
@@ -47,29 +49,46 @@ def topograph_image(image, step_gen):
   return topograph(image)
 
 
-def get_index_of(image, step_gen):
-  from collections import defaultdict
-  ret = defaultdict(lambda : defaultdict(lambda : np.ndarray((0, 2))))
-  for target_color in step_gen.range:
-    for y, row in enumerate(image):
-      for x, pixel in enumerate(row):
-        for c, value in enumerate(pixel):
-          if value == target_color:
-            ret[c][target_color] = np.append(ret[c][target_color], [[x, y]], axis=0)
+def get_index_of(image):
+  """
+  splits image into dict[channels][intensities] as (x, y) point pairs
+  this is used to shrink and split the search space for parallel clustering
+
+  this algorithm is much more useful if run on result of topograph_image
+  """
+  ret = defaultdict(lambda : defaultdict(list))
+  for y, row in enumerate(image):
+    for x, pixel in enumerate(row):
+      for channel, intensity in enumerate(pixel):
+        ret[channel][intensity].append([x,y])
   return ret
 
 
-"""
-##############################################################################
-# Compute DBSCAN
-db = DBSCAN(eps=0.3, min_samples=10).fit(X)
-core_samples_mask = np.zeros_like(db.labels_, dtype=bool)
-core_samples_mask[db.core_sample_indices_] = True
-labels = db.labels_
+def make_clusters(points):
+  import ddbscan
+  scan = ddbscan.DDBSCAN(2, 5)
+  for p in points:
+    scan.add_point(p, count=1, desc="")
 
-# Number of clusters in labels, ignoring noise if present.
-n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
-"""
+  scan.compute()
+
+  for index, cluster in enumerate(scan.clusters):
+    print '=== Cluster %d ===' % index
+    print 'Cluster points index: %s' % len(list(cluster))
+
+  print len(scan.points)
+  d = defaultdict(list)
+  for i, p in enumerate(scan.points):
+    if scan.points_data[i].cluster != -1:
+      d[scan.points_data[i].cluster].append(p)
+    else:
+      print "anomolous point"
+
+  return d
+
+
+import matplotlib.pyplot as plt
+
 
 def image_split_cli(arguments):
   """
@@ -83,10 +102,19 @@ def image_split_cli(arguments):
 
   step_gen = step_range_gen()
 
-  top_image = src_image if True else topograph_image(src_image, step_gen)
-  points_dict = get_index_of(top_image, step_gen)
+  r, g, b = image_split(src_image)
+  top_image = topograph_image(g, step_gen)
 
-  #save_images(directory, name, img_type, top_=top_image)
+  points_dict = get_index_of(top_image)
+  l_channel, l_intensity = 1, next(step_gen.range) # green at highest intensity
+  clusters = make_clusters(points_dict[l_channel][l_intensity])
+
+  colors   = plt.cm.Spectral(np.linspace(0 , 1, len(clusters)))*255
+  for i, c in enumerate(clusters):
+    for [y , x] in clusters[c]:
+      top_image[x,y] = colors[i][:3]
+
+  save_images(directory, name, img_type, top_=top_image)
 
 
 def generate_parser(parser):
