@@ -15,7 +15,7 @@ When studying color, your goal is to understand:
 # Electromagnetic Radiation
 For this course, we will need a basic knowledge of **electromagnetic radiation**. In this section we will introduce this in increasing detail, through Ray Tracing, Waves, and Particles. Finally, we will discuss different bands of measured electromagnetic radiation.
 
-For this color pollution course, most of our data and example material is limited to terestrial color, however a good understanding of electromagnetic radiation in these forms will allow you to abstract the information of this course environments dissimilar to terestrial atmospheres.
+For this color pollution course, most of our data and example material is limited to terrestrial color, however a good understanding of electromagnetic radiation in these forms will allow you to abstract the information of this course environments dissimilar to terrestrial atmospheres.
 
 ## Ray Tracing
 The simplest, and oldest consistent means of discussing traveling light, is to think of it has a series of rays. We claim that light is emitted from a source, with a color property, and travels in a straight line. These rays then bounce off of impeding objects, until they have either been perceived or absorbed.
@@ -27,10 +27,10 @@ This is the model we used to design old *camera obscura* and *pinhole cameras* o
 ## Waves
 Although thinking of **electromagnetic radiation** in the form of rays is helpful, it is an incomplete view of the world. We see this when we take a white light and shine it at a prism. If the light was traveling as a ray, then the light that leaves the prism would come out as white as well. This is not the case. We find that, in fact, white light is a composite span of wavelengths which bend at different angles in different mediums. 
 
-![Prism Expiriment](http://www-psych.stanford.edu/~lera/psych115s/notes/lecture5/images/floyd.jpg)
+![Prism Experiment](http://www-psych.stanford.edu/~lera/psych115s/notes/lecture5/images/floyd.jpg)
 
 ## Particles
-In order to understand concepts like **quantum efficiency**, we will also need to think of lite as a series of particles (traveling in a wave along a ray). A quantum of **electromagnetic radiation** is called a photon. **Electromagnetic radiation** sources emit with differing densities of photons. Each obstical in a photon's path has a probability of interupting the photon's travel before colliding with a recording sensor.
+In order to understand concepts like **quantum efficiency**, we will also need to think of lite as a series of particles (traveling in a wave along a ray). A quantum of **electromagnetic radiation** is called a photon. **Electromagnetic radiation** sources emit with differing densities of photons. Each obstacle in a photon's path has a probability of interrupting the photon's travel before colliding with a recording sensor.
 
 ## Bands
 
