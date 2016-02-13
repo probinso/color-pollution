@@ -27,14 +27,17 @@ def image_info(filename):
   return img_type, name, src_image
 
 
-def image_split(src_image):
+def image_split(src_image, channels=3):
   """
     split image to RBG and then saves them to dst directory
     uses process pool to speed up function
+
+    we can get rid of channels by using 'Extended Iterable Unpacking'
+    however this is not yet in the language
   """
   np_lst = enumerate([src_image]*src_image.shape[2])
 
-  return map(np_one_color, np_lst)
+  return map(np_one_color, np_lst)[:channels]
 
 
 def save_images(dst, name, img_type, **kwargs):
