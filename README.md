@@ -29,8 +29,8 @@ Although thinking of **electromagnetic radiation** in the form of rays is helpfu
 
 ![Prism Expiriment](http://www-psych.stanford.edu/~lera/psych115s/notes/lecture5/images/floyd.jpg)
 
-*need to talk about electromagnetic radiation in form of waves*
 ## Particles
+In order to understand concepts like **quantum efficiency**, we will also need to think of lite as a series of particles (traveling in a wave along a ray). A quantum of **electromagnetic radiation** is called a photon. **Electromagnetic radiation** sources emit with differing densities of photons. Each obstical in a photon's path has a probability of interupting the photon's travel before colliding with a recording sensor.
 
 ## Bands
 
