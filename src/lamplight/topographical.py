@@ -2,16 +2,12 @@
 # PYTHON_ARGCOMPLETE_OK
 
 import argparse, argcomplete
-from   collections import defaultdict
-from   itertools   import tee
-import numpy   as np
 import os.path as osp
 import sys
 
 from lamplight import image_info, save_images, image_split
 from lamplight import step_range_gen
 from lamplight import topograph_image, get_index_of, make_clusters
-
 
 import matplotlib.pyplot as plt
 
