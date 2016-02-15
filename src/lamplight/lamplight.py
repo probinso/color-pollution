@@ -34,7 +34,7 @@ def save_images(dst, name, img_type, **kwargs):
       dst  is a directory destination
       name is the expected name of the image to be saved
       img_type is the saving filetype
-      kwargs   is denotes is a numpy
+      kwargs is dictionary of numpy image arrays
     output:
       saves images into dst with name
     """

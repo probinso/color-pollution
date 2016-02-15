@@ -30,7 +30,7 @@ def interface(filename, directory):
 
   colors   = plt.cm.Spectral(np.linspace(0 , 1, len(clusters)))*255
   for i, c in enumerate(clusters):
-    for [y , x] in clusters[c]:
+    for [x , y] in clusters[c]:
       top_image[x,y] = colors[i][:3]
 
   save_images(directory, name, img_type, top_=top_image)
