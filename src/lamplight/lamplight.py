@@ -76,7 +76,7 @@ class step_range_gen:
   def __init__(self, step=25, delta=15, maxvalue=255):
     self.__delta = delta
     self.__step  = step
-    self.__range = (maxvalue - i for i in xrange(0, maxvalue, step))
+    self.__range = (maxvalue - i - delta for i in xrange(0, maxvalue, step))
 
   @property
   def delta(self):
