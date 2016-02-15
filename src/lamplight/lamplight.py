@@ -21,7 +21,7 @@ def image_info(filename):
     """
     Takes in a filename
     returns a tuple (filetype, basename(filename), numpy image
-  """
+    """
     img_type   = imghdr.what(filename)
     name, suffix = osp.basename(filename).rsplit('.', 1)
     src_image  = misc.imread(filename)
