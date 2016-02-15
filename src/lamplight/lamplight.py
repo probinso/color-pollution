@@ -16,16 +16,6 @@ This module houses interesting operations on images for lamplight analysis
 """
 
 
-def np_one_color((keep_index, img)):
-  """
-    input image as an HxWxC numpy.array an index in range(C.len()) to preserve
-    returns the image only preserving that color.
-  """
-  new = np.zeros(shape=img.shape)
-  new[:,:,keep_index] = img[:,:,keep_index]
-  return new
-
-
 def image_info(filename):
   """
     Takes in a filename
@@ -35,19 +25,6 @@ def image_info(filename):
   name, suffix = osp.basename(filename).rsplit('.', 1)
   src_image  = misc.imread(filename)
   return img_type, name, src_image
-
-
-def image_split(src_image, channels=3):
-  """
-    split image to RBG and then saves them to dst directory
-    uses process pool to speed up function
-
-    we can get rid of channels by using 'Extended Iterable Unpacking'
-    however this is not yet in the language
-  """
-  np_lst = enumerate([src_image]*src_image.shape[2])
-
-  return map(np_one_color, np_lst)[:channels]
 
 
 def save_images(dst, name, img_type, **kwargs):
@@ -60,11 +37,34 @@ def save_images(dst, name, img_type, **kwargs):
     output:
       saves images into dst with name
   """
-  def save_color(prefix, image):
-    misc.imsave(osp.join(dst, prefix + name + "." + img_type), image)
+  def save_modified(prefix, image):
+    name = osp.join(dst, prefix + name + "." + img_type)
+    misc.imsave(name, image)
 
   for i in kwargs:
-    save_color(i, kwargs[i])
+    save_modified(i, kwargs[i])
+
+
+def image_split(src_image, channels=3):
+  """
+  split image to RBG and then saves them to dst directory
+  uses process pool to speed up function
+
+  we can get rid of channels by using 'Extended Iterable Unpacking'
+  however this is not yet in the language
+  """
+
+  def np_one_color((keep_index, img)):
+    """
+    input image as an HxWxC numpy.array an index in range(C.len()) to preserve
+    returns the image only preserving that color.
+    """
+    new = np.zeros(shape=img.shape)
+    new[:,:,keep_index] = img[:,:,keep_index]
+    return new
+
+  np_lst = enumerate([src_image]*src_image.shape[2])
+  return map(np_one_color, np_lst)[:channels]
 
 
 class step_range_gen:
