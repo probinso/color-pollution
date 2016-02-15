@@ -19,8 +19,8 @@ This module houses interesting operations on images for lamplight analysis
 
 def image_info(filename):
   """
-    Takes in a filename
-    returns a tuple (filetype, basename(filename), numpy image
+  Takes in a filename
+  returns a tuple (filetype, basename(filename), numpy image
   """
   img_type   = imghdr.what(filename)
   name, suffix = osp.basename(filename).rsplit('.', 1)
@@ -39,8 +39,9 @@ def save_images(dst, name, img_type, **kwargs):
       saves images into dst with name
   """
   def save_modified(prefix, image):
-    name = osp.join(dst, prefix + name + "." + img_type)
-    misc.imsave(name, image)
+    result = osp.join(dst, prefix + name + "." + img_type)
+    misc.imsave(result, image)
+    return result
 
   for i in kwargs:
     save_modified(i, kwargs[i])
@@ -69,6 +70,9 @@ def image_split(src_image, channels=3):
 
 
 class step_range_gen:
+  """
+  Object, probably needs documentation
+  """
   def __init__(self, step=25, delta=15, maxvalue=255):
     self.__delta = delta
     self.__step  = step
@@ -87,10 +91,9 @@ class step_range_gen:
 
 def topograph_image(image, step_gen):
   """
-    Takes in NxMxC matrix and a step size and a delta
-    returns NxMxC matrix with contours in each C cell
+  Takes in NxMxC matrix and a step size and a delta
+  returns NxMxC matrix with contours in each C cell
   """
-
   def myfunc(color):
     for value in step_gen.range:
       tops, bots = value + step_gen.delta, value - step_gen.delta
@@ -114,15 +117,19 @@ def get_index_of(image):
   this algorithm is much more useful if run on result of topograph_image
   """
   ret = defaultdict(lambda : defaultdict(list))
-  for y, row in enumerate(image):
-    for x, pixel in enumerate(row):
+  for x, column in enumerate(image):
+    for y, pixel in enumerate(column):
       for channel, intensity in enumerate(pixel):
         ret[channel][intensity].append([x,y])
   return ret
 
 
-def make_clusters(points):
-  scan = ddbscan.DDBSCAN(2, 5)
+def make_clusters(points, radius=10, minpoints=100):
+  """
+  Takes in a list of [x, y] points
+  returns a dict of lists of points
+  """
+  scan = ddbscan.DDBSCAN(radius, minpoints)
   for p in points:
     scan.add_point(p, count=1, desc="")
 
@@ -132,7 +139,6 @@ def make_clusters(points):
     print '=== Cluster %d ===' % index
     print 'Cluster points index: %s' % len(list(cluster))
 
-  print len(scan.points)
   d = defaultdict(list)
   for i, p in enumerate(scan.points):
     if scan.points_data[i].cluster != -1:
@@ -141,7 +147,5 @@ def make_clusters(points):
       print "anomolous point"
 
   return d
-
-
 
 
