@@ -1,65 +1,27 @@
 #!/usr/bin/env python
 # PYTHON_ARGCOMPLETE_OK
 
-import scipy.misc as misc
-import numpy as np
-import imghdr
-
 import argparse, argcomplete
 import os.path as osp
 import sys
 
+from lamplight import image_info, image_split, save_images
 
-def np_one_color((keep_index, img)):
-  """
-    takes in an image as an HxWxC and an index in range(C.len()) to preserve
-    then returns the image only preserving that color.
-  """
-  new = np.zeros(shape=img.shape)
-  new[:,:,keep_index] = img[:,:,keep_index]
-  return new
+def interface(filename, directory):
+  img_type, name, src_image = image_info(filename)
+  r_image, g_image, b_image = image_split(src_image)
+  save_images(directory, name, img_type, r_=r_image, b_=b_image, g_=g_image)
 
 
-def image_info(filename):
-  img_type   = imghdr.what(filename)
-  name, suffix = osp.basename(filename).rsplit('.', 1)
-  src_image  = misc.imread(filename)
-  return img_type, name, src_image
-
-
-def image_split(src_image, channels=3):
-  """
-    split image to RBG and then saves them to dst directory
-    uses process pool to speed up function
-
-    we can get rid of channels by using 'Extended Iterable Unpacking'
-    however this is not yet in the language
-  """
-  np_lst = enumerate([src_image]*src_image.shape[2])
-
-  return map(np_one_color, np_lst)[:channels]
-
-
-def save_images(dst, name, img_type, **kwargs):
-
-  def save_color(prefix, image):
-    misc.imsave(osp.join(dst, prefix + name + "." + img_type), image)
-
-  for i in kwargs:
-    save_color(i, kwargs[i])
-
-
-def image_split_cli(arguments):
+def cli_interface(arguments):
   """
     by convention it is helpful to have a wrapper_cli method that interfaces
     from commandline to function space.
   """
   filename  = arguments.image_filename
   directory = arguments.dst_directory
-  img_type, name, src_image = image_info(filename)
-  r_image, g_image, b_image = image_split(src_image)
-  save_images(directory, name, img_type, r_=r_image, b_=b_image, g_=g_image)
-
+  interface(filename, directory)
+  
 
 def generate_parser(parser):
   """
@@ -69,9 +31,9 @@ def generate_parser(parser):
     help="Image Filename to be split into R, G, B images")
 
   parser.add_argument('dst_directory', type=str,
-    help="Location to save R, G, B images")
+    help="Location to save modified images")
 
-  parser.set_defaults(func=image_split_cli)
+  parser.set_defaults(func=cli_interface)
 
 
 def main():

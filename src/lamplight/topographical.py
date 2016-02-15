@@ -8,96 +8,15 @@ import numpy   as np
 import os.path as osp
 import sys
 
-from extractRGB import image_info, image_split, save_images
-
-
-class step_range_gen:
-  def __init__(self, step=25, delta=15, maxvalue=255):
-    self.__delta = delta
-    self.__step  = step
-    self.__range = (maxvalue - i for i in xrange(0, maxvalue, step))
-
-  @property
-  def delta(self):
-    return self.__delta
-
-  @property
-  def range(self):
-    local, self.__range = tee(self.__range)
-    for i in local:
-      yield i
-
-
-def topograph_image(image, step_gen):
-  """
-    Takes in NxMxC matrix and a step size and a delta
-    returns NxMxC matrix with contours in each C cell
-  """
-
-  def myfunc(color):
-    for value in step_gen.range:
-      tops, bots = value + step_gen.delta, value - step_gen.delta
-      if (color <= tops) and (color >= bots):
-        return value
-      if True : break
-
-      if color > tops:
-        break
-    return 0
-  topograph = np.vectorize(myfunc)
-
-  return topograph(image)
-
-
-def get_index_of(image):
-  """
-  splits image into dict[channels][intensities] as (x, y) point pairs
-  this is used to shrink and split the search space for parallel clustering
-
-  this algorithm is much more useful if run on result of topograph_image
-  """
-  ret = defaultdict(lambda : defaultdict(list))
-  for y, row in enumerate(image):
-    for x, pixel in enumerate(row):
-      for channel, intensity in enumerate(pixel):
-        ret[channel][intensity].append([x,y])
-  return ret
-
-
-def make_clusters(points):
-  import ddbscan
-  scan = ddbscan.DDBSCAN(2, 5)
-  for p in points:
-    scan.add_point(p, count=1, desc="")
-
-  scan.compute()
-
-  for index, cluster in enumerate(scan.clusters):
-    print '=== Cluster %d ===' % index
-    print 'Cluster points index: %s' % len(list(cluster))
-
-  print len(scan.points)
-  d = defaultdict(list)
-  for i, p in enumerate(scan.points):
-    if scan.points_data[i].cluster != -1:
-      d[scan.points_data[i].cluster].append(p)
-    else:
-      print "anomolous point"
-
-  return d
+from lamplight import image_info, save_images, image_split
+from lamplight import step_range_gen
+from lamplight import topograph_image, get_index_of, make_clusters
 
 
 import matplotlib.pyplot as plt
 
 
-def image_split_cli(arguments):
-  """
-    by convention it is helpful to have a wrapper_cli method that interfaces
-    from commandline to function space.
-  """
-
-  filename  = arguments.image_filename
-  directory = arguments.dst_directory
+def interface(filename, directory):
   img_type, name, src_image = image_info(filename)
 
   step_gen = step_range_gen()
@@ -115,6 +34,17 @@ def image_split_cli(arguments):
       top_image[x,y] = colors[i][:3]
 
   save_images(directory, name, img_type, top_=top_image)
+  
+
+def cli_interface(arguments):
+  """
+    by convention it is helpful to have a wrapper_cli method that interfaces
+    from commandline to function space.
+  """
+
+  filename  = arguments.image_filename
+  directory = arguments.dst_directory
+  interface(filename, directory)
 
 
 def generate_parser(parser):
@@ -125,9 +55,9 @@ def generate_parser(parser):
     help="Image Filename to be split into R, G, B images")
 
   parser.add_argument('dst_directory', type=str,
-    help="Location to save R, G, B images")
+    help="Location to save modified images")
 
-  parser.set_defaults(func=image_split_cli)
+  parser.set_defaults(func=cli_interface)
 
 
 def main():
