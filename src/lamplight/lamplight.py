@@ -6,6 +6,7 @@ from   itertools   import tee
 import os.path as osp
 import sys
 
+import ddbscan
 import imghdr
 import numpy   as np
 import scipy.misc as misc
@@ -121,7 +122,6 @@ def get_index_of(image):
 
 
 def make_clusters(points):
-  import ddbscan
   scan = ddbscan.DDBSCAN(2, 5)
   for p in points:
     scan.add_point(p, count=1, desc="")
