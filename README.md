@@ -139,6 +139,7 @@ This image highlights all clusters according to the same parameters around green
 - [topographical maps](https://stackoverflow.com/questions/263305/drawing-a-topographical-map)
 - [keyhole telescopes](https://en.wikipedia.org/wiki/KH-11_Kennan)
 - [clustering techniques](http://scikit-learn.org/stable/auto_examples/cluster/plot_dbscan.html#example-cluster-plot-dbscan-py)
+- [Data Structures for DDBand](https://en.wikipedia.org/wiki/Quadtree)
 
 # Goals of this repository
 We are hoping to gather and develop lecture materials for a course we are designing **sensor systems and color pollution**.
