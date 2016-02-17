@@ -33,7 +33,11 @@ Although thinking of **electromagnetic radiation** in the form of rays is helpfu
 In order to understand concepts like **quantum efficiency**, we will also need to think of lite as a series of particles (traveling in a wave along a ray). A quantum of **electromagnetic radiation** is called a photon. **Electromagnetic radiation** sources emit with differing densities of photons. Each obstacle in a photon's path has a probability of interrupting the photon's travel before colliding with a recording sensor.
 
 ## Bands
-Although it would be nice to use sensors to exactly determine the wavelength of incident light, existing sensor systems are limited to communicating only a triggered state. It is common practice to reduce a continuous span of wavelengths to well defined bands and measure intensity by counting the triggered sensors per band in unit area. This is inspired by how biological systems reduce colors. This translation is similar to using the Floor function accross the real numberline.
+We often talk about Bands of the Electromagnetic Spectrum in order to simplify communication. A band is a continuous range of wavelengths that we have assigned a useful label. Human Visible light is a very narrow band...
+
+Additionally, it would be nice to use sensors to exactly determine the wavelength of incident **electromagnetic radiation**, however, existing sensor systems are limited to communicating only a triggered state. It is common practice to reduce a continuous span of wavelengths to well defined bands and measure intensity by counting the triggered sensors per band in unit area. This is inspired by how biological systems reduce colors. This translation is similar to using the Floor function accross the real numberline.
+
+Since astronomers are often concerned with bands beyond human visable light, they use color mapping to make images to improve communication...
 
 # Absorption, Reflection, Refraction
 
