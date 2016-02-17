@@ -22,30 +22,49 @@ def take(collection, num):
         yield elm
 
 
-def interface(filename, directory):
-    img_type, name, src_image = image_info(filename)
-
-    step_gen = step_range_gen()
-
-    top_image = topograph_image(src_image, step_gen)
-    r, g, b = image_split(top_image)
-
-    points_dict = get_index_of(top_image)
-
-    cluster_dict = defaultdict(dict)
-    for l_intensity in take(step_gen.range, 2):
+def get_cluster_dict(points_dict, step_gen):
+    """
+    bugger bugger bugger and returns collections dict
+    """
+    print len(points_dict)
+    cd = defaultdict(dict)
+    for l_intensity in take(step_gen.range, 1):
         for l_channel in points_dict:
-            cluster_dict[l_channel][l_intensity] = make_clusters(points_dict[l_channel][l_intensity])
+            cd[l_channel][l_intensity] = make_clusters(points_dict[l_channel][l_intensity])
+    return cd
 
 
-    l_channel, l_intensity = 0, next(step_gen.range)
+def f(base_img, cluster_dict, l_channel, l_intensity):
     clusters = cluster_dict[l_channel][l_intensity]
     colors = plt.cm.Spectral(np.linspace(0 , 1, len(clusters)))*255
     for i, c in enumerate(clusters):
-        for [x , y] in clusters[c]:
-            top_image[x,y] = colors[i][:3]
+        for [x, y] in clusters[i]:
+            base_img[x, y] = colors[i][:3]
+    return base_img
 
-    save_images(directory, name, img_type, top_=top_image)
+
+def g(image, step_gen):
+    points_dict = get_index_of(image)
+    cluster_dict = get_cluster_dict(points_dict, step_gen)
+    del points_dict
+    image = f(image, cluster_dict, 1, next(take(step_gen.range, 1)))
+    del cluster_dict
+    return image
+
+def interface(filename, directory):
+    img_type, name, src_image = image_info(filename)
+
+    step_gen = step_range_gen(4, 2)
+
+    top_image = topograph_image(src_image, step_gen)
+
+    
+    src_image = g(src_image, step_gen)
+    top_image = g(top_image, step_gen)
+    save_images(directory, name, img_type ,top_=top_image, src_=src_image)
+
+
+    
     
 
 def cli_interface(arguments):
