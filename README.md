@@ -112,12 +112,19 @@ top_image = f(top_image, top_cluster_dict, 1, next(take(step_gen.range, 1)))
 # incomplete
 ```
 ## Example of Smoothing
+
 This is a source image of two street lamps at night
+
 ![Orig](src/lamplight/images/misty-street-lights.jpg)
+
 This image highlights all clusters according to specific parameters around green's highest intensity
+
 ![Cluster](src/lamplight/images/src_misty-street-lights.jpeg)
+
 This image highlights all clusters according to the same parameters around green's highest intensity with smoothing
+
 ![Tops](src/lamplight/images/top_misty-street-lights.jpeg)
+
 ---
 
 # For Project
