@@ -89,7 +89,7 @@ Although we can observe photo triggered chemical reactions, the only information
 # Metamers
 
 # Color maps
-![Blue](color-polution/src/lamplight/images/r_misty-street-lights.jpeg)
+![Blue](http://github.com/probinso/color-polution/src/lamplight/images/r_misty-street-lights.jpeg)
 
 
 ---
