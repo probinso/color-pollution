@@ -54,7 +54,7 @@ def g(image, step_gen):
 def interface(filename, directory):
     img_type, name, src_image = image_info(filename)
 
-    step_gen = step_range_gen(4, 2)
+    step_gen = step_range_gen(30, 15)
 
     top_image = topograph_image(src_image, step_gen)
 
