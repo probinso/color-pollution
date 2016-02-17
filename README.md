@@ -33,6 +33,7 @@ Although thinking of **electromagnetic radiation** in the form of rays is helpfu
 In order to understand concepts like **quantum efficiency**, we will also need to think of lite as a series of particles (traveling in a wave along a ray). A quantum of **electromagnetic radiation** is called a photon. **Electromagnetic radiation** sources emit with differing densities of photons. Each obstacle in a photon's path has a probability of interrupting the photon's travel before colliding with a recording sensor.
 
 ## Bands
+Although it would be nice to use sensors to exactly determine the wavelength of incident light, existing sensor systems are limited to communicating only a triggered state. It is common practice to reduce a continuous span of wavelengths to well defined bands and measure intensity by counting the triggered sensors per band in unit area. This is inspired by how biological systems reduce colors. This translation is similar to using the Floor function accross the real numberline.
 
 # Absorption, Reflection, Refraction
 
@@ -78,7 +79,7 @@ It has been observed that silicon sensors have a fairly high efficiency spanning
 ![Silicon Quantum Efficiency](http://www.awaiba.com/v4/wp-content/uploads/2014/03/technology-6.jpg)
 
 #### Color Filters
-Although we can observe photo triggered chemical reactions, the only information that we gather is whether a sensor has been triggered **success** or **failure**. Without some way to limit the **transmission band** sent to a sensor, we would only ever render gray-scale information. We use filters to control our limit processed photons to those traveling in our desired **transmission band**.
+Although we can observe photo triggered chemical reactions, the only information that we gather is whether a sensor has been triggered **success** or **failure**. Without some way to limit the **transmission band** sent to a sensor, we would only ever render gray-scale information. We use filters to control (or limit) processed photons to those traveling in our desired **transmission band**.
 
 ![Filter Behavior](http://www.naoj.org/Observing/Instruments/SCam/jpg/johnson.gif)
 
