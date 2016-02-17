@@ -112,7 +112,7 @@ def topograph_image(image, step_gen):
 def get_index_of(image):
     """
     splits image into dict[channels][intensities] as (x, y) point pairs
-    this is used to shrink and split the search space for parallel clustering
+    this is used to shrink and split the search space for clustering
 
     this algorithm is much more useful if run on result of topograph_image
     """
