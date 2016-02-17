@@ -89,7 +89,7 @@ Although we can observe photo triggered chemical reactions, the only information
 # Metamers
 
 # Color maps
-## Smothing of Data and Approximation
+## Approximation and Smothing of Data
 
 In physics courses, you are often told to approximate values in your models. In my first life, I thought this was only to accomidate the  the lazy physicist. In my second life, I thought this was a strategy to accomidate the limitations introduced by using computers to model. Although these are good answers, they do not respect the true value of approximation.
 
@@ -99,13 +99,20 @@ It is often our goal to measure, analyze, and communicate properties of physical
 from lamplight import image_info, save_images
 
 ftype, fname, fdata = image_info("misty-street-lights.jpg")
+step_gen = step_range_gen(25, 15)
+
+src_points_dict = get_index_of(src_image)
+
+src_cluster_dict = get_cluster_dict(src_points_dict, step_gen)
+
+src_image = f(src_image, src_cluster_dict, 1, next(take(step_gen.range, 1)))
+top_image = f(top_image, top_cluster_dict, 1, next(take(step_gen.range, 1)))	
 
 ```
 
 ![Orig](src/lamplight/images/misty-street-lights.jpg)
-![Red](src/lamplight/images/r_misty-street-lights.jpeg)
-![Blue](src/lamplight/images/b_misty-street-lights.jpeg)
-![Green](src/lamplight/images/g_misty-street-lights.jpeg)
+![Cluster](src/lamplight/images/src_misty-street-lights.jpeg)
+![Tops](src/lamplight/images/top_misty-street-lights.jpeg)
 ---
 
 # For Project
