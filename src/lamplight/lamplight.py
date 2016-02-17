@@ -73,7 +73,7 @@ class step_range_gen:
     """
     Object, probably needs documentation
     """
-    def __init__(self, step=25, delta=15, maxvalue=255):
+    def __init__(self, step=10, delta=5, maxvalue=255):
         self.__delta = delta
         self.__step  = step
         self.__range = (maxvalue - i for i in xrange(0, maxvalue, step))
@@ -99,7 +99,6 @@ def topograph_image(image, step_gen):
             tops, bots = value + step_gen.delta, value - step_gen.delta
             if (color <= tops) and (color >= bots):
                 return value
-            if True : break
 
             if color > tops:
                 break
@@ -144,8 +143,6 @@ def make_clusters(points, radius=10, minpoints=100):
     for i, p in enumerate(scan.points):
         if scan.points_data[i].cluster != -1:
             d[scan.points_data[i].cluster].append(p)
-        else:
-            print "anomolous point"
 
     return d
 
