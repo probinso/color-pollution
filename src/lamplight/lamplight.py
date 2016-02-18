@@ -99,7 +99,7 @@ def topograph_image(image, step_gen):
             tops, bots = value + step_gen.delta, value - step_gen.delta
             if (color <= tops) and (color >= bots):
                 return value
-
+            if True: break
             if color > tops:
                 break
         return 0
