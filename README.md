@@ -118,19 +118,17 @@ top_image = f(top_image, top_cluster_dict, 1, next(take(step_gen.range, 1)))
 ```
 ## Example of Smoothing
 
-This is a source image of two street lamps at night
+Below is an source image of two street lamps taken at night. Our goal is to do math on these lamps in order to identify what the spectral profile of these lamps are. A first attempted approach is to compute the ratio of red to blue light stored in the image, by selecting clusters of high intensity light in those bands. Unfortunately, there are a lot of places for information to be corrupted.
+- sensors are not perfect
+- images produced are modified from raw format, in order to produce more human similar images
+- resolution of the image results in a forced reduction of expressable sensors
+- compression algorithm used to save the file to a computer may take liberties with indivisual pixels
 
-![Orig](src/lamplight/images/misty-street-lights.jpg)
+<img src="src/lamplight/images/misty-street-lights.jpg"      width=270 />
+<img src="src/lamplight/images/src-misty-street-lights.jpeg" width=270 />
+<img src="src/lamplight/images/top-misty-street-lights.jpeg" width=270 />
 
-It is our goal to atomatically identify clusters of high intensity green light. The images below perform this  clustering task with exactly the same parameters, but the second has a smoothing.
-
-This image highlights all clusters according to specific parameters around green's highest intensity
-
-![Cluster](src/lamplight/images/src_misty-street-lights.jpeg)
-
-This image highlights all clusters according to the same parameters around green's highest intensity with smoothing
-
-![Tops](src/lamplight/images/top_misty-street-lights.jpeg)
+On the left is the source image. The technique we used identified critical sections by clustering points of green at 255 intensity, with a minimum size of 100 points, and a minimum radial distance of 10. The middle image has not been modified, and only identifies one sparse cluster, which doesn't appreciate a realistic view of the world. With smoothing intensities of 240-255 into one bucket, we can produce much more useful results; as found on the right. 
 
 ---
 
