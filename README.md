@@ -122,6 +122,8 @@ This is a source image of two street lamps at night
 
 ![Orig](src/lamplight/images/misty-street-lights.jpg)
 
+It is our goal to atomatically identify clusters of high intensity green light. The images below perform this  clustering task with exactly the same parameters, but the second has a smoothing.
+
 This image highlights all clusters according to specific parameters around green's highest intensity
 
 ![Cluster](src/lamplight/images/src_misty-street-lights.jpeg)
