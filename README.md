@@ -124,9 +124,9 @@ Below is a source image of two street lamps taken at night. Our goal is to do ma
 - resolution of the image results in a forced reduction of expressable sensors
 - compression algorithm used to save the file to a computer may take liberties with indivisual pixels
 
-<img src="src/lamplight/images/misty-street-lights.jpg"      width=270 />
-<img src="src/lamplight/images/src-misty-street-lights.jpeg" width=270 />
-<img src="src/lamplight/images/top-misty-street-lights.jpeg" width=270 />
+<img src="src/lamplight/images/misty-street-lights.jpg"      width=285 />
+<img src="src/lamplight/images/src-misty-street-lights.jpeg" width=285 />
+<img src="src/lamplight/images/top-misty-street-lights.jpeg" width=285 />
 
 On the left is the source image. The technique we used identified critical sections by clustering points of green at 255 intensity, with a minimum size of 100 points, and a minimum radial distance of 30. The middle image has not been modified, and only identifies one sparse cluster, which doesn't appreciate a realistic view of the world. With smoothing intensities of 240-255 into one bucket, we can produce much more useful results; as found on the right. 
 
