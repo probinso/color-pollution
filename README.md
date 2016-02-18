@@ -124,7 +124,7 @@ Below is a source image of two street lamps taken at night. Our goal is to do ma
 - resolution of the image results in a forced reduction of expressable sensors
 - compression algorithm used to save the file to a computer may take liberties with indivisual pixels
 
-<img src="src/lamplight/images/misty-street-lights.jpg"      width=285 />
+<img src="src/lamplight/images/misty-street-lights.jepg"      width=285 />
 <img src="src/lamplight/images/src-misty-street-lights.jpeg" width=285 />
 <img src="src/lamplight/images/top-misty-street-lights.jpeg" width=285 />
 
