@@ -128,7 +128,7 @@ Below is an source image of two street lamps taken at night. Our goal is to do m
 <img src="src/lamplight/images/src-misty-street-lights.jpeg" width=270 />
 <img src="src/lamplight/images/top-misty-street-lights.jpeg" width=270 />
 
-On the left is the source image. The technique we used identified critical sections by clustering points of green at 255 intensity, with a minimum size of 100 points, and a minimum radial distance of 10. The middle image has not been modified, and only identifies one sparse cluster, which doesn't appreciate a realistic view of the world. With smoothing intensities of 240-255 into one bucket, we can produce much more useful results; as found on the right. 
+On the left is the source image. The technique we used identified critical sections by clustering points of green at 255 intensity, with a minimum size of 100 points, and a minimum radial distance of 30. The middle image has not been modified, and only identifies one sparse cluster, which doesn't appreciate a realistic view of the world. With smoothing intensities of 240-255 into one bucket, we can produce much more useful results; as found on the right. 
 
 ---
 
