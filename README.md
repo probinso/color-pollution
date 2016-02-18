@@ -118,7 +118,7 @@ top_image = f(top_image, top_cluster_dict, 1, next(take(step_gen.range, 1)))
 ```
 ## Example of Smoothing
 
-Below is an source image of two street lamps taken at night. Our goal is to do math on these lamps in order to identify what the spectral profile of these lamps are. A first attempted approach is to compute the ratio of red to blue light stored in the image, by selecting clusters of high intensity light in those bands. Unfortunately, there are a lot of places for information to be corrupted.
+Below is a source image of two street lamps taken at night. Our goal is to do math on these lamps in order to identify what the spectral profile of these lamps are. A first attempted approach is to compute the ratio of red to blue light stored in the image, by selecting clusters of high intensity light in those bands. Unfortunately, there are a lot of places for information to be corrupted.
 - sensors are not perfect
 - images produced are modified from raw format, in order to produce more human similar images
 - resolution of the image results in a forced reduction of expressable sensors
