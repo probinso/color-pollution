@@ -116,10 +116,11 @@ Below is a source image of two street lamps taken at night. Our goal is to do ma
 On the left is the source image. The technique we used identified critical sections by clustering points of green at 255 intensity, with a minimum size of 100 points, and a minimum radial distance of 30. The middle image has not been modified, and only identifies one sparse cluster, which doesn't appreciate a realistic view of the world. With smoothing intensities of 240-255 into one bucket, we can produce much more useful results; as found on the right.  [DDBSCAN](https://github.com/cloudwalkio/ddbscan) is the algorithm and python module that we are using for this.
 
 ```python
-from lamplight import img_info, save_images
+from lamplight import image_info
 from lamplight import topograph_image, get_index_of, make_clusters_dict
 from lamplight import colorize_clusters
 
+filename = "file.jpeg"
 img_type, name, src_image = image_info(filename)
 step_gen  = step_range_gen(30, 15)
 top_image = topograph_image(src_image, step_gen)
