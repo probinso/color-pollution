@@ -101,21 +101,6 @@ In physics courses, you are often told to approximate values in your models. In 
 It is often our goal to measure, analyze, and communicate properties of physical systems such that the behavior of similar systems may be predicted. Measuring properties of a physical system is very difficult. Enormous time and cost is put into developing environments and tools to increase the accuracy of these measurements. When we do not have these resources, approximations can be used to smooth out the noise inherent to our instrumentation and environment.
 
 
-
-```python
-from lamplight import image_info, save_images
-
-ftype, fname, fdata = image_info("misty-street-lights.jpg")
-step_gen = step_range_gen(25, 15)
-
-src_points_dict = get_index_of(src_image)
-
-src_cluster_dict = get_cluster_dict(src_points_dict, step_gen)
-
-src_image = f(src_image, src_cluster_dict, 1, next(take(step_gen.range, 1)))
-top_image = f(top_image, top_cluster_dict, 1, next(take(step_gen.range, 1)))	
-# incomplete
-```
 ## Example of Smoothing
 
 Below is a source image of two street lamps taken at night. Our goal is to do math on these lamps in order to identify what the spectral profile of these lamps are. A first attempted approach is to compute the ratio of red to blue light stored in the image, by selecting clusters of high intensity light in those bands. Unfortunately, there are a lot of places for information to be corrupted.
@@ -129,6 +114,23 @@ Below is a source image of two street lamps taken at night. Our goal is to do ma
 <img src="src/lamplight/images/top-misty-street-lights.jpeg" width=285 />
 
 On the left is the source image. The technique we used identified critical sections by clustering points of green at 255 intensity, with a minimum size of 100 points, and a minimum radial distance of 30. The middle image has not been modified, and only identifies one sparse cluster, which doesn't appreciate a realistic view of the world. With smoothing intensities of 240-255 into one bucket, we can produce much more useful results; as found on the right.  [DDBSCAN](https://github.com/cloudwalkio/ddbscan) is the algorithm and python module that we are using for this.
+
+```python
+from lamplight import img_type, save_images
+from lamplight import topograph_image, get_index_of, make_clusters_dict
+from lamplight import colorize_clusters
+
+img_type, name, src_image = image_info(filename)
+step_gen     = step_range_gen(30, 15)
+top_image    = topograph_image(src_image, step_gen)
+points_dict  = get_index_of(image)
+cluster_dict = make_clusters_dict(points_dict, step_gen)
+
+channel, intensity = 1, next(step_gen.range) # green, 255
+clusters   = cluster_dict[channel][intensity]
+
+save_image = colorize_clusters(top_image, clusters))
+```
 
 ---
 
