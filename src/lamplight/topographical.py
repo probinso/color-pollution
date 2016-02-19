@@ -14,39 +14,37 @@ from lamplight import get_index_of, make_clusters_dict, colorize_clusters
 from collections import defaultdict
 
 
-import numpy as np # i should never have to do this
-
-
 def g(image, step_gen):
     points_dict  = get_index_of(image)
     cluster_dict = make_clusters_dict(points_dict, step_gen)
-    del points_dict
-    clusters = cluster_dict[1][next(take(step_gen.range, 1))]
-    image = colorize_clusters(image, clusters)
-    del cluster_dict
-    return image
+    images = []
+    for intensity in take(step_gen.range, 3):
+        for channel in [0, 1, 2]: # r, g, b
+            clusters = cluster_dict[channel][intensity]
+            images.append(colorize_clusters(image, clusters))
+    return images[1] # green, 255
 
 
 def interface(filename, directory):
     img_type, name, src_image = image_info(filename)
-
     step_gen = step_range_gen(30, 15)
 
     top_image = topograph_image(src_image, step_gen)
 
     src_image = g(src_image, step_gen)
     top_image = g(top_image, step_gen)
+
     save_images(directory, name, img_type ,top_=top_image, src_=src_image)
 
-    print fc
-    
+    for key in fc:
+        print key, fc[key]
+
 
 def cli_interface(arguments):
     """
         by convention it is helpful to have a wrapper_cli method that interfaces
         from commandline to function space.
     """
-
     filename  = arguments.image_filename
     directory = arguments.dst_directory
     interface(filename, directory)
@@ -58,10 +56,8 @@ def generate_parser(parser):
     """
     parser.add_argument('image_filename', type=str,
         help="Image Filename to be split into R, G, B images")
-
     parser.add_argument('dst_directory', type=str,
         help="Location to save modified images")
-
     parser.set_defaults(func=cli_interface)
 
 
