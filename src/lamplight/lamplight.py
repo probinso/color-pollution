@@ -8,10 +8,12 @@ import sys
 
 import ddbscan
 import imghdr
+import matplotlib.pyplot as plt
 import numpy   as np
 import scipy.misc as misc
 
-"""Lamplight Module
+"""
+Lamplight Module
 
 This module houses interesting operations on images for lamplight analysis
 """
@@ -20,7 +22,7 @@ This module houses interesting operations on images for lamplight analysis
 def image_info(filename):
     """
     Takes in a filename
-    returns a tuple (filetype, basename(filename), numpy image
+    returns a tuple (filetype, basename(filename), numpy image)
     """
     img_type   = imghdr.what(filename)
     name, suffix = osp.basename(filename).rsplit('.', 1)
@@ -94,19 +96,19 @@ def topograph_image(image, step_gen):
     Takes in NxMxC matrix and a step size and a delta
     returns NxMxC matrix with contours in each C cell
     """
+    new_img = np.array(image, copy=True)
     def myfunc(color):
         for value in step_gen.range:
             tops, bots = value + step_gen.delta, value - step_gen.delta
             if (color <= tops) and (color >= bots):
                 return value
-            if True: break
+            #if True: break
             if color > tops:
                 break
         return 0
 
     topograph = np.vectorize(myfunc)
-
-    return topograph(image)
+    return topograph(new_img)
 
 
 def get_index_of(image):
@@ -114,7 +116,7 @@ def get_index_of(image):
     splits image into dict[channels][intensities] as (x, y) point pairs
     this is used to shrink and split the search space for clustering
 
-    this algorithm is much more useful if run on result of topograph_image
+    this function is much more useful if run on result of topograph_image
     """
     ret = defaultdict(lambda : defaultdict(list))
     for x, column in enumerate(image):
@@ -124,26 +126,69 @@ def get_index_of(image):
     return ret
 
 
-def make_clusters(points, radius=10, minpoints=100):
+def make_clusters_dict(points_dict, step_gen, radius=10, minpoints=40):
     """
-    Takes in a list of [x, y] points
-    returns a dict of lists of points
+    Input:
+      points_dict - dictionary of points indexed by d[band][intensity]
+      step_gen    - valid band generator
+      radius      - size of radius for ddbscan algorithm
+      minpoints   - minimal number of points to be called a cluster
+    Output:
+      dictionary[band][intensity][cluster_id] = [[x, y]]
     """
-    scan = ddbscan.DDBSCAN(radius, minpoints)
-    for p in points:
-        scan.add_point(p, count=1, desc="")
+    def make_clusters(points, radius, minpoints):
+        """
+        Takes in a list of [x, y] points
+        returns a dict of lists of points
+        """
+        scan = ddbscan.DDBSCAN(radius, minpoints)
+        for p in points:
+            scan.add_point(p, count=1, desc="")
 
-    scan.compute()
+        scan.compute()
 
-    for index, cluster in enumerate(scan.clusters):
-        print '=== Cluster %d ===' % index
-        print 'Cluster points index: %s' % len(list(cluster))
+        for index, cluster in enumerate(scan.clusters):
+            print '=== Cluster %d ===' % index
+            print 'Cluster points index: %s' % len(list(cluster))
 
-    d = defaultdict(list)
-    for i, p in enumerate(scan.points):
-        if scan.points_data[i].cluster != -1:
-            d[scan.points_data[i].cluster].append(p)
+        d = defaultdict(list)
+        for i, p in enumerate(scan.points):
+            # ddbscan spec : cluster_id == -1 is an anomolous point
+            if scan.points_data[i].cluster != -1:
+                d[scan.points_data[i].cluster].append(p)
 
-    return d
+        return d
+
+    retval = defaultdict(dict)
+    for l_intensity in take(step_gen.range, 1) if True else step_gen.range:
+        for l_channel in points_dict:
+            retval[l_channel][l_intensity] = \
+              make_clusters(points_dict[l_channel][l_intensity], radius, minpoints)
+
+    return retval
+
+
+def take(collection, num):
+    """
+    yields num elements from collection
+    """
+    for i, elm in enumerate(collection):
+        if i >= num:
+            break
+        yield elm
+
+
+def colorize_clusters(base_img, clusters):
+    """
+    Input base_img numpy array, and dictionary of clusters
+    Outputs a copy of base_img with identified clusters filled with colors
+    """
+    new_img = np.array(base_img, copy=True)
+    colors = plt.cm.Spectral(np.linspace(0 , 1, len(clusters)))*255
+
+    for i, c in enumerate(clusters):
+        for [x, y] in clusters[c]:
+            new_img[x, y] = colors[i][:3]
+    return new_img
 
 
