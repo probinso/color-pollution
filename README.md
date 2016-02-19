@@ -97,7 +97,8 @@ Although we can observe photo triggered chemical reactions, the only information
 
 # Color maps
 
-![XKCD Color Map](https://imgs.xkcd.com/blag/satfaces_map_1024.png)
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/CIE1931xy_blank.svg/2000px-CIE1931xy_blank.svg.png" width=400 />
+<img src="https://imgs.xkcd.com/blag/satfaces_map_1024.png" width=400 />
 
 ## Approximation and Smoothing of Data
 
