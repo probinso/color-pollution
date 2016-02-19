@@ -22,10 +22,10 @@ The simplest, and oldest consistent means of discussing traveling light, is to t
 
 This is the model we used to design old *camera obscura* and *pinhole cameras* of the 18th century. Because light is bouncing off in every direction from an impeding object, if you create a dark enough chamber with a pinhole opening then you can view an inverted image of the original object. The walls of the chamber block out light that would white wash the image. In other words, the use of a pinhole limits the **signal to noise ratio.**
 
-![Pinhole Camera](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Pinhole-camera.svg/2000px-Pinhole-camera.svg.png)
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Pinhole-camera.svg/2000px-Pinhole-camera.svg.png" width=400 />
 
 ## Waves
-Although thinking of **electromagnetic radiation** in the form of rays is helpful, it is an incomplete view of the world. We see this when we take a white light and shine it at a prism. If the light was traveling as a ray, then the light that leaves the prism would come out as white as well. This is not the case. We find that, in fact, white light is a composite span of wavelengths which bend at different angles in different mediums. 
+Although thinking of **electromagnetic radiation** in the form of rays is helpful, it is an incomplete view of the world. We see this when we take a white light and shine it at a prism. If the light was traveling as a ray, then the light that leaves the prism would come out as white as well. This is not the case. We find that, in fact, white light is a composite span of wavelengths which bend at different angles in different mediums.
 
 ![Prism Experiment](http://www-psych.stanford.edu/~lera/psych115s/notes/lecture5/images/floyd.jpg)
 
@@ -33,13 +33,13 @@ Although thinking of **electromagnetic radiation** in the form of rays is helpfu
 In order to understand concepts like **quantum efficiency**, we will also need to think of lite as a series of particles (traveling in a wave along a ray). A quantum of **electromagnetic radiation** is called a photon. **Electromagnetic radiation** sources emit with differing densities of photons. Each obstacle in a photon's path has a probability of interrupting the photon's travel before colliding with a recording sensor.
 
 ## Bands
-We often talk about Bands of the Electromagnetic Spectrum in order to simplify communication. A band is a continuous range of wavelengths that we have assigned a useful label. Human Visible light is a very narrow band...
+We often talk about Bands of the Electromagnetic Spectrum in order to simplify communication. A band is a continuous range of wavelengths that we have assigned a useful label. Human Visible light is a very narrow band. Other bands are often labeled by our technologies that use them.
 
 <img src="http://hyperphysics.phy-astr.gsu.edu/hbase/imgmod/emus.gif" />
 
-Additionally, it would be nice to use sensors to exactly determine the wavelength of incident **electromagnetic radiation**, however, existing sensor systems are limited to communicating only a triggered state. It is common practice to reduce a continuous span of wavelengths to well defined bands and measure intensity by counting the triggered sensors per band in unit area. This is inspired by how biological systems reduce colors. This translation is similar to using the Floor function accross the real numberline.
+Additionally, it would be nice to use sensors to exactly determine the wavelength of incident **electromagnetic radiation**, however, existing sensor systems are limited to communicating only a triggered state. It is common practice to reduce a continuous span of wavelengths to well defined bands and measure intensity by counting the triggered sensors per band in unit area. This is inspired by how biological systems reduce colors. This translation is similar to using the Floor function across the real number line.
 
-Since astronomers are often concerned with bands beyond human visable light, they use color mapping to make images to improve communication...
+Since many disciplines are concerned with bands outside of human visible light, they use color mapping strategies to produce images. This is a technique often used in data visualization to improve communication. We have a dedicated section below to introduce color mapping techniques and ways to communicate colors.
 
 # Absorption, Reflection, Refraction
 
@@ -97,8 +97,8 @@ Although we can observe photo triggered chemical reactions, the only information
 
 # Color maps
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/CIE1931xy_blank.svg/2000px-CIE1931xy_blank.svg.png" width=400 />
 <img src="https://imgs.xkcd.com/blag/satfaces_map_1024.png" width=400 />
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/CIE1931xy_blank.svg/2000px-CIE1931xy_blank.svg.png" width=400 />
 
 ## Approximation and Smoothing of Data
 
@@ -112,14 +112,14 @@ It is often our goal to measure, analyze, and communicate properties of physical
 Below is a source image of two street lamps taken at night. Our goal is to do math on these lamps in order to identify what the spectral profile of these lamps are. A first attempted approach is to compute the ratio of red to blue light stored in the image, by selecting clusters of high intensity light in those bands. Unfortunately, there are a lot of places for information to be corrupted.
 - sensors are not perfect
 - images produced are modified from raw format, in order to produce more human similar images
-- resolution of the image results in a forced reduction of expressable sensors
-- compression algorithm used to save the file to a computer may take liberties with indivisual pixels
+- resolution of the image results in a forced reduction of expressible sensors
+- compression algorithm used to save the file to a computer may take liberties with individual pixels
 
 <img src="src/lamplight/images/misty-street-lights.jpeg"     width=285 />
 <img src="src/lamplight/images/src-misty-street-lights.jpeg" width=285 />
 <img src="src/lamplight/images/top-misty-street-lights.jpeg" width=285 />
 
-On the left is the source image. The technique we used identified critical sections by clustering points of green at 255 intensity, with a minimum size of 100 points, and a minimum radial distance of 30. The middle image has not been modified, and only identifies one sparse cluster, which doesn't appreciate a realistic view of the world. With smoothing intensities of 240-255 into one bucket, we can produce much more useful results; as found on the right.  [DDBSCAN](https://github.com/cloudwalkio/ddbscan) is the algorithm and python module that we are using for this.
+On the left is the source image. The technique we used identified critical sections by clustering points of green at 255 intensity, with a minimum size of 100 points, and a minimum radial distance of 30. The middle image has not been modified, and only identifies one sparse cluster, which doesn't appreciate a realistic view of the world. With smoothing intensities of 240-255 into one bucket, we can produce much more useful results; as found on the right.  [DBSCAN](https://github.com/cloudwalkio/ddbscan) is the algorithm and python module that we are using for this.
 
 ```python
 from lamplight import image_info
