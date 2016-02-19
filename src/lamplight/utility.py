@@ -8,16 +8,16 @@ import time
 global DEBUG
 DEBUG = True
 
-global c
+global fc
 fc = Counter()
+
 
 def take(collection, num):
     """
     yields num elements from collection
     """
     for i, elm in enumerate(collection):
-        if i >= num:
-            break
+        if i >= num: break
         yield elm
 
 
