@@ -35,6 +35,8 @@ In order to understand concepts like **quantum efficiency**, we will also need t
 ## Bands
 We often talk about Bands of the Electromagnetic Spectrum in order to simplify communication. A band is a continuous range of wavelengths that we have assigned a useful label. Human Visible light is a very narrow band...
 
+<img src="https://imgs.xkcd.com/comics/electromagnetic_spectrum.png" width=855 />
+
 Additionally, it would be nice to use sensors to exactly determine the wavelength of incident **electromagnetic radiation**, however, existing sensor systems are limited to communicating only a triggered state. It is common practice to reduce a continuous span of wavelengths to well defined bands and measure intensity by counting the triggered sensors per band in unit area. This is inspired by how biological systems reduce colors. This translation is similar to using the Floor function accross the real numberline.
 
 Since astronomers are often concerned with bands beyond human visable light, they use color mapping to make images to improve communication...
