@@ -21,7 +21,6 @@ def take(collection, num):
         yield elm
 
 
-
 def ptrace(fn):
     def __get_time_hhmmss(diff):
         m, s = divmod(diff, 60)
