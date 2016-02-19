@@ -132,7 +132,7 @@ def paint(image):
     channel, intensity = 1, next(step_gen.range) # green, 255
     clusters = cluster_dict[channel][intensity]
 
-    return colorize_clusters(image, clusters))
+    return colorize_clusters(image, clusters)
 
 save_top, save_src = paint(top_image), paint(src_image)
 ```
