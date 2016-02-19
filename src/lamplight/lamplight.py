@@ -165,9 +165,10 @@ def make_clusters_dict(points_dict, step_gen, radius=5, minpoints=10):
 
         d = defaultdict(list)
         for i, p in enumerate(scan.points):
-            # ddbscan spec : cluster_id == -1 is an anomolous point
-            if scan.points_data[i].cluster != -1:
-                d[scan.points_data[i].cluster].append(p)
+            if scan.points_data[i].cluster == -1:
+                # cluster_id == -1 is an anomolous point
+                continue
+            d[scan.points_data[i].cluster].append(p)
 
         return d
 
