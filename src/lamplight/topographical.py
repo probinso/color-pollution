@@ -5,7 +5,8 @@ import argparse, argcomplete
 import os.path as osp
 import sys
 
-from lamplight import take # why this isn't part of itertools i know not.
+from utility   import take, fc
+
 from lamplight import image_info, save_images, image_split
 from lamplight import step_range_gen, topograph_image
 from lamplight import get_index_of, make_clusters_dict, colorize_clusters
@@ -35,7 +36,9 @@ def interface(filename, directory):
 
     src_image = g(src_image, step_gen)
     top_image = g(top_image, step_gen)
-    save_images(directory, name, img_type ,top_=top_image, src_=src_image)    
+    save_images(directory, name, img_type ,top_=top_image, src_=src_image)
+
+    print fc
     
 
 def cli_interface(arguments):

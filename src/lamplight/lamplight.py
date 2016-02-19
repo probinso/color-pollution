@@ -44,6 +44,7 @@ def save_images(dst, name, img_type, **kwargs):
     output:
       saves images into dst with name
     """
+    @ptrace
     def save_modified(prefix, image):
         result = osp.join(dst, prefix + name + "." + img_type)
         misc.imsave(result, image)
@@ -62,7 +63,7 @@ def image_split(src_image, channels=3):
     we can get rid of channels by using 'Extended Iterable Unpacking'
     however this is not yet in the language
     """
-
+    @ptrace
     def np_one_color((keep_index, img)):
         """
         input image as an HxWxC numpy.array an index in range(C.len()) to preserve
@@ -103,6 +104,7 @@ def topograph_image(image, step_gen):
     returns NxMxC matrix with contours in each C cell
     """
     new_img = np.array(image, copy=True)
+
     def myfunc(color):
         for value in step_gen.range:
             tops, bots = value + step_gen.delta, value - step_gen.delta
@@ -144,6 +146,7 @@ def make_clusters_dict(points_dict, step_gen, radius=5, minpoints=10):
     Output:
       dictionary[band][intensity][cluster_id] = [[x, y]]
     """
+    @ptrace
     def make_clusters(points, radius, minpoints):
         """
         Takes in a list of [x, y] points
@@ -155,9 +158,11 @@ def make_clusters_dict(points_dict, step_gen, radius=5, minpoints=10):
 
         scan.compute()
 
+        """
         for index, cluster in enumerate(scan.clusters):
             print '=== Cluster %d ===' % index
             print 'Cluster points index: %s' % len(list(cluster))
+        """
 
         d = defaultdict(list)
         for i, p in enumerate(scan.points):
