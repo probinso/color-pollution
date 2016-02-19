@@ -12,6 +12,8 @@ import matplotlib.pyplot as plt
 import numpy   as np
 import scipy.misc as misc
 
+from utility import take, ptrace
+
 """
 Lamplight Module
 
@@ -19,6 +21,7 @@ This module houses interesting operations on images for lamplight analysis
 """
 
 
+@ptrace
 def image_info(filename):
     """
     Takes in a filename
@@ -30,6 +33,7 @@ def image_info(filename):
     return img_type, name, src_image
 
 
+@ptrace
 def save_images(dst, name, img_type, **kwargs):
     """
     input:
@@ -49,6 +53,7 @@ def save_images(dst, name, img_type, **kwargs):
         save_modified(i, kwargs[i])
 
 
+@ptrace
 def image_split(src_image, channels=3):
     """
     split image to RBG and then saves them to dst directory
@@ -91,6 +96,7 @@ class step_range_gen:
             yield i
 
 
+@ptrace
 def topograph_image(image, step_gen):
     """
     Takes in NxMxC matrix and a step size and a delta
@@ -111,6 +117,7 @@ def topograph_image(image, step_gen):
     return topograph(new_img)
 
 
+@ptrace
 def get_index_of(image):
     """
     splits image into dict[channels][intensities] as (x, y) point pairs
@@ -126,7 +133,8 @@ def get_index_of(image):
     return ret
 
 
-def make_clusters_dict(points_dict, step_gen, radius=10, minpoints=40):
+@ptrace
+def make_clusters_dict(points_dict, step_gen, radius=5, minpoints=10):
     """
     Input:
       points_dict - dictionary of points indexed by d[band][intensity]
@@ -168,16 +176,7 @@ def make_clusters_dict(points_dict, step_gen, radius=10, minpoints=40):
     return retval
 
 
-def take(collection, num):
-    """
-    yields num elements from collection
-    """
-    for i, elm in enumerate(collection):
-        if i >= num:
-            break
-        yield elm
-
-
+@ptrace
 def colorize_clusters(base_img, clusters):
     """
     Input base_img numpy array, and dictionary of clusters
@@ -190,5 +189,3 @@ def colorize_clusters(base_img, clusters):
         for [x, y] in clusters[c]:
             new_img[x, y] = colors[i][:3]
     return new_img
-
-
