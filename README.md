@@ -15,7 +15,7 @@ When studying color, your goal is to understand:
 # Electromagnetic Radiation
 For this course, we will need a basic knowledge of **electromagnetic radiation**. In this section we will introduce this in increasing detail, through Ray Tracing, Waves, and Particles. Finally, we will discuss different bands of measured electromagnetic radiation.
 
-For this color pollution course, most of our data and example material is limited to terrestrial color, however a good understanding of electromagnetic radiation in these forms will allow you to abstract the information of this course environments dissimilar to terrestrial atmospheres.
+Most of our accessible data and example material is limited to terrestrial color, however a good understanding of electromagnetic radiation in general will allow you to abstract the information of this course environments dissimilar to terrestrial atmospheres.
 
 ## Ray Tracing
 The simplest, and oldest consistent means of discussing traveling light, is to think of it has a series of rays. We claim that light is emitted from a source, with a color property, and travels in a straight line. These rays then bounce off of impeding objects, until they have either been perceived or absorbed.
