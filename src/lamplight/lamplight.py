@@ -172,7 +172,7 @@ def make_clusters_dict(points_dict, step_gen, radius=5, minpoints=10):
 
         return d
 
-    retval = defaultdict(dict)
+    retval = defaultdict(lambda : defaultdict(list))
     for l_intensity in take(step_gen.range, 1) if True else step_gen.range:
         for l_channel in points_dict:
             retval[l_channel][l_intensity] = \
