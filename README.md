@@ -123,13 +123,17 @@ from lamplight import colorize_clusters
 img_type, name, src_image = image_info(filename)
 step_gen     = step_range_gen(30, 15)
 top_image    = topograph_image(src_image, step_gen)
-points_dict  = get_index_of(image)
-cluster_dict = make_clusters_dict(points_dict, step_gen, 30, 100)
 
-channel, intensity = 1, next(step_gen.range) # green, 255
-clusters   = cluster_dict[channel][intensity]
+def paint(image):
+    points_dict  = get_index_of(image)
+    cluster_dict = make_clusters_dict(points_dict, step_gen, 30, 100)
 
-save_image = colorize_clusters(top_image, clusters))
+    channel, intensity = 1, next(step_gen.range) # green, 255
+    clusters = cluster_dict[channel][intensity]
+
+    return colorize_clusters(image, clusters))
+
+save_top, save_src = paint(top_image), paint(src_image)
 ```
 
 ---
