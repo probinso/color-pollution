@@ -33,14 +33,14 @@ def ptrace(fn):
     if DEBUG:
         def wrapped(*v, **k):
             name     = fn.__name__
-            fc.update(name)
+            fc.update([name])
 
             start  = time.time()
             retval =  fn(*v, **k)
             end    = time.time()
             time_str = __get_time_hhmmss(end - start)
 
-            print name, " :: ", time_str
+            print time_str, " :: ", name
             return retval
         return wrapped
     else:
