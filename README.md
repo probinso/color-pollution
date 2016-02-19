@@ -124,7 +124,7 @@ img_type, name, src_image = image_info(filename)
 step_gen     = step_range_gen(30, 15)
 top_image    = topograph_image(src_image, step_gen)
 points_dict  = get_index_of(image)
-cluster_dict = make_clusters_dict(points_dict, step_gen)
+cluster_dict = make_clusters_dict(points_dict, step_gen, 30, 100)
 
 channel, intensity = 1, next(step_gen.range) # green, 255
 clusters   = cluster_dict[channel][intensity]
