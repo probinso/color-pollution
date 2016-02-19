@@ -128,7 +128,7 @@ Below is a source image of two street lamps taken at night. Our goal is to do ma
 <img src="src/lamplight/images/src-misty-street-lights.jpeg" width=285 />
 <img src="src/lamplight/images/top-misty-street-lights.jpeg" width=285 />
 
-On the left is the source image. The technique we used identified critical sections by clustering points of green at 255 intensity, with a minimum size of 100 points, and a minimum radial distance of 30. The middle image has not been modified, and only identifies one sparse cluster, which doesn't appreciate a realistic view of the world. With smoothing intensities of 240-255 into one bucket, we can produce much more useful results; as found on the right. 
+On the left is the source image. The technique we used identified critical sections by clustering points of green at 255 intensity, with a minimum size of 100 points, and a minimum radial distance of 30. The middle image has not been modified, and only identifies one sparse cluster, which doesn't appreciate a realistic view of the world. With smoothing intensities of 240-255 into one bucket, we can produce much more useful results; as found on the right.  [DDBSCAN](https://github.com/cloudwalkio/ddbscan) is the algorithm and python module that we are using for this.
 
 ---
 
