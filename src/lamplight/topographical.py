@@ -10,9 +10,9 @@ from utility   import take, fc
 from lamplight import image_info, save_images, image_split
 from lamplight import step_range_gen, topograph_image
 from lamplight import get_index_of, make_clusters_dict, colorize_clusters
+from lamplight import compute_mediod
 
 from collections import defaultdict
-
 
 def g(image, step_gen):
     points_dict  = get_index_of(image)
@@ -25,14 +25,24 @@ def g(image, step_gen):
     return images[1] # green, 255
 
 
+def paint(image, step_gen):
+    points_dict  = get_index_of(image)
+    cluster_dict = make_clusters_dict(points_dict, step_gen, 30, 100)
+
+    channel, intensity = 1, next(step_gen.range) # green, 255
+    clusters = cluster_dict[channel][intensity]
+    print compute_mediod(clusters[0])
+
+    return colorize_clusters(image, clusters)
+
+
 def interface(filename, directory):
     img_type, name, src_image = image_info(filename)
     step_gen = step_range_gen(30, 15)
 
     top_image = topograph_image(src_image, step_gen)
 
-    src_image = g(src_image, step_gen)
-    top_image = g(top_image, step_gen)
+    src_image, top_image = paint(top_image, step_gen), paint(src_image, step_gen)
 
     save_images(directory, name, img_type ,top_=top_image, src_=src_image)
 
