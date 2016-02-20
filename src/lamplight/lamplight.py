@@ -2,14 +2,16 @@
 # -*- coding: utf-8 -*-"""
 
 from   collections import defaultdict
-from   itertools   import tee
+from   itertools   import tee, imap
+from   math import sqrt
+from   operator import itemgetter
 import os.path as osp
 import sys
 
 import ddbscan
 import imghdr
 import matplotlib.pyplot as plt
-import numpy   as np
+import numpy as np
 import scipy.misc as misc
 
 from utility import take, ptrace
@@ -19,7 +21,6 @@ Lamplight Module
 
 This module houses interesting operations on images for lamplight analysis
 """
-
 
 @ptrace
 def image_info(filename):
@@ -182,6 +183,28 @@ def make_clusters_dict(points_dict, step_gen, radius=5, minpoints=10):
 
 
 @ptrace
+def compute_mediod(cluster):
+    """
+    given a list of [[x, y]] ponts, return the medoid
+    """
+    def average_dissimilarity(loc):
+        def dist((x, y), (p, q)):
+            return sqrt((x-p)**2 + (y-q)**2)
+
+        def f(points):
+            tots = sum((dist(tuple(loc), tuple(p)) for p in points))
+            return tots / len(points)
+
+        return f
+
+    averages = [fun(cluster) for fun in imap(average_dissimilarity, cluster)]
+
+    key = min(enumerate(averages), key=itemgetter(1))[0]
+
+    return cluster[key]
+
+
+@ptrace
 def colorize_clusters(base_img, clusters):
     """
     Input base_img numpy array, and dictionary of clusters
@@ -194,3 +217,4 @@ def colorize_clusters(base_img, clusters):
         for [x, y] in clusters[c]:
             new_img[x, y] = colors[i][:3]
     return new_img
+
