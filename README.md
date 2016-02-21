@@ -142,7 +142,7 @@ from lamplight import colorize_clusters
 
 filename = "file.jpeg"
 img_type, name, src_image = image_info(filename)
-step_gen  = step_range_gen(30, 15)
+step_gen  = step_range_gen(30)
 top_image = topograph_image(src_image, step_gen)
 
 def paint(image):
