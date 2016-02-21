@@ -1,4 +1,18 @@
+# Goals of this material
+This is a course on light and sensor systems. Although there are many topics in this space, we will primarily focus on light pollution and its impact on astronomy. By the end of this material, you should be able to reason and communicate clearly about light, environment, and sensor systems.
+
+In order to communicate our goals, we will first introduce the character audiences benefiting from participation. One character is the Scientist. The Scientist hopes to learn, then leverage programming in their field, to either model or better communicate their discipline. The second character is the Programmer. The Programmer hopes to understand the relationship between physical systems, measurement techniques, and computer models; growing their appreciation for real world constraints. Finally, our third character wants to know about light pollution, and strategies for communicating about sensor systems.
+
+Hopefully, you consider yourself at least one of these characters. This material is intended to be accessible and digestible by any of these characters. As we understand that different characters will have different interests, we will present material separated into sections that you may navigate freely for your own purposes and interests.
+
+For each section below we will link to material, either provided by others, or generated ourselves. For any section, this may include:
+- References to relative articles
+- Physical systems video lectures
+- Programming video lectures
+- Challenge problems to verify knowledge
+
 # What is Color?
+
 **PRESENTLY ALL IMAGES ARE PLACE HOLDERS**
 
 When studying color, your goal is to understand:
