@@ -1,4 +1,4 @@
-# Goals of this material
+# Goals of this Course
 This is a course on light and sensor systems. Although there are many topics in this space, we will primarily focus on light pollution and its impact on astronomy. By the end of this material, you should be able to reason and communicate clearly about light, environment, and sensor systems.
 
 To insure you are supposed to be here, we first introduce the character audiences benefiting from participation. One character is the Scientist. The Scientist hopes to learn, then leverage programming in their field, to either model or better communicate their discipline. The second character is the Programmer. The Programmer hopes to understand the relationship between physical systems, measurement techniques, and computer models; growing their appreciation for real world constraints. Finally, our third character wants to know about light pollution, and strategies for communicating about sensor systems.
@@ -142,7 +142,7 @@ from lamplight import colorize_clusters
 
 filename = "file.jpeg"
 img_type, name, src_image = image_info(filename)
-step_gen  = step_range_gen(30, 15)
+step_gen  = step_range_gen(30)
 top_image = topograph_image(src_image, step_gen)
 
 def paint(image):
