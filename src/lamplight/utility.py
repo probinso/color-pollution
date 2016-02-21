@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-"""
 
-from collections import Counter
+from collections import Counter, OrderedDict
 import functools, itertools
 import time
 
@@ -10,6 +10,17 @@ DEBUG = True
 
 global fc
 fc = Counter()
+
+
+class OrderedDefaultDict(OrderedDict):
+    def __init__(self, default, *args, **kwargs):
+        OrderedDict.__init__(self, *args, **kwargs)
+        assert(callable(default))
+        self.__default = default
+
+    def __missing__(self, key):
+        self[key] = self.__default()
+        return self[key]
 
 
 def take(collection, num):
