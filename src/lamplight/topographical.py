@@ -10,7 +10,7 @@ from utility   import take, fc
 from lamplight import image_info, save_images, image_split
 from lamplight import step_range_gen, topograph_image
 from lamplight import get_index_of, make_clusters_dict, colorize_clusters
-from lamplight import compute_mediod
+from lamplight import compute_mediod, overlapping_clusters
 
 from collections import defaultdict
 
@@ -27,24 +27,32 @@ def g(image, step_gen):
 
 def paint(image, step_gen):
     points_dict  = get_index_of(image)
-    cluster_dict = make_clusters_dict(points_dict, step_gen, 30, 100)
+    radius, size = 3, 3
+    cluster_dict = make_clusters_dict(points_dict, step_gen, radius, size)
 
     channel, intensity = 1, next(step_gen.range) # green, 255
-    clusters = cluster_dict[channel][intensity]
-    print compute_mediod(clusters[0])
+    #clusters = cluster_dict[channel][intensity]
 
-    return colorize_clusters(image, clusters)
+    tst = overlapping_clusters(cluster_dict, step_gen)
+
+    #dictionary[intensity][cluster][band] = [(x,y)...]
+    val = image
+    for cid in tst[intensity]:
+        val = colorize_clusters(val, tst[intensity][cid])
+
+    return val
 
 
 def interface(filename, directory):
     img_type, name, src_image = image_info(filename)
-    step_gen = step_range_gen(30, 15)
+    step_gen = step_range_gen(40, 20)
 
     top_image = topograph_image(src_image, step_gen)
 
-    src_image, top_image = paint(top_image, step_gen), paint(src_image, step_gen)
+    #src_image = paint(src_image, step_gen)
+    top_image = paint(top_image, step_gen)
 
-    save_images(directory, name, img_type ,top_=top_image, src_=src_image)
+    save_images(directory, name, img_type ,top_=top_image)
 
     for key in fc:
         print key, fc[key]
