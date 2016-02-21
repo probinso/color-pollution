@@ -30,27 +30,27 @@ def paint(image, step_gen):
     radius, size = 3, 3
     cluster_dict = make_clusters_dict(points_dict, step_gen, radius, size)
 
-    channel, intensity = 1, next(step_gen.range) # green, 255
-    #clusters = cluster_dict[channel][intensity]
+    channel, intensity = 0, next(step_gen.range) # red, 255
+    clusters = cluster_dict[channel][intensity]
 
-    tst = overlapping_clusters(cluster_dict, step_gen)
+    #tst = overlapping_clusters(cluster_dict, step_gen)
 
     #dictionary[intensity][cluster][band] = [(x,y)...]
-    val = image
-    for cid in tst[intensity]:
-        val = colorize_clusters(val, tst[intensity][cid])
+    #val = image
+    #for cid in tst[intensity]:
+    #    val = colorize_clusters(val, tst[intensity][cid])
 
-    return val
-
+    #return val
+    return colorize_clusters(image, clusters)
 
 def interface(filename, directory):
     img_type, name, src_image = image_info(filename)
-    step_gen = step_range_gen(40, 20)
+    step_gen  = step_range_gen(40)
 
     top_image = topograph_image(src_image, step_gen)
 
     #src_image = paint(src_image, step_gen)
-    top_image = paint(top_image, step_gen)
+    #top_image = paint(top_image, step_gen)
 
     save_images(directory, name, img_type ,top_=top_image)
 
