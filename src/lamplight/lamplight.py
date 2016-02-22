@@ -78,10 +78,9 @@ class step_range_gen:
     """
     Object, probably needs documentation
     """
-    def __init__(self, step=10, delta=5, maxvalue=255):
+    def __init__(self, delta=10, maxvalue=255):
         self.__delta = delta
-        self.__step  = step
-        self.__range = (maxvalue - i for i in xrange(0, maxvalue, step))
+        self.__range = (maxvalue - i for i in xrange(0, maxvalue, self.__delta))
 
     @property
     def delta(self):
@@ -103,8 +102,8 @@ def topograph_image(image, step_gen):
 
     def myfunc(color):
         for value in step_gen.range:
-            tops, bots = value + step_gen.delta, value - step_gen.delta
-            if (color <= tops) and (color >= bots):
+            tops, bots = value, value - step_gen.delta
+            if (color <= tops) and (color > bots):
                 return value
             if color > tops:
                 break
@@ -142,7 +141,7 @@ def make_clusters_dict(points_dict, step_gen, radius=5, minpoints=10):
     @ptrace
     def make_clusters(points, radius, minpoints):
         """
-        Takes in a list of [x, y] points
+        Takes in an iterable of [x, y] points
         returns a dict of lists of points
         """
         scan = ddbscan.DDBSCAN(radius, minpoints)
@@ -167,7 +166,7 @@ def make_clusters_dict(points_dict, step_gen, radius=5, minpoints=10):
         return d
 
     retval = defaultdict(lambda : defaultdict(list))
-    for l_intensity in take(step_gen.range, 1) if True else step_gen.range:
+    for l_intensity in take(step_gen.range, 3):
         for l_channel in points_dict:
             retval[l_channel][l_intensity] = \
               make_clusters(points_dict[l_channel][l_intensity], radius, minpoints)
@@ -177,7 +176,7 @@ def make_clusters_dict(points_dict, step_gen, radius=5, minpoints=10):
 
 def compute_mediod(cluster):
     """
-    given a list of (x, y)] ponts, return the medoid
+    given a list of [(x, y)] ponts, return the medoid
     """
     @ptrace
     def average_dissimilarity(loc):
@@ -195,17 +194,15 @@ def compute_mediod(cluster):
     return cluster[key]
 
 
-def overlapping_clusters(cluster_dict, step_gen,
-                         center=compute_mediod,
-                         check=lambda ctr, clst: ctr in clst):
+def overlapping_clusters(cluster_dict, step_gen):
     """
     INPUT :
-      dictionary[band][intensity][cluster_id] = [[x, y]...]
+      dictionary[band][intensity][cluster_id] = [(x, y)...]
 
       because cluster_id is effectively arbitrary, this
       information isn't preserved
     OUTPUT:
-      dictionary[intensity][cluster][band] = [[x,y]...]
+      dictionary[intensity][cluster][band] = [(x, y)...]
     """
 
     bit       = iter(cluster_dict)
@@ -221,43 +218,27 @@ def overlapping_clusters(cluster_dict, step_gen,
 
         num = len(small.difference(large))
         den = len(small)
-        print "{}/{}".format(num, den)
 
         return ((num/float(den)) < 0.05)
 
     test_center = center(cluster_dict[band][intensity][cid])
 
-    """for i_band in cluster_dict:
-        for i, cluster in cluster_dict[i_band][intensity].iteritems():
-            print "i({}) b({}) c({})".format(intensity, i_band, i)
-            print  check(test_center, cluster)
-
-    """
     retval = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
-    for intensity in take(step_gen.range, 1) if True else step_gen.range:
+    for intensity in take(step_gen.range, 3):
         it     = iter(cluster_dict)
         f_band = next(it)
 
         for f_cluster_id, f_cluster in cluster_dict[f_band][intensity].iteritems():
             f_center  = center(f_cluster)
-            print "THE MAIN CLUSTER"
-            print f_center
-
 
             retval[intensity][f_cluster_id][f_band] = f_cluster
             for i_band in it:
-                print "now checking to channel", i_band
-
                 MATCH_IN_BAND = False
                 for i_cluster in cluster_dict[i_band][intensity].itervalues():
-                    print "THE FUCK"
-                    print center(i_cluster)
                     if check(f_center, i_cluster):
                         retval[intensity][f_cluster_id][i_band] = i_cluster
                         MATCH_IN_BAND = True
-                        print "SUCCESS"
                         break
-
                 # only one match per band/intensity/cluster tuple
                 if MATCH_IN_BAND: break
 
