@@ -13,7 +13,7 @@ For each section below we will link to material, either provided by others, or g
 - Programming video lectures
 - Challenge problems to verify knowledge
 
-# Communication about Color and Color Maps
+# Communicating about Color
 Color is a very abstract concept, for which under-specified discussions may have some very real consequences. As a function of environment and impacted sensors, we often use need very different tools to communicate about color. The method we are most familiar with, is well visualized in the image below and to the left, authored by Randall Monroe of xkcd. Although computers have very specific descriptor languages for colors spanning one of these labeled sections, human need to communicate with each other most commonly doesn't need such high granularity.
 
 <img src="https://imgs.xkcd.com/blag/satfaces_map_1024.png" width=400 />
