@@ -71,6 +71,7 @@ save_top, save_src = paint(top_image), paint(src_image)
 - [clustering techniques](http://scikit-learn.org/stable/auto_examples/cluster/plot_dbscan.html#example-cluster-plot-dbscan-py)
 - [Data Structures for DDBand](https://en.wikipedia.org/wiki/Quadtree)
 - [Names and Values in Python](https://www.youtube.com/watch?v=_AEJHKGk9ns)
+- [LSP Video](https://www.youtube.com/watch?v=O7mEBpJVJbA)
 
 # Goals of this repository
 We are hoping to gather and develop lecture materials for a course we are designing **sensor systems and color pollution**.
