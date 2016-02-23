@@ -3,7 +3,7 @@ This is a course on light and sensor systems. Although there are many topics in 
 
 To insure you are supposed to be here, we first introduce the character audiences benefiting from participation. One character is the Scientist. The Scientist hopes to learn, then leverage programming in their field, to either model or better communicate their discipline. The second character is the Programmer. The Programmer hopes to understand the relationship between physical systems, measurement techniques, and computer models; growing their appreciation for real world constraints. Finally, our third character wants to know about light pollution, and strategies for communicating about sensor systems.
 
-Participation in the programming materials, you are expected to have a brief understanding of programmng. We will record code walk-throughs which may include terms that are unfamilure to a non-programmer. We will, however, openly discuss some of our design decisions in a way that should help to grow a young programmer.
+Participation in the programming materials, you are expected to have a brief understanding of programming. We will record code walk-troughs which may include terms that are unfamiliar to a non-programmer. We will, however, openly discuss some of our design decisions in a way that should help to grow a young programmer.
 
 Hopefully, you consider yourself at least one of these characters. This material is intended to be accessible and digestible by any of these characters. As we understand that different characters will have different interests, we will present material separated into sections that you may navigate freely for your own purposes and interests.
 
@@ -13,7 +13,8 @@ For each section below we will link to material, either provided by others, or g
 - Programming video lectures
 - Challenge problems to verify knowledge
 
-# Color maps
+# Communication about Color and Color Maps
+Color is a very abstract concept, for which under-specified discussions may have some very real consequences. As a function of environment and impacted sensors, we often use need very different tools to communicate about color. The method we are most familiar with, is well visualized in the image below and to the left, authored by Randall Monroe of xkcd. Although computers have very specific descriptor languages for colors spanning one of these labeled sections, human need to communicate with each other most commonly doesn't need such high granularity.
 
 <img src="https://imgs.xkcd.com/blag/satfaces_map_1024.png" width=400 />
 <img src="src/lamplight/images/CIE1931.png" height=400 />
