@@ -1,21 +1,11 @@
+# Trusting a photograph
+For our purposes, we have claimed that digital photographs are sufficient for reasoning about the spectral profiles of light sources. In this section, we hope to teach you enough about sensor systems, light, and color to make educated assessments of this assertion.
 
 # What is Color?
-
-**PRESENTLY ALL IMAGES ARE PLACE HOLDERS**
-
-When studying color, your goal is to understand:
-
-- a brief knowledge electromagnetic radiation 
-- sensor systems
-- relationships between electromagnetic radiation and sensor systems
-- color coordinate systems and their goals
-    - CIE charts
-	- Color-maps
-	- RGB
-- metamerism
+- still need metamerism
 
 # Electromagnetic Radiation
-For this course, we will need a basic knowledge of **electromagnetic radiation**. In this section we will introduce this in increasing detail, through Ray Tracing, Waves, and Particles. Finally, we will discuss different bands of measured electromagnetic radiation.
+For this section, we will need a basic knowledge of **electromagnetic radiation**. In this section we will introduce this in increasing detail, through Ray Tracing, Waves, and Particles. Finally, we will discuss different bands of measured electromagnetic radiation.
 
 Most of our accessible data and example material is limited to terrestrial color, however a good understanding of electromagnetic radiation in general will allow you to abstract the information of this course environments dissimilar to terrestrial atmospheres.
 
