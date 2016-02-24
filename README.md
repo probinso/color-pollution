@@ -14,7 +14,7 @@ For each section below we will link to material, either provided by others, or g
 - Challenge problems to verify knowledge
 
 # Communicating about Color
-Color is a very abstract concept, for which under-specified discussions may have some very real consequences. As a function of environment and impacted sensors, we often use need very different tools to communicate about color. The method we are most familiar with, is well visualized in the image below and to the left, authored by Randall Monroe of xkcd. Although computers have very specific descriptor languages for colors spanning one of these labeled sections, human need to communicate with each other most commonly doesn't need such high granularity.
+Color is a very abstract concept, for which under-specified discussions may have very real consequences. As a function of environment and impacted sensors, we often use need very different tools to communicate about color. The method we are most familiar with, is well visualized in the image below and to the left, authored by Randall Monroe of xkcd. Although computers have very specific descriptor languages for colors spanning one of these labeled sections, human need to communicate with each other most commonly doesn't need such high granularity.
 
 <img src="https://imgs.xkcd.com/blag/satfaces_map_1024.png" width=400 />
 <img src="src/lamplight/images/CIE1931.png" height=400 />
@@ -24,7 +24,6 @@ Color is a very abstract concept, for which under-specified discussions may have
 In physics courses, you are often told to approximate values in your models. In my first life, I thought this was only to accommodate the  the lazy physicist. In my second life, I thought this was a strategy to accommodate the limitations introduced by using computers. Although these are good answers, they do not respect the true value of approximation.
 
 It is often our goal to measure, analyze, and communicate properties of physical systems such that the behavior of similar systems may be predicted. Measuring properties of a physical system is very difficult. Enormous time and cost is put into developing environments and tools to increase the accuracy of these measurements. When we do not have these resources, approximations can be used to smooth out the noise inherent to our instrumentation and environment.
-
 
 ## Example of Smoothing
 
