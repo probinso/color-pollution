@@ -1,15 +1,10 @@
-# Trusting a photograph and Understanding Sensor Systems
+# Understanding Sensor Systems
 For our material, we have claimed that digital photographs are sufficient for reasoning about the spectral profiles of light sources. In this section, we hope to teach you enough about sensor systems, light, and color to make educated assessments of this assertion.
 
-# What is Color?
-- still need metamerism
-
-# Absorption, Reflection, Refraction
-
-# Sensor Systems
+## Sensor Systems
 Traditionally, the term *color* refers to **human visible light**. Although this is a very limited definition, it establishes a good starting point for understanding perception of color. Because of this, the first sensor system we will discuss is the human eye, it's evolution and design. Next we will discuss imitating sensor systems like cameras and telescopes which will lead to a discussion about metamerism and RGB color mapping. Finally, we will discuss ways to express and communicate color like CIE charts and other color mapping options.
 
-## Human Eye
+### Human Eye
 The human eye refracts electromagnetic radiation at the cornea, through a focusing lens, and projects an inverted image of the world onto a the fovia, containing rod cells and cone cells of three types that act as sensors of electromagnetic radiation. L-cone, M-cone, S-cone cells have peak sensor response around wavelengths perceived as red, green, and blue light respectively. The spectra rendered by these cone cells in the human eye span ~400nm-700nm.
 
 ![Human Eye](http://cdn.picturecorrect.com/wp-content/uploads/2015/02/image-sensors-11.jpg)
@@ -30,7 +25,7 @@ Terrestrial eyes evolved to discern colors in this limited spectrum as a result 
 - Due to the valley represented in this graphic... what about 9μm-10μm or 5cm-20m range... ?
 - glass absorbs light
 
-## Imitating Sensor Systems
+### Imitating Sensor Systems
 Sensor systems on cameras are designed to mimic the human eye, whereas sensor systems for telescopes are designed to take full advantage of **visible light** spectrum. We will discuss the physics of silicon sensors used in these systems, then the design of cameras and telescopes. Finally, we will use this to establish a clear understanding of metamerism.
 
 Although the design goals of **visible light** sensor systems are very similar, the differences will be paramount in defining and understanding **color pollution** (the topic of this course).
