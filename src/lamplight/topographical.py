@@ -14,34 +14,6 @@ from lamplight import compute_mediod, overlapping_clusters
 
 from collections import defaultdict
 
-def g(image, step_gen):
-    points_dict  = get_index_of(image)
-    cluster_dict = make_clusters_dict(points_dict, step_gen)
-    images = []
-    for intensity in take(step_gen.range, 3):
-        for channel in [0, 1, 2]: # r, g, b
-            clusters = cluster_dict[channel][intensity]
-            images.append(colorize_clusters(image, clusters))
-    return images[1] # green, 255
-
-
-def paint(image, step_gen):
-    points_dict  = get_index_of(image)
-    radius, size = 3, 3
-    cluster_dict = make_clusters_dict(points_dict, step_gen, radius, size)
-
-    channel, intensity = 0, next(step_gen.range) # red, 255
-    clusters = cluster_dict[channel][intensity]
-
-    #tst = overlapping_clusters(cluster_dict, step_gen)
-
-    #dictionary[intensity][cluster][band] = [(x,y)...]
-    #val = image
-    #for cid in tst[intensity]:
-    #    val = colorize_clusters(val, tst[intensity][cid])
-
-    #return val
-    return colorize_clusters(image, clusters)
 
 def interface(filename, directory):
     img_type, name, src_image = image_info(filename)
@@ -49,13 +21,7 @@ def interface(filename, directory):
 
     top_image = topograph_image(src_image, step_gen)
 
-    #src_image = paint(src_image, step_gen)
-    #top_image = paint(top_image, step_gen)
-
     save_images(directory, name, img_type ,top_=top_image)
-
-    for key in fc:
-        print key, fc[key]
 
 
 def cli_interface(arguments):
