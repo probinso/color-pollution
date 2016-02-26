@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-"""
 
-from   itertools   import tee, imap
-from   math import sqrt
-from   operator import itemgetter
+from   itertools import tee, imap
+from   math      import sqrt
+from   operator  import itemgetter
 import os.path as osp
 import sys
 
@@ -26,9 +26,9 @@ def image_info(filename):
     Takes in a filename
     returns a tuple (filetype, basename(filename), numpy image)
     """
-    img_type   = imghdr.what(filename)
+    img_type     = imghdr.what(filename)
     name, suffix = osp.basename(filename).rsplit('.', 1)
-    src_image  = misc.imread(filename)
+    src_image    = misc.imread(filename)
     return img_type, name, src_image
 
 
@@ -60,8 +60,8 @@ def image_split(src_image, channels=3):
     we can get rid of channels by using 'Extended Iterable Unpacking'
     however this is not yet in the language
     """
-    @ptrace
-    def np_one_color((keep_index, img)):
+    def np_one_color(keep_index__img):
+        keep_index, img = keep_index__img # python3 compliance
         """
         input image as an HxWxC numpy.array an index in range(C.len()) to preserve
         returns the image only preserving that color.
@@ -152,8 +152,8 @@ def make_clusters_dict(points_dict, step_gen, radius=5, minpoints=10):
 
         """
         for index, cluster in enumerate(scan.clusters):
-            print '=== Cluster %d ===' % index
-            print 'Cluster points index: %s' % len(list(cluster))
+            print('=== Cluster %d ===' % index)
+            print('Cluster points index: %s' % len(list(cluster)))
         """
 
         d = defaultdict(list)
@@ -174,13 +174,18 @@ def make_clusters_dict(points_dict, step_gen, radius=5, minpoints=10):
     return retval
 
 
-def compute_mediod(cluster):
+def compute_medoid(cluster):
     """
-    given a list of [(x, y)] ponts, return the medoid
+    given an iterable of (x, y) points, return the medoid
     """
     @ptrace
     def average_dissimilarity(loc):
-        dist = lambda (x, y), (p, q): sqrt((x-p)**2 + (y-q)**2)
+        def dist(x_y, p_q):
+            x, y, p, q = x_y[0], x_y[1], p_q[0], p_q[1]
+            return sqrt((x-p)**2 + (y-p)**2)
+
+        # python3 compliance
+        # dist = lambda (x, y), (p, q): sqrt((x-p)**2 + (y-q)**2)
 
         def f(points):
             tots = sum((dist(loc, p) for p in points))
@@ -260,9 +265,12 @@ def colorize_clusters(base_img, clusters):
         for x, y in clusters[c]:
             new_img[x, y] = colors[i][:3]
 
-    mykey = lambda (i, (a, b)): len(b)
+    #mykey = lambda (i, (a, b)): len(b)
+    def mykey(i__a_b):# python3 compliance
+        (i, (a, b)) = i__a_b
+        return b
     for i, (c, _) in sorted(enumerate(clusters.viewitems()), key=mykey, reverse=True):
-        print "welcome to channel", i
+        print("welcome to channel", i)
         colorize_my_cluster(i, c)
 
     return new_img
