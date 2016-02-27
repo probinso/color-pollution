@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
+import gc as garbage_collector
+from   memory_profiler import profile
 
-from memory_profiler import profile
-import gc
-from timeit import timeit
+from   timeit import timeit
 
 TOTS = 100000000
 
@@ -13,15 +13,19 @@ def fun_hog():
     alist = range(TOTS)
     alen  = len(alist)
     print alen
+
     blist = range(TOTS)
     blen  = len(blist)
     print blen
+
     xlist = range(TOTS)
     xlen  = len(xlist)
     print xlen
+
     ylist = range(TOTS)
     ylen  = len(ylist)
     print ylen
+
     zlist = range(TOTS)
     zlen  = len(zlist)
     print zlen
@@ -36,12 +40,16 @@ def fun_nested():
 
     alen = helper()
     print alen
+
     blen = helper()
     print blen
+
     xlen = helper()
     print xlen    
+
     ylen = helper()
     print ylen    
+
     zlen = helper()
     print zlen
 
@@ -54,12 +62,11 @@ def fun_loop():
         print hlen
 
 
-gc.collect()
+garbage_collector.collect()
 print timeit(fun_hog, number=1)
 
-gc.collect()
+garbage_collector.collect()
 print timeit(fun_nested, number=1)
 
-gc.collect()
+garbage_collector.collect()
 print timeit(fun_loop, number=1)
-
