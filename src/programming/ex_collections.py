@@ -17,11 +17,11 @@ def mutable_base_collections():
 
     def set_behaviour():
         # a set stores elements without order or repetition
-        s = set()    # set([])
-        s = s.add(5) # set([5])
-        s = s.add(4) # set([4, 5])
-        s = s.add(5) # set([4, 5])
-        s = s.add(7) # set([4, 5, 7])
+        s = set() # set([])
+        s.add(5)  # set([5])
+        s.add(4)  # set([4, 5])
+        s.add(5)  # set([4, 5])
+        s.add(7)  # set([4, 5, 7])
         for element in s:
             print element
 
@@ -33,11 +33,13 @@ def mutable_base_collections():
         d['third' ] = 5 # {'second': 4, 'third': 5, 'first': 5}
         d['fourth'] = 7 # {'second': 4, 'third': 5, 'first': 5, 'fourth': 7}
         for key in d:
-            print k, d[key]
+            print key, d[key]
 
     list_behaviour()
     set_behaviour()
     dictionary_behaviour()
+
+mutable_base_collections()
 
 
 from collections import OrderedDict
@@ -49,7 +51,9 @@ def example():
     o['third' ] = 5 # {'first': 5, 'second': 4, 'third': 5}
     o['fourth'] = 7 # {'first': 5, 'second': 4, 'third': 5, 'fourth': 7}
     for key in o:
-        print k, o[key]
+        print key, o[key]
+
+example()
 
 
 from collections import defaultdict
@@ -64,6 +68,8 @@ def example():
     for key in dd:
         for word in dd[key]:
             print word
+
+example()
 
 
 class DefaultOrderedDict(OrderedDict):
@@ -85,13 +91,15 @@ def example():
 
     # {'f': ['first', 'fourth'], 's': ['second'], 't': ['third']}
     for key in dod:
-        for word in dd[key]:
+        for word in dod[key]:
             print word
+
+example()
 
 
 from collections import namedtuple
 def example():
-    Point = namedtuple('Point', ['x', 'y'])
+    Point  = namedtuple('Point', ['x', 'y'])
 
     points = [Point(5, 5), Point(4, 9)]
     for x, y in points:
@@ -104,3 +112,7 @@ def example():
     for p in points:
         print p.x, p.y
 
+    for p in points:
+        print p[0], p[1]
+
+example()
