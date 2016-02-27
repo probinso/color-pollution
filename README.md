@@ -19,7 +19,7 @@ Color is a very abstract concept, for which under-specified discussions may have
 <img src="https://imgs.xkcd.com/blag/satfaces_map_1024.png" width=400 />
 <img src="src/lamplight/images/CIE1931.png" height=400 />
 
-## Approximation and Smoothing of Data
+# Approximation and Smoothing of Data
 
 In physics courses, you are often told to approximate values in your models. In my first life, I thought this was only to accommodate the  the lazy physicist. In my second life, I thought this was a strategy to accommodate the limitations introduced by using computers. Although these are good answers, they do not respect the true value of approximation.
 
