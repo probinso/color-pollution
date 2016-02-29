@@ -27,3 +27,7 @@ Additionally, it would be nice to use sensors to exactly determine the wavelengt
 
 Since many disciplines are concerned with bands outside of human visible light, they use color mapping strategies to produce images. This is a technique often used in data visualization to improve communication. We have a dedicated section below to introduce color mapping techniques and ways to communicate colors.
 
+# Light Sources
+## Spectral Profiles
+### Identifying Elements in Stars
+### Artificial Lighting
