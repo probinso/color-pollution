@@ -14,7 +14,7 @@ For each section below we will link to material, either provided by others, or g
 - Challenge problems to verify knowledge
 
 ## Why Python
-Python was selected for this course because it is a language both primary contributors are familiar with. Python is a mature, simple, and expressive programming language. We have found that there exists a large body of prior work, that can be leveraged to decrease development release time.
+Python was selected for this course because it is a language both primary [contributors](./AUTHORS.md) are familiar with. Python is a mature, simple, and expressive programming language. We have found that there exists a large body of prior work, that can be leveraged to decrease development release time.
 
 # Communicating about Color
 [Color](./COLOR.md) is a very abstract concept, for which under-specified discussions may have very real consequences. As a function of environment and impacted sensors, we often use need very different tools to communicate about color. The method we are most familiar with, is well visualized in the image below and to the left, authored by Randall Monroe of xkcd. Although computers have very specific descriptor languages for colors spanning one of these labeled sections, human need to communicate with each other most commonly doesn't need such high granularity.
