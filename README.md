@@ -58,7 +58,7 @@ def paint(image):
     points_dict  = get_index_of(image)
     cluster_dict = make_clusters_dict(points_dict, step_gen, 30, 100)
 
-    channel, intensity = 1, next(step_gen.range) # green, 255
+    channel, intensity = 1, next(step_gen) # green, 255
     clusters = cluster_dict[channel][intensity]
 
     return colorize_clusters(image, clusters)
