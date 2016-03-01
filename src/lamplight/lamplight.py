@@ -74,23 +74,18 @@ def image_split(src_image, channels=3):
     return map(np_one_color, np_lst)[:channels]
 
 
-class step_range_gen:
+from utility import regen
+class step_range_gen(regen):
     """
     Object, probably needs documentation
     """
     def __init__(self, delta=10, maxvalue=255):
         self.__delta = delta
-        self.__range = (maxvalue - i for i in xrange(0, maxvalue, self.__delta))
+        regen.__init__(self, (maxvalue - i for i in xrange(0, maxvalue, self.__delta)))
 
     @property
     def delta(self):
         return self.__delta
-
-    @property
-    def range(self):
-        local, self.__range = tee(self.__range)
-        for i in local:
-            yield i
 
 
 @ptrace
@@ -102,7 +97,7 @@ def topograph_image(image, step_gen):
     new_img = np.array(image, copy=True)
 
     def myfunc(color):
-        for value in step_gen.range:
+        for value in step_gen:
             tops, bots = value, value - step_gen.delta
             if (color <= tops) and (color > bots):
                 return value
@@ -169,7 +164,7 @@ def make_clusters_dict(points_dict, step_gen, radius=5, minpoints=10):
         return d
 
     retval = defaultdict(lambda : defaultdict(cluster))
-    for l_intensity in take(step_gen.range, 3):
+    for l_intensity in take(step_gen, 3):
         for l_channel in points_dict:
             retval[l_channel][l_intensity] = \
               make_clusters(points_dict[l_channel][l_intensity], radius, minpoints)
@@ -238,12 +233,12 @@ def overlapping_clusters(cluster_dict, step_gen):
 
     bit       = iter(cluster_dict)
     band      = next(bit)
-    intensity = next(step_gen.range)
+    intensity = next(step_gen)
 
     cid = next(iter(cluster_dict[band][intensity]))
 
     retval = defaultdict(lambda: defaultdict(lambda: defaultdict(cluster)))
-    for intensity in take(step_gen.range, 3):
+    for intensity in take(step_gen, 3):
         it     = iter(cluster_dict)
         f_band = next(it)
 

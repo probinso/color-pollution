@@ -19,7 +19,7 @@ def select_clusters(image):
 
     radius, size = 3, 3
     def local(cluster_dict, image):
-        band, intensity = 1, next(step_gen.range) # Green, 100%
+        band, intensity = 1, next(step_gen) # Green, 100%
         c_by_location = overlapping_clusters(cluster_dict, step_gen)
 
         for c_id in c_by_location[intensity]:

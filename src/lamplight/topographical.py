@@ -10,7 +10,6 @@ from utility   import take, fc
 from lamplight import image_info, save_images, image_split
 from lamplight import step_range_gen, topograph_image
 from lamplight import get_index_of, make_clusters_dict, colorize_clusters
-from lamplight import compute_mediod, overlapping_clusters
 
 from collections import defaultdict
 

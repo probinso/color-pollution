@@ -12,15 +12,14 @@ global fc
 fc = Counter()
 
 
-class OrderedDefaultDict(OrderedDict):
-    def __init__(self, default, *args, **kwargs):
-        OrderedDict.__init__(self, *args, **kwargs)
-        assert(callable(default))
-        self.__default = default
+class regen(object):
+    def __init__(self, generator):
+        self.__generator = generator
 
-    def __missing__(self, key):
-        self[key] = self.__default()
-        return self[key]
+    def __iter__(self):
+        local, self.__generator = itertools.tee(self.__generator)
+        for elm in local:
+            yield elm
 
 
 def take(collection, num):
@@ -30,6 +29,17 @@ def take(collection, num):
     for i, elm in enumerate(collection):
         if i >= num: break
         yield elm
+
+
+class OrderedDefaultDict(OrderedDict):
+    def __init__(self, default, *args, **kwargs):
+        OrderedDict.__init__(self, *args, **kwargs)
+        assert(callable(default))
+        self.__default = default
+
+    def __missing__(self, key):
+        self[key] = self.__default()
+        return self[key]
 
 
 def ptrace(fn):
