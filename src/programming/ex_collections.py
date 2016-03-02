@@ -72,7 +72,7 @@ def example():
 example()
 
 
-class DefaultOrderedDict(OrderedDict):
+class OrderedDefaultDict(OrderedDict):
     def __init__(self, default, *args, **kwargs):
         assert(callable(default))
         self.__default = default
@@ -84,7 +84,7 @@ class DefaultOrderedDict(OrderedDict):
 
 def example():
     # dictionary that you don't have to initalize and preserves order
-    dod = DefaultOrderedDict(list)
+    dod = OrderedDefaultDict(list)
     for word in ['first', 'second', 'third', 'fourth']:
         char = word[0]
         dod[char].append(word)
