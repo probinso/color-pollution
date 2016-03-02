@@ -116,3 +116,15 @@ def example():
         print p[0], p[1]
 
 example()
+
+
+class regen(object):
+    def __init__(self, generator):
+        self.__generator = generator
+
+    def __iter__(self):
+        local, self.__generator = itertools.tee(self.__generator)
+        for elm in local:
+            yield elm
+
+
