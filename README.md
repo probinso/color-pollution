@@ -48,6 +48,7 @@ legend['go'] = ColorPoint(0.350, 0.355, '5000K Blackbody Source')
 
 def createPlot(**legend):
     CIE_1931_chromaticity_diagram_plot(standalone = False)
+
     plt.xlabel('x', fontsize=20)
     plt.ylabel('y', fontsize=20)
     plt.tick_params(axis='x', labelsize=15)
