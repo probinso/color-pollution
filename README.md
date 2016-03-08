@@ -93,8 +93,8 @@ On the left is the source image. The technique we used identified critical secti
 
 ```python
 from lamplight import image_info
-from lamplight import topograph_image, get_index_of, make_clusters_dict
-from lamplight import colorize_clusters
+from topographical import topograph_image, get_index_of, make_clusters_dict
+from cluster import colorize_clusters
 
 filename = "file.jpeg"
 img_type, name, src_image = image_info(filename)
