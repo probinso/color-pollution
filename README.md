@@ -19,8 +19,74 @@ Python was selected for this course because it is a language both primary [contr
 # Communicating about Color
 [Color](./COLOR.md) is a very abstract concept, for which under-specified discussions may have very real consequences. As a function of environment and impacted sensors, we often use need very different tools to communicate about color. The method we are most familiar with, is well visualized in the image below and to the left, authored by Randall Monroe of xkcd. Although computers have very specific descriptor languages for colors spanning one of these labeled sections, human need to communicate with each other most commonly doesn't need such high granularity.
 
-<img src="https://imgs.xkcd.com/blag/satfaces_map_1024.png" width=400 />
-<img src="src/lamplight/images/CIE1931.png" height=400 />
+<img align="center" src="https://imgs.xkcd.com/blag/satfaces_map_1024.png" width=400 />
+
+```python
+#!/usr/bin/env python3
+
+from colour.plotting import CIE_1931_chromaticity_diagram_plot
+import matplotlib.pyplot as plt
+from pandas import read_csv
+from numpy  import array, transpose
+
+def readpattern(filename):
+    value = array(read_csv(filename))
+    return transpose(value)
+
+Traf_Spec = readpattern('./datasets/ITE_color_spec.csv')
+Traf_Red = Traf_Spec[0:2]
+Traf_Amber = Traf_Spec[3:5]
+Traf_Green = Traf_Spec[6:8]
+
+Blackbody_xy = readpattern('./datasets/BlackBody_xy.csv')
+# Color Calculation Conclusion - Target inside Green A, nominal 0.2, 0.6
+
+CIE1931 = readpattern('./datasets/CIE1931_1nm.csv')
+CIE1931_x = CIE1931[0,:]
+CIE1931_y = CIE1931[1,:]
+CIE_1931_chromaticity_diagram_plot(standalone = False)
+
+from collections import namedtuple
+ColorPoint = namedtuple('ColorPoint', ['x', 'y', 'label'])
+
+legend = dict()
+legend['ro'] = ColorPoint(0.464, 0.523, 'LE174-H00-N50-2A CW7 DOE')
+legend['mo'] = ColorPoint(0.511, 0.477, 'LE174-H00-N30 (PC Cover CW8) DOE')
+legend['bo'] = ColorPoint(0.531, 0.464, 'LE174-H00-N30-2A CW9 DOE')
+legend['wo'] = ColorPoint(0.562, 0.432, 'PC Converted Amber LED')
+legend['co'] = ColorPoint(0.450, 0.410, '3000K Blackbody Source')
+legend['go'] = ColorPoint(0.350, 0.355, '5000K Blackbody Source')
+
+def createPlot(**legend):
+    plt.xlabel('x', fontsize = 20)
+    plt.ylabel('y', fontsize = 20)
+    plt.tick_params(axis='x', labelsize=15)
+    plt.tick_params(axis='y', labelsize=15)
+
+    def addPoint(key, point):
+        x, y, label = point
+        plt.plot(x, y, key, markersize = 10, label = label)
+
+    for key in legend:
+        addPoint(key, legend[key])
+
+    plt.plot(Blackbody_xy[0], Blackbody_xy[1], '--', color = 'black', linewidth = 0.5)
+    plt.plot(Traf_Red[0], Traf_Red[1], '-', color='white', linewidth = 2)
+    plt.plot(Traf_Amber[0], Traf_Amber[1], '-', color ='white', linewidth=2)
+    plt.plot(Traf_Green[0], Traf_Green[1], '-', color ='white', linewidth=2)
+
+    plt.xlabel('x', fontsize = 20)
+    plt.ylabel('y', fontsize = 20)
+
+    plt.grid(True)
+    plt.legend(loc=1, fontsize  =15)
+    plt.xlim(-.1,.9), plt.ylim(-.1,.9)
+
+    plt.show()
+
+createPlot(**legend)
+```
+<img align="center" src="src/lamplight/images/CIE1931.png" height=400 />
 
 # Approximation and Smoothing of Data
 
