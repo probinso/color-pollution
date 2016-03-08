@@ -23,21 +23,14 @@ Python was selected for this course because it is a language both primary [contr
 <img src="src/lamplight/images/CIE1931.png" height=400 />
 
 ```python
-#!/usr/bin/env python3
-
 from colour.plotting import CIE_1931_chromaticity_diagram_plot
 import matplotlib.pyplot as plt
-from pandas import read_csv
 from numpy  import array, transpose
+from pandas import read_csv
 
 def readpattern(filename):
     value = array(read_csv(filename))
     return transpose(value)
-
-Traf_Spec = readpattern('./datasets/ITE_color_spec.csv')
-Traf_Red = Traf_Spec[0:2]
-Traf_Amber = Traf_Spec[3:5]
-Traf_Green = Traf_Spec[6:8]
 
 Blackbody_xy = readpattern('./datasets/BlackBody_xy.csv')
 # Color Calculation Conclusion - Target inside Green A, nominal 0.2, 0.6
@@ -68,9 +61,6 @@ def createPlot(**legend):
         addPoint(key, legend[key])
 
     plt.plot(Blackbody_xy[0], Blackbody_xy[1], '--', color = 'black', linewidth = 0.5)
-    plt.plot(Traf_Red[0], Traf_Red[1], '-', color='white', linewidth = 2)
-    plt.plot(Traf_Amber[0], Traf_Amber[1], '-', color ='white', linewidth=2)
-    plt.plot(Traf_Green[0], Traf_Green[1], '-', color ='white', linewidth=2)
 
     plt.tick_params(axis='x', labelsize=15)
     plt.tick_params(axis='y', labelsize=15)
