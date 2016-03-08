@@ -22,6 +22,8 @@ Python was selected for this course because it is a language both primary [contr
 <img src="https://imgs.xkcd.com/blag/satfaces_map_1024.png" width=400 />
 <img src="src/lamplight/images/CIE1931.png" height=400 />
 
+Below is the code used to generate the [CIE chart](./src/notebooks/CIE%20Charts.ipynb) found to the upper right. Points included in the legend represent engineering specifications for specific light sources. The code below was used to generate this plot.
+
 ```python
 from collections import namedtuple
 from colour.plotting import CIE_1931_chromaticity_diagram_plot
