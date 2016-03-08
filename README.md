@@ -53,12 +53,9 @@ legend['go'] = ColorPoint(0.350, 0.355, '5000K Blackbody Source')
 
 def createPlot(**legend):
 
-    def addPoint(key, point):
-        x, y, label = point
-        plt.plot(x, y, key, markersize = 10, label = label)
-
     for key in legend:
-        addPoint(key, legend[key])
+        point = legend[key]
+        plt.plot(point.x, point.y, key, markersize = 10, label = point.label)
 
     plt.plot(Blackbody_xy[0], Blackbody_xy[1], '--', color = 'black', linewidth = 0.5)
 
@@ -69,7 +66,7 @@ def createPlot(**legend):
     plt.ylabel('y', fontsize = 20)
 
     plt.grid(True)
-    plt.legend(loc=1, fontsize  =15)
+    plt.legend(loc=1, fontsize = 15)
     plt.xlim(-.1,.9), plt.ylim(-.1,.9)
 
     plt.show()
