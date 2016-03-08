@@ -22,6 +22,53 @@ Python was selected for this course because it is a language both primary [contr
 <img src="https://imgs.xkcd.com/blag/satfaces_map_1024.png" width=400 />
 <img src="src/lamplight/images/CIE1931.png" height=400 />
 
+```python
+from collections import namedtuple
+from colour.plotting import CIE_1931_chromaticity_diagram_plot
+import matplotlib.pyplot as plt
+from pandas import read_csv
+from numpy  import array, transpose
+
+def readpattern(filename):
+    value = array(read_csv(filename))
+    return transpose(value)
+
+Blackbody_xy = readpattern('./datasets/BlackBody_xy.csv')
+
+legend = dict()
+ColorPoint = namedtuple('ColorPoint', ['x', 'y', 'label'])
+legend['ro'] = ColorPoint(0.464, 0.523, 'LE174-H00-N50-2A CW7 DOE')
+legend['mo'] = ColorPoint(0.511, 0.477, 'LE174-H00-N30 (PC Cover CW8) DOE')
+legend['bo'] = ColorPoint(0.531, 0.464, 'LE174-H00-N30-2A CW9 DOE')
+legend['wo'] = ColorPoint(0.562, 0.432, 'PC Converted Amber LED')
+legend['co'] = ColorPoint(0.450, 0.410, '3000K Blackbody Source')
+legend['go'] = ColorPoint(0.350, 0.355, '5000K Blackbody Source')
+
+def createPlot(**legend):
+    CIE_1931_chromaticity_diagram_plot(standalone = False)
+    plt.xlabel('x', fontsize=20)
+    plt.ylabel('y', fontsize=20)
+    plt.tick_params(axis='x', labelsize=15)
+    plt.tick_params(axis='y', labelsize=15)
+
+    for key in legend:
+        point = legend[key]
+        plt.plot(point.x, point.y, key,
+                 markersize=10,
+                 label=point.label)
+
+    plt.plot(Blackbody_xy[0], Blackbody_xy[1], '--',
+             color = 'black', linewidth = 0.5)
+
+    plt.grid(True)
+    plt.legend(loc=1, fontsize=15, numpoints=1)
+    plt.xlim(-.1,.9), plt.ylim(-.1,.9)
+
+    plt.show()
+
+createPlot(**legend)
+```
+
 # Approximation and Smoothing of Data
 
 In physics courses, you are often told to approximate values in your models. In my first life, I thought this was only to accommodate the  the lazy physicist. In my second life, I thought this was a strategy to accommodate the limitations introduced by using computers. Although these are good answers, they do not respect the true value of approximation.
@@ -46,8 +93,8 @@ On the left is the source image. The technique we used identified critical secti
 
 ```python
 from lamplight import image_info
-from lamplight import topograph_image, get_index_of, make_clusters_dict
-from lamplight import colorize_clusters
+from topographical import topograph_image, get_index_of, make_clusters_dict
+from cluster import colorize_clusters
 
 filename = "file.jpeg"
 img_type, name, src_image = image_info(filename)

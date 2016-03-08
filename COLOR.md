@@ -1,5 +1,5 @@
 # Electromagnetic Radiation
-For this section, we will need a basic knowledge of **electromagnetic radiation**. In this section we will introduce this in increasing detail, through Ray Tracing, Waves, and Particles. Finally, we will discuss different bands of measured electromagnetic radiation.
+For this section, we will develop a basic knowledge of **electromagnetic radiation**; we will introduce this in increasing detail, through Ray Tracing, Waves, and Particles. Finally, we will discuss different bands of measured electromagnetic radiation.
 
 Most of our accessible data and example material is limited to terrestrial color, however a good understanding of electromagnetic radiation in general will allow you to abstract the information of this course environments dissimilar to terrestrial atmospheres.
 
