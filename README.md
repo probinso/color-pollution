@@ -23,6 +23,7 @@ Python was selected for this course because it is a language both primary [contr
 <img src="src/lamplight/images/CIE1931.png" height=400 />
 
 ```python
+from collections import namedtuple
 from colour.plotting import CIE_1931_chromaticity_diagram_plot
 import matplotlib.pyplot as plt
 from pandas import read_csv
@@ -33,14 +34,10 @@ def readpattern(filename):
     return transpose(value)
 
 Blackbody_xy = readpattern('./datasets/BlackBody_xy.csv')
-
-CIE1931 = readpattern('./datasets/CIE1931_1nm.csv')
 CIE_1931_chromaticity_diagram_plot(standalone = False)
 
-from collections import namedtuple
-ColorPoint = namedtuple('ColorPoint', ['x', 'y', 'label'])
-
 legend = dict()
+ColorPoint = namedtuple('ColorPoint', ['x', 'y', 'label'])
 legend['ro'] = ColorPoint(0.464, 0.523, 'LE174-H00-N50-2A CW7 DOE')
 legend['mo'] = ColorPoint(0.511, 0.477, 'LE174-H00-N30 (PC Cover CW8) DOE')
 legend['bo'] = ColorPoint(0.531, 0.464, 'LE174-H00-N30-2A CW9 DOE')
@@ -49,14 +46,14 @@ legend['co'] = ColorPoint(0.450, 0.410, '3000K Blackbody Source')
 legend['go'] = ColorPoint(0.350, 0.355, '5000K Blackbody Source')
 
 def createPlot(**legend):
-    plt.xlabel('x', fontsize = 20)
-    plt.ylabel('y', fontsize = 20)
+    plt.xlabel('x', fontsize=20)
+    plt.ylabel('y', fontsize=20)
     plt.tick_params(axis='x', labelsize=15)
     plt.tick_params(axis='y', labelsize=15)
 
     for key in legend:
-	point = legend[key]
-	plt.plot(point.x, point.y, key,
+        point = legend[key]
+        plt.plot(point.x, point.y, key,
                  markersize=10,
                  label=point.label)
 
