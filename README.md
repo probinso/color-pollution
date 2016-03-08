@@ -59,10 +59,6 @@ legend['co'] = ColorPoint(0.450, 0.410, '3000K Blackbody Source')
 legend['go'] = ColorPoint(0.350, 0.355, '5000K Blackbody Source')
 
 def createPlot(**legend):
-    plt.xlabel('x', fontsize = 20)
-    plt.ylabel('y', fontsize = 20)
-    plt.tick_params(axis='x', labelsize=15)
-    plt.tick_params(axis='y', labelsize=15)
 
     def addPoint(key, point):
         x, y, label = point
@@ -75,6 +71,9 @@ def createPlot(**legend):
     plt.plot(Traf_Red[0], Traf_Red[1], '-', color='white', linewidth = 2)
     plt.plot(Traf_Amber[0], Traf_Amber[1], '-', color ='white', linewidth=2)
     plt.plot(Traf_Green[0], Traf_Green[1], '-', color ='white', linewidth=2)
+
+    plt.tick_params(axis='x', labelsize=15)
+    plt.tick_params(axis='y', labelsize=15)
 
     plt.xlabel('x', fontsize = 20)
     plt.ylabel('y', fontsize = 20)
