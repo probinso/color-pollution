@@ -25,19 +25,16 @@ Python was selected for this course because it is a language both primary [contr
 ```python
 from colour.plotting import CIE_1931_chromaticity_diagram_plot
 import matplotlib.pyplot as plt
-from numpy  import array, transpose
 from pandas import read_csv
+from numpy  import array, transpose
 
 def readpattern(filename):
     value = array(read_csv(filename))
     return transpose(value)
 
 Blackbody_xy = readpattern('./datasets/BlackBody_xy.csv')
-# Color Calculation Conclusion - Target inside Green A, nominal 0.2, 0.6
 
 CIE1931 = readpattern('./datasets/CIE1931_1nm.csv')
-CIE1931_x = CIE1931[0,:]
-CIE1931_y = CIE1931[1,:]
 CIE_1931_chromaticity_diagram_plot(standalone = False)
 
 from collections import namedtuple
@@ -52,21 +49,22 @@ legend['co'] = ColorPoint(0.450, 0.410, '3000K Blackbody Source')
 legend['go'] = ColorPoint(0.350, 0.355, '5000K Blackbody Source')
 
 def createPlot(**legend):
-
-    for key in legend:
-        point = legend[key]
-        plt.plot(point.x, point.y, key, markersize = 10, label = point.label)
-
-    plt.plot(Blackbody_xy[0], Blackbody_xy[1], '--', color = 'black', linewidth = 0.5)
-
+    plt.xlabel('x', fontsize = 20)
+    plt.ylabel('y', fontsize = 20)
     plt.tick_params(axis='x', labelsize=15)
     plt.tick_params(axis='y', labelsize=15)
 
-    plt.xlabel('x', fontsize = 20)
-    plt.ylabel('y', fontsize = 20)
+    for key in legend:
+	point = legend[key]
+	plt.plot(point.x, point.y, key,
+                 markersize=10,
+                 label=point.label)
+
+    plt.plot(Blackbody_xy[0], Blackbody_xy[1], '--',
+             color = 'black', linewidth = 0.5)
 
     plt.grid(True)
-    plt.legend(loc=1, fontsize = 15)
+    plt.legend(loc=1, fontsize=15, numpoints=1)
     plt.xlim(-.1,.9), plt.ylim(-.1,.9)
 
     plt.show()
