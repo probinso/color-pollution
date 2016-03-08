@@ -34,7 +34,6 @@ def readpattern(filename):
     return transpose(value)
 
 Blackbody_xy = readpattern('./datasets/BlackBody_xy.csv')
-CIE_1931_chromaticity_diagram_plot(standalone = False)
 
 legend = dict()
 ColorPoint = namedtuple('ColorPoint', ['x', 'y', 'label'])
@@ -46,6 +45,7 @@ legend['co'] = ColorPoint(0.450, 0.410, '3000K Blackbody Source')
 legend['go'] = ColorPoint(0.350, 0.355, '5000K Blackbody Source')
 
 def createPlot(**legend):
+    CIE_1931_chromaticity_diagram_plot(standalone = False)
     plt.xlabel('x', fontsize=20)
     plt.ylabel('y', fontsize=20)
     plt.tick_params(axis='x', labelsize=15)
