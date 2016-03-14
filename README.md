@@ -16,6 +16,33 @@ For each section below we will link to material, either provided by others, or g
 ## Why Python
 Python was selected for this course because it is a language both primary [contributors](./AUTHORS.md) are familiar with. Python is a mature, simple, and expressive programming language. We have found that there exists a large body of prior work, that can be leveraged to decrease development release time.
 
+# Dark Sky Objectives for Telescopes
+As a primary exampe of this course we talk about light polutions effect on astronomy. In our material we defend that artificially produced blue light has greater impact on the astronomy industry than other wavelengths for terrestrial telescopes. Although we go into greater and more granular detail in other sections, our primary argument can be summarized here.
+
+The below image shows measurements of our atmosphere's natural light emissions, also known as night glow. We can observe that the Blue 400~550nm band has little natural [emissions](HOW DO EMMISIONS HAPPEN); where as the remaining terrestrial visible light spectrum has intense emissions.
+
+![Night Glow](./images/index.png)
+
+Although blue is not naturally emitted, it scatters very easily in our atmosphere. This is why artificial blue light so greatly impacts terrestrial viewing of the night sky. Bellow is the code used to generate that image.
+```python
+import numpy as np
+
+night_glow = np.array(pd.read_csv('./src/notebooks/datasets/Night_glow.csv'))
+night_glow = np.transpose(night_glow)
+plt.xlabel('Wavelength (nm)', fontsize = 12)
+plt.ylabel('F($\lambda$) [10$^{-17}$ erg s$^{-1}$ cm$^{-2}$ $\AA$ arcsec$^{-2}$]', fontsize = 12)
+plt.tick_params(axis='x', labelsize=10)
+plt.tick_params(axis='y', labelsize=10)
+plt.plot(night_glow[0], night_glow[1], '-', color = 'b', linewidth = 1)
+plt.grid(True)
+plt.annotate('[O1]', (520, 6),   color ='r')
+plt.annotate('Na'  , (580, 4.2), color ='r')
+plt.annotate('[O1]', (635, 4.2), color ='r')
+plt.xlim(400, 1000)
+plt.show()
+```
+
+
 # Communicating about Color
 [Color](./COLOR.md) is a very abstract concept, for which under-specified discussions may have very real consequences. As a function of environment and impacted sensors, we often use need very different tools to communicate about color. The method we are most familiar with, is well visualized in the image below and to the left, authored by Randall Monroe of xkcd. Although computers have very specific descriptor languages for colors spanning one of these labeled sections, human need to communicate with each other most commonly doesn't need such high granularity.
 
@@ -78,7 +105,7 @@ In physics courses, you are often told to approximate values in your models. In 
 
 It is often our goal to measure, analyze, and communicate properties of physical systems such that the behavior of similar systems may be predicted. Measuring properties of a physical system is very difficult. Enormous time and cost is put into developing environments and tools to increase the accuracy of these measurements. When we do not have these resources, approximations can be used to smooth out the noise inherent to our instrumentation and environment.
 
-## Example of Smoothing
+## Example of Approximaton
 
 Below is a source image of two street lamps taken at night. Our goal is to math on these lamps in order to identify what the spectral profile of these lamps are. A first attempted approach is to compute the ratio of red to blue light stored in the image, by selecting clusters of high intensity light in those bands. Unfortunately, there are a lot of places for information to be corrupted.
 - sensors are not perfect
@@ -142,11 +169,11 @@ We are hoping to gather and develop lecture materials for a course we are design
         - What types elements produce refraction light
         - Ray tracing with refraction and reflection
     - Human eye
-- Filters and content goals
 - Types of sensor systems/architecture
     - Keck
     - Eye
     - Camera
+- Filters for sensors
 - Noise
 - **Raw vs processed Images from a camera**
 - Signal Noise
