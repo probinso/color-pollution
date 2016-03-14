@@ -1,5 +1,7 @@
 # Understanding Sensor Systems
-For our material, we have claimed that digital photographs are sufficient for reasoning about the spectral profiles of light sources. In this section, we hope to teach you enough about sensor systems, light, and color to make educated assessments of this assertion.
+For our material, we have claimed that digital photographs are sufficient for reasoning about the spectral profiles of light sources. In this section, we hope to teach you enough about sensor systems, light, and color for you to make educated assessments of this assertion.
+
+The reason that we are limiting much of our data to photographs, is to insure the cost of reproducable work is minimal, for both us and the student.
 
 ## Sensor Systems
 Traditionally, the term *color* refers to **human visible light**. Although this is a very limited definition, it establishes a good starting point for understanding perception of color. Because of this, the first sensor system we will discuss is the human eye, it's evolution and design. Next we will discuss imitating sensor systems like cameras and telescopes which will lead to a discussion about metamerism and RGB color mapping. Finally, we will discuss ways to express and communicate color like CIE charts and other color mapping options.
