@@ -11,7 +11,6 @@ DEBUG = True
 global fc
 fc = Counter()
 
-
 class regen(object):
     def __init__(self, generator):
         self.__generator = generator
@@ -29,6 +28,15 @@ def take(collection, num):
     for i, elm in enumerate(collection):
         if i >= num: break
         yield elm
+
+
+def window(generator, size=2):
+    it = iter(generator)
+    win = [next(it) for _ in range(size)]
+    yield win
+    for rest in it:
+        win = win[1:] + [rest]
+        yield win
 
 
 class OrderedDefaultDict(OrderedDict):
@@ -60,7 +68,7 @@ def ptrace(fn):
             end    = time.time()
             time_str = __get_time_hhmmss(end - start)
 
-            print time_str, " :: ", name
+            print(time_str, " :: ", name)
             return retval
         return wrapped
     else:

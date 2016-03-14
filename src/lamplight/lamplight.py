@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.misc as misc
 
-from   utility import take, ptrace
+from   utility import take, ptrace, window
 from   utility import OrderedDefaultDict as defaultdict
 
 """Lamplight Module
@@ -42,10 +42,12 @@ def save_images(dst, name, img_type, **kwargs):
     output:
       saves images into dst with name
     """
+    import pylab as plt
     @ptrace
     def save_modified(prefix, image):
         result = osp.join(dst, prefix + name + "." + img_type)
         misc.imsave(result, image)
+        plt.imshow(image)
         return result
 
     for i in kwargs:
@@ -79,13 +81,10 @@ class step_range_gen(regen):
     """
     Object, probably needs documentation
     """
+    xrange = range
     def __init__(self, delta=10, maxvalue=255):
-        self.__delta = delta
-        regen.__init__(self, (maxvalue - i for i in xrange(0, maxvalue, self.__delta)))
-
-    @property
-    def delta(self):
-        return self.__delta
+        gen = (maxvalue - i for i in xrange(0, maxvalue, delta))
+        regen.__init__(self, gen)
 
 
 @ptrace
@@ -96,11 +95,12 @@ def topograph_image(image, step_gen):
     """
     new_img = np.array(image, copy=True)
 
+
+    """step_gen ~ (255, 245, 235, 225,...) """
     def myfunc(color):
-        for value in step_gen:
-            tops, bots = value, value - step_gen.delta
+        for tops, bots in window(step_gen, 2):
             if (color <= tops) and (color > bots):
-                return value
+                return tops
             if color > tops:
                 break
         return 0
