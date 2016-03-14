@@ -14,16 +14,17 @@ For each section below we will link to material, either provided by others, or g
 - Challenge problems to verify knowledge
 
 ## Why Python
-Python was selected for this course because it is a language both primary [contributors](./AUTHORS.md) are familiar with. Python is a mature, simple, and expressive programming language. We have found that there exists a large body of prior work, that can be leveraged to decrease development release time.
+Python was selected for this course because it is a language both primary [contributors](./AUTHORS.md) are familiar with. Python is a mature, simple, and expressive programming language. We have also found that there exists a large body of public prior work, that can be leveraged to decrease development release time.
 
 # Dark Sky Objectives for Telescopes
-As a primary exampe of this course we talk about light polutions effect on astronomy. In our material we defend that artificially produced blue light has greater impact on the astronomy industry than other wavelengths for terrestrial telescopes. Although we go into greater and more granular detail in other sections, our primary argument can be summarized here.
+As a primary example of this course we talk about light polutions effect on astronomy. In our material we defend that artificially produced blue light has greater impact on the astronomy industry than other wavelengths for terrestrial telescopes. Although we go into greater detail in other sections, this argument can be summarized below.
 
 The below image shows measurements of our atmosphere's natural light emissions, also known as night glow. We can observe that the Blue 400~550nm band has little natural [emissions](HOW DO EMMISIONS HAPPEN); where as the remaining terrestrial visible light spectrum has intense emissions.
 
 ![Night Glow](./images/index.png)
 
-Although blue is not naturally emitted, it scatters very easily in our atmosphere. This is why artificial blue light so greatly impacts terrestrial viewing of the night sky. Bellow is the code used to generate that image.
+Although blue is not naturally emitted, it [scatters](ROLLEIGH SCATTERING) very easily in our atmosphere. This is why artificial blue light so greatly impacts terrestrial viewing of the night sky. Bellow is the code used to generate that image.
+
 ```python
 import numpy as np
 
@@ -36,7 +37,7 @@ plt.tick_params(axis='y', labelsize=10)
 plt.plot(night_glow[0], night_glow[1], '-', color = 'b', linewidth = 1)
 plt.grid(True)
 plt.annotate('[O1]', (520, 6),   color ='r')
-plt.annotate('Na'  , (580, 4.2), color ='r')
+plt.annotate( 'Na' , (580, 4.2), color ='r')
 plt.annotate('[O1]', (635, 4.2), color ='r')
 plt.xlim(400, 1000)
 plt.show()
