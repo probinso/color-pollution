@@ -3,8 +3,9 @@
 
 from collections import Counter, OrderedDict
 import functools, itertools
-import time
 
+import time
+import sys
 
 global DEBUG
 DEBUG = True
@@ -16,8 +17,10 @@ class regen(object):
 
     def __iter__(self):
         local, self.__generator = itertools.tee(self.__generator)
-        for elm in local:
-            yield elm
+        return local
+
+    def __next__(self):
+        return next(iter(self))
 
 
 def take(collection, num):
@@ -62,6 +65,7 @@ def ptrace(fn):
     if DEBUG:
         @wraps(fn)
         def wrapped(*v, **k):
+            name   = fn.__name__
             start  = time.time()
             retval =  fn(*v, **k)
             end    = time.time()
