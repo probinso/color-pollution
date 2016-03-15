@@ -144,7 +144,6 @@ save_top, save_src = paint(top_image), paint(src_image)
 ---
 
 # For Project
-
 - [markdown guide](https://help.github.com/articles/github-flavored-markdown/)
 - [colormaps for oceanography](https://www.youtube.com/watch?v=XjHzLUnHeM0)
 - [topographical maps](https://stackoverflow.com/questions/263305/drawing-a-topographical-map)
@@ -154,8 +153,7 @@ save_top, save_src = paint(top_image), paint(src_image)
 - [Names and Values in Python](https://www.youtube.com/watch?v=_AEJHKGk9ns)
 - [LSP Video](https://www.youtube.com/watch?v=O7mEBpJVJbA)
 - [Talk about color blindness and cones](http://theneurosphere.com/2015/12/07/why-are-all-the-colours-we-experience-composed-of-three-primaries/)
-- [Python Class Development Toolkit](https://www.youtube.com/watch?v=HTLu2DFOdTg)
-
+- [Light Summary of Light Policy and Scotobiology](https://www.youtube.com/watch?v=qM7G4QG0JP4)
 # Goals of this repository
 We are hoping to gather and develop lecture materials for a course we are designing **sensor systems and color pollution**.
 
