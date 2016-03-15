@@ -1,10 +1,14 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-"""
 
 from   collections import namedtuple
-from   itertools import tee, imap
-from   math      import sqrt
-from   operator  import itemgetter
+
+# from   itertools   import imap
+imap   = map
+xrange = range
+
+from   math        import sqrt
+from   operator    import itemgetter
 import os.path as osp
 
 import ddbscan
@@ -242,12 +246,12 @@ def overlapping_clusters(cluster_dict, step_gen):
         it     = iter(cluster_dict)
         f_band = next(it)
 
-        for f_cluster_id, f_cluster in cluster_dict[f_band][intensity].iteritems():
+        for f_cluster_id, f_cluster in cluster_dict[f_band][intensity].items():
 
             retval[intensity][f_cluster_id][f_band] = f_cluster
             for i_band in it:
                 MATCH_IN_BAND = False
-                for i_cluster in cluster_dict[i_band][intensity].itervalues():
+                for i_cluster in cluster_dict[i_band][intensity].values():
                     if f_cluster.overlaps(i_cluster):
                         retval[intensity][f_cluster_id][i_band] = i_cluster
                         MATCH_IN_BAND = True
@@ -286,7 +290,7 @@ def colorize_clusters(base_img, clusters):
             new_img[x, y] = colors[i][:3]
 
     #mykey = lambda (i, (a, b)): len(b)
-    def mykey(i__a_b):# python3 compliance
+    def mykey(i__a_b):# python3 compliance, which i find dumb
         (i, (a, b)) = i__a_b
         return b
 
