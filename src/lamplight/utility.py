@@ -5,11 +5,10 @@ from collections import Counter, OrderedDict
 import functools, itertools
 import time
 
+
 global DEBUG
 DEBUG = True
 
-global fc
-fc = Counter()
 
 class regen(object):
     def __init__(self, generator):
@@ -35,7 +34,8 @@ def window(generator, size=2):
     win = [next(it) for _ in range(size)]
     yield win
     for rest in it:
-        win = win[1:] + [rest]
+        win.pop(0)
+        win.append(rest)
         yield win
 
 
@@ -50,6 +50,7 @@ class OrderedDefaultDict(OrderedDict):
         return self[key]
 
 
+from functools import wraps
 def ptrace(fn):
     def __get_time_hhmmss(diff):
         m, s = divmod(diff, 60)
@@ -57,18 +58,16 @@ def ptrace(fn):
         time_str = "%02d:%02d:%02d" % (h, m, s)
         return time_str
 
-    global DEBUG, fc
+    global DEBUG
     if DEBUG:
+        @wraps(fn)
         def wrapped(*v, **k):
-            name     = fn.__name__
-            fc.update([name])
-
             start  = time.time()
             retval =  fn(*v, **k)
             end    = time.time()
             time_str = __get_time_hhmmss(end - start)
 
-            print(time_str, " :: ", name)
+            print(time_str, " :: ", name, file=sys.stderr)
             return retval
         return wrapped
     else:
