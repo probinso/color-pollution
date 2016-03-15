@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # PYTHON_ARGCOMPLETE_OK
 
 import argparse, argcomplete
@@ -11,7 +11,7 @@ from lamplight import get_index_of, make_clusters_dict, colorize_clusters
 
 def interface(filename, directory):
     img_type, name, src_image = image_info(filename)
-    step_gen  = step_range_gen(40)
+    step_gen  = step_range_gen(20)
 
     top_image = topograph_image(src_image, step_gen)
 
