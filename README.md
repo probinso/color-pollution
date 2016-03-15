@@ -17,16 +17,17 @@ For each section below we will link to material, either provided by others, or g
 Python was selected for this course because it is a language both primary [contributors](./AUTHORS.md) are familiar with. Python is a mature, simple, and expressive programming language. We have also found that there exists a large body of public prior work, that can be leveraged to decrease development release time.
 
 # Dark Sky Objectives for Telescopes
-As a primary example of this course we talk about light polutions effect on astronomy. In our material we defend that artificially produced blue light has greater impact on the astronomy industry than other wavelengths for terrestrial telescopes. Although we go into greater detail in other sections, this argument can be summarized below.
+As a primary example used in this course we talk about light polutions effect on astronomy. In our material we defend that artificially produced blue light has greater impact on the astronomy industry than other wavelengths for terrestrial telescopes. Although we go into greater detail in other sections, this argument can be summarized below.
 
-The below image shows measurements of our atmosphere's natural light emissions, also known as night glow. We can observe that the Blue 400~550nm band has little natural [emissions](HOW DO EMMISIONS HAPPEN); where as the remaining terrestrial visible light spectrum has intense emissions.
+The below image shows measurements of our atmosphere's natural light [emissions](YO DOG NEED WORKSHEET), also known as night glow. We can observe that the Blue 400~550nm band has little natural emissions; where as the remaining terrestrial visible light spectrum has intense emissions.
 
 ![Night Glow](./images/index.png)
 
-Although blue is not naturally emitted, it [scatters](ROLLEIGH SCATTERING) very easily in our atmosphere. This is why artificial blue light so greatly impacts terrestrial viewing of the night sky. Bellow is the code used to generate that image.
+Although blue is not naturally emitted, it [scatters](YO DOG NEED ROLLEIGH SCATTERING) very easily in our atmosphere. This is why artificial blue light so greatly impacts terrestrial viewing of the night sky. Bellow is the code used to generate that image.
 
 ```python
 import numpy as np
+import matplotlib.pyplot as plt
 
 night_glow = np.array(pd.read_csv('./src/notebooks/datasets/Night_glow.csv'))
 night_glow = np.transpose(night_glow)
@@ -43,7 +44,6 @@ plt.xlim(400, 1000)
 plt.show()
 ```
 
-
 # Communicating about Color
 [Color](./COLOR.md) is a very abstract concept, for which under-specified discussions may have very real consequences. As a function of environment and impacted sensors, we often use need very different tools to communicate about color. The method we are most familiar with, is well visualized in the image below and to the left, authored by Randall Monroe of xkcd. Although computers have very specific descriptor languages for colors spanning one of these labeled sections, human need to communicate with each other most commonly doesn't need such high granularity.
 
@@ -59,11 +59,8 @@ import matplotlib.pyplot as plt
 from pandas import read_csv
 from numpy  import array, transpose
 
-def readpattern(filename):
-    value = array(read_csv(filename))
-    return transpose(value)
-
-Blackbody_xy = readpattern('./datasets/BlackBody_xy.csv')
+datafile = lambda filename: transpose(array(read_csv(filename)))
+Blackbody_xy = datafile('./datasets/BlackBody_xy.csv')
 
 legend = dict()
 ColorPoint = namedtuple('ColorPoint', ['x', 'y', 'label'])
@@ -106,7 +103,7 @@ In physics courses, you are often told to approximate values in your models. In 
 
 It is often our goal to measure, analyze, and communicate properties of physical systems such that the behavior of similar systems may be predicted. Measuring properties of a physical system is very difficult. Enormous time and cost is put into developing environments and tools to increase the accuracy of these measurements. When we do not have these resources, approximations can be used to smooth out the noise inherent to our instrumentation and environment.
 
-## Example of Approximaton
+## Example of Smoothing
 
 Below is a source image of two street lamps taken at night. Our goal is to math on these lamps in order to identify what the spectral profile of these lamps are. A first attempted approach is to compute the ratio of red to blue light stored in the image, by selecting clusters of high intensity light in those bands. Unfortunately, there are a lot of places for information to be corrupted.
 - sensors are not perfect
@@ -143,6 +140,7 @@ def paint(image):
 
 save_top, save_src = paint(top_image), paint(src_image)
 ```
+
 ---
 
 # For Project
