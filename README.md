@@ -23,14 +23,15 @@ The below image shows measurements of our atmosphere's natural light [emissions]
 
 ![Night Glow](./images/index.png)
 
-Although blue is not naturally emitted, it [scatters](YO DOG NEED ROLLEIGH SCATTERING) very easily in our atmosphere. This is why artificial blue light so greatly impacts terrestrial viewing of the night sky. Bellow is the code used to generate that image.
+Although blue is not naturally emitted, it scatters very easily in our atmosphere due to [rayleigh scattering](YO DOG rayleigh scattering). This is why artificial blue light so greatly impacts terrestrial viewing of the night sky. Bellow is the code used to generate that image.
 
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
 
-night_glow = np.array(pd.read_csv('./src/notebooks/datasets/Night_glow.csv'))
-night_glow = np.transpose(night_glow)
+datafile = lambda filename: transpose(array(read_csv(filename)))
+night_glow = datafile('./src/notebooks/datasets/Night_glow.csv')
+
 plt.xlabel('Wavelength (nm)', fontsize = 12)
 plt.ylabel('F($\lambda$) [10$^{-17}$ erg s$^{-1}$ cm$^{-2}$ $\AA$ arcsec$^{-2}$]', fontsize = 12)
 plt.tick_params(axis='x', labelsize=10)
