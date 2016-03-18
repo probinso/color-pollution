@@ -16,6 +16,8 @@ For each section below we will link to material, either provided by others, or g
 ## Why Python
 Python was selected for this course because it is a language both primary [contributors](./AUTHORS.md) are familiar with. Python is a mature, simple, and expressive programming language. We have also found that there exists a large body of public prior work, that can be leveraged to decrease development release time.
 
+To help with this course, my complete playlist of python tutorial videos can be found [here](https://www.youtube.com/playlist?list=PL96V6k-MWWMhAXQmH0AJDKM6WnfpaCx4S).
+
 # Dark Sky Objectives for Telescopes
 As a primary example used in this course we talk about light polutions effect on astronomy. In our material we defend that artificially produced blue light has greater impact on the astronomy industry than other wavelengths for terrestrial telescopes. Although we go into greater detail in other sections, this argument can be summarized below.
 
