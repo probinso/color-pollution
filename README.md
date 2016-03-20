@@ -157,6 +157,8 @@ save_top, save_src = paint(top_image), paint(src_image)
 - [LSP Video](https://www.youtube.com/watch?v=O7mEBpJVJbA)
 - [Talk about color blindness and cones](http://theneurosphere.com/2015/12/07/why-are-all-the-colours-we-experience-composed-of-three-primaries/)
 - [Light Summary of Light Policy and Scotobiology](https://www.youtube.com/watch?v=qM7G4QG0JP4)
+- [Python 2.7 vs Python 3](https://www.webucator.com/blog/2016/03/still-using-python-2-it-is-time-to-upgrade/)
+
 # Goals of this repository
 We are hoping to gather and develop lecture materials for a course we are designing **sensor systems and color pollution**.
 
