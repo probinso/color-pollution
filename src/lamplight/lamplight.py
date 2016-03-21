@@ -294,7 +294,7 @@ def colorize_clusters(base_img, clusters):
         (i, (a, b)) = i__a_b
         return b
 
-    for i, (c, _) in sorted(enumerate(clusters.viewitems()), key=mykey, reverse=True):
+    for i, (c, _) in sorted(enumerate(clusters.items()), key=mykey, reverse=True):
         print("welcome to channel", i)
         colorize_my_cluster(i, c)
 
