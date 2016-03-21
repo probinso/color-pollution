@@ -17,7 +17,7 @@ class regen(object):
 
     def __iter__(self):
         local, self.__generator = itertools.tee(self.__generator)
-        return local
+        return iter(local)
 
     def __next__(self):
         return next(iter(self))
