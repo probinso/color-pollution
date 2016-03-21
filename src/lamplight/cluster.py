@@ -1,36 +1,51 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # PYTHON_ARGCOMPLETE_OK
 # -*- coding: utf-8 -*-"""
 
 import argparse, argcomplete
-import os.path as osp
 import sys
 
 from lamplight import step_range_gen, image_info, save_images
 from lamplight import topograph_image, paint_points
-from lamplight import get_index_of, make_clusters_dict, overlapping_clusters 
-from utility   import take, fc
+from lamplight import get_index_of, make_clusters_dict, overlapping_clusters
+
+from lamplight import colorize_clusters
 
 
 def select_clusters(image):
-    step_gen    = step_range_gen(30)
+    step_gen    = step_range_gen(20)
     top_image   = topograph_image(image, step_gen)
     points_dict = get_index_of(top_image)
 
-    radius, size = 3, 3
-    def local(cluster_dict, image):
+    radius, size = 3, 50
+
+    """
+    def local(cluster_dict, img):
         band, intensity = 1, next(step_gen) # Green, 100%
         c_by_location = overlapping_clusters(cluster_dict, step_gen)
 
         for c_id in c_by_location[intensity]:
-            image = paint_points(
-                image,
+
+            img = paint_points(
+                img,
                 c_by_location[intensity][c_id][band]
             )
-        return image
+        return img
 
-    return local(make_clusters_dict(points_dict, step_gen, radius, size), image)
+    return local(make_clusters_dict(points_dict, step_gen, radius, size), top_image)
+    """
+    def paint(top_img, dst_img):
+        points_dict  = get_index_of(top_img)
+        cluster_dict = make_clusters_dict(points_dict, step_gen, 30, 100)
 
+        channel, intensity = 1, next(step_gen) # green, 255
+        clusters = cluster_dict[channel][intensity]
+
+        return colorize_clusters(dst_img, clusters)
+
+    save_top = paint(top_image, image)
+    return save_top
+    #"""
 
 def interface(filename, directory):
     img_type, name, src_image = image_info(filename)
@@ -41,8 +56,8 @@ def interface(filename, directory):
 
 def cli_interface(arguments):
     """
-        by convention it is helpful to have a wrapper_cli method that interfaces
-        from commandline to function space.
+    by convention it is helpful to have a wrapper_cli method that interfaces
+    from commandline to function space.
     """
     filename  = arguments.image_filename
     directory = arguments.dst_directory
