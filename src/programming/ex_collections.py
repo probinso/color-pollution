@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 
 def mutable_base_collections():
@@ -124,7 +124,7 @@ class regen(object):
 
     def __iter__(self):
         local, self.__generator = itertools.tee(self.__generator)
-        for elm in local:
-            yield elm
+        return local:
 
-
+    def __next__(self):
+        return next(iter(self))
