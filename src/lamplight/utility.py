@@ -77,11 +77,14 @@ class ParameterizedDefaultDict(dict):
     def __init__(self, default, *args, **kwargs):
         assert(callable(default))
         self.__default = default
-        super(self.__class__, self).__init__(self)
+        super(self.__class__, self).__init__(self, *args, **kwargs)
 
     def __missing__(self, key):
         self[key] = self.__default(*key)
         return self[key]
+
+    def __getitem__(self, *index):
+        return super(self.__class__, self).__getitem__(*index)
 
 
 class OrderedDefaultDict(OrderedDict):
