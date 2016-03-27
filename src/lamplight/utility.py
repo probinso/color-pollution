@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-"""
 
 
-from collections import OrderedDict
+from collections import OrderedDict, Iterable
 from contextlib  import contextmanager
 from functools   import wraps
 
@@ -80,6 +80,9 @@ class ParameterizedDefaultDict(dict):
         super(self.__class__, self).__init__(self, *args, **kwargs)
 
     def __missing__(self, key):
+        if not isinstance(key, Iterable):
+            key = key,
+
         self[key] = self.__default(*key)
         return self[key]
 
