@@ -42,6 +42,17 @@ def window(generator, size=2):
         yield win
 
 
+class ParameterizedDefaultDict(dict):
+    def __init__(self, default, *args, **kwargs):
+        assert(callable(default))
+        self.__default = default
+        super(self.__class__, self).__init__(self)
+
+    def __missing__(self, key):
+        self[key] = self.__default(*key)
+        return self[key]
+
+
 class OrderedDefaultDict(OrderedDict):
     def __init__(self, default, *args, **kwargs):
         OrderedDict.__init__(self, *args, **kwargs)
