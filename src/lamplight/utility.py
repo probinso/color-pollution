@@ -1,14 +1,42 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-"""
 
-from collections import Counter, OrderedDict
-import functools, itertools
 
-import time
+from collections import OrderedDict
+from contextlib  import contextmanager
+from functools   import wraps
+
+import glob
+import hashlib
+import itertools
+import os.path as osp
+import shutil
 import sys
+import tempfile
+import time
+
 
 global DEBUG
 DEBUG = True
+
+def simple_list(li):
+    """
+      takes in a list li
+      returns a sorted list without doubles
+    """
+    return sorted(set(li))
+
+
+def split_filter(li, cond, op=lambda x:x):
+    """
+      takes in list and conditional
+      returns [[False], [True]] split list in O(n) time
+    """
+    retval = [[],[]]
+    for elm in li:
+        index = cond(elm)
+        retval[index].append(op(elm) if index else elm)
+    return retval
 
 
 class regen(object):
@@ -33,6 +61,9 @@ def take(collection, num):
 
 
 def window(generator, size=2):
+    """
+    yields sliding window as list of specified size
+    """
     it = iter(generator)
     win = [next(it) for _ in range(size)]
     yield win
@@ -64,7 +95,6 @@ class OrderedDefaultDict(OrderedDict):
         return self[key]
 
 
-from functools import wraps
 def ptrace(fn):
     def __get_time_hhmmss(diff):
         m, s = divmod(diff, 60)
@@ -89,17 +119,69 @@ def ptrace(fn):
         return fn
 
 
-class Infix:
-    def __init__(self, function):
-        self.function = function
-    def __ror__(self, other):
-        return Infix(lambda x, self=self, other=other: self.function(other, x))
-    def __or__(self, other):
-        return self.function(other)
-    def __rlshift__(self, other):
-        return Infix(lambda x, self=self, other=other: self.function(other, x))
-    def __rshift__(self, other):
-        return self.function(other)
-    def __call__(self, value1, value2):
-        return self.function(value1, value2)
+def path_walk(srcpath, suffix='*'):
+    """
+      Takes in dirpath and returns list of files and subdirectories
+      (includes hidden)
+    """
+    # glob ignores hidden files.
+    paths = glob.glob(osp.join(srcpath, suffix)) + \
+            glob.glob(osp.join(srcpath, "." + suffix))
+
+    [others, files] = split_filter(paths, osp.isfile)
+
+    for directory in filter(osp.isdir, others):
+        files += path_walk(directory)
+
+    return files
+
+
+def sign_path_list(filenames):
+    """
+      input  :: list of filenames
+      output :: unique identifier for set of filenames
+    """
+
+    def sign_path(filename, signature=None):
+        """
+          input  :: filename and accumulating signature
+          output :: unique identifier for set of filename
+        """
+        with open(filename, mode='rb') as f:
+            buf = osp.basename(filename)
+            signature = sign_buffer(buf, signature)
+            buf = f.read()
+            signature = sign_buffer(buf, signature)
+
+        return signature
+
+    SIGTYPE = hashlib.sha1
+    def sign_buffer(buf, signature=None):
+        """
+          input  :: buffer and accumulator signature
+          output :: unique identifier for buffer
+        """
+        signature = SIGTYPE() if not signature else signature
+
+        signature.update(SIGTYPE(buf).hexdigest())
+        return signature
+
+    signature = None
+    for filename in simple_list(filenames):
+        signature = sign_path(filename, signature)
+
+    return signature
+
+
+@contextmanager
+def TemporaryDirectory(suffix='', prefix='tmp', dir=None, persist=False):
+    """
+      Like tempfile.NamedTemporaryFile, but creates a directory.
+    """
+    tree = tempfile.mkdtemp(suffix, prefix, dir)
+    try:
+        yield tree
+    finally:
+        if not persist:
+            shutil.rmtree(tree)
 
