@@ -86,6 +86,10 @@ class ParameterizedDefaultDict(dict):
     def __getitem__(self, *index):
         return super(self.__class__, self).__getitem__(*index)
 
+    def __call__(self, *args):
+        # so that self.__class__ can be used as a memoizer
+        return self[args]
+
 
 class OrderedDefaultDict(OrderedDict):
     def __init__(self, default, *args, **kwargs):
