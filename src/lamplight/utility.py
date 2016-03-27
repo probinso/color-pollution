@@ -136,7 +136,7 @@ def path_walk(srcpath, suffix='*'):
     return files
 
 
-def sign_path_list(filenames):
+def sign_path_list(*filenames):
     """
       input  :: list of filenames
       output :: unique identifier for set of filenames
