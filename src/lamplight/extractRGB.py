@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # PYTHON_ARGCOMPLETE_OK
 
 import argparse, argcomplete
@@ -8,8 +8,8 @@ import sys
 from lamplight import image_info, image_split, save_images
 
 def interface(filename, directory):
-    img_type, name, src_image = image_info(filename)
-    r_image, g_image, b_image = image_split(src_image)
+    img_type, name, src_image     = image_info(filename)
+    r_image, g_image, b_image, *_ = image_split(src_image)
     save_images(directory, name, img_type, r_=r_image, b_=b_image, g_=g_image)
 
 
