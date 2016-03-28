@@ -1,24 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-"""
 
-from   collections import namedtuple
-
-# from   itertools   import imap
-imap   = map
-xrange = range
+from   collections import namedtuple, defaultdict
 
 from   math        import sqrt
 from   operator    import itemgetter
 import os.path as osp
-
 import ddbscan
 import imghdr
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.misc as misc
 
-from   utility import take, ptrace, window
-from   utility import OrderedDefaultDict as defaultdict
+from   utility import take, ptrace, window, regen, \
+    ParameterizedDefaultDict, split_filter
+
 
 """Lamplight Module
 
@@ -46,28 +42,26 @@ def save_images(dst, name, img_type, **kwargs):
     output:
       saves images into dst with name
     """
-    import pylab as plt
+
     @ptrace
     def save_modified(prefix, image):
         result = osp.join(dst, prefix + name + "." + img_type)
         misc.imsave(result, image)
-        plt.imshow(image)
         return result
 
     for i in kwargs:
-        save_modified(i, kwargs[i])
+        print(save_modified(i, kwargs[i]))
 
 
-def image_split(src_image, channels=3):
+def image_split(src_image):
     """
     split image to RBG and then saves them to dst directory
-    uses process pool to speed up function
 
-    we can get rid of channels by using 'Extended Iterable Unpacking'
-    however this is not yet in the language
+    # use by example with 'Extended Iterable Unpacking'
+    r, g, b, *_ = image_split(src_image)
     """
     def np_one_color(keep_index__img):
-        keep_index, img = keep_index__img # python3 compliance
+        keep_index, img = keep_index__img
         """
         input image as an HxWxC numpy.array an index in range(C.len()) to preserve
         returns the image only preserving that color.
@@ -77,17 +71,15 @@ def image_split(src_image, channels=3):
         return new
 
     np_lst = enumerate([src_image]*src_image.shape[2])
-    return map(np_one_color, np_lst)[:channels]
+    return map(np_one_color, np_lst)
 
 
-from utility import regen
 class step_range_gen(regen):
     """
     Object, probably needs documentation
     """
-    xrange = range
     def __init__(self, delta=10, maxvalue=255):
-        gen = (maxvalue - i for i in xrange(0, maxvalue, delta))
+        gen = (maxvalue - i for i in range(0, maxvalue, delta))
         regen.__init__(self, gen)
 
 
@@ -98,7 +90,6 @@ def topograph_image(image, step_gen):
     returns NxMxC matrix with contours in each C cell
     """
     new_img = np.array(image, copy=True)
-
 
     """step_gen ~ (255, 245, 235, 225,...) """
     def myfunc(color):
@@ -116,16 +107,16 @@ def topograph_image(image, step_gen):
 @ptrace
 def get_index_of(image):
     """
-    splits image into dict[channel][intensity] as (x, y) point pairs
+    splits image into dict[band][intensity] as (x, y) point pairs
     this is used to shrink and split the search space for clustering
 
     this function is much more useful if run on result of topograph_image
     """
-    ret = defaultdict(lambda : defaultdict(cluster))
+    ret = ParameterizedDefaultDict(GroupPoints)
     for x, column in enumerate(image):
         for y, pixel in enumerate(column):
-            for channel, intensity in enumerate(pixel):
-                ret[channel][intensity].append(Coord(x,y))
+            for band, intensity in enumerate(pixel):
+                ret[band, intensity].append(Coord(x,y))
     return ret
 
 
@@ -141,46 +132,63 @@ def make_clusters_dict(points_dict, step_gen, radius=5, minpoints=10):
       dictionary[intensity][cluster_id][band] = [(x, y)]
     """
     @ptrace
-    def make_clusters(points, radius, minpoints):
+    def make_clusters(d, band, intensity, radius, minpoints):
         """
         Takes in an iterable of (x, y) points
         returns a dict of lists of points
         """
+        points = d[band, intensity]
         scan = ddbscan.DDBSCAN(radius, minpoints)
         for p in points:
             scan.add_point(p, count=1, desc="")
 
         scan.compute()
 
-        """
-        for index, cluster in enumerate(scan.clusters):
-            print('=== Cluster %d ===' % index)
-            print('Cluster points index: %s' % len(list(cluster)))
-        """
-
-        d = defaultdict(cluster)
+        d = defaultdict(list)
         for i, p in enumerate(scan.points):
             if scan.points_data[i].cluster == -1:
                 # cluster_id == -1 is an anomolous point
                 continue
             d[scan.points_data[i].cluster].append(Coord(*p))
 
-        return d
+        retval = []
+        for key in d:
+            cp = ClusterPoints(band, intensity, d[key])
+            retval.append(cp)
+        del d
+        return retval
 
-    retval = defaultdict(lambda : defaultdict(cluster))
-    for l_intensity in take(step_gen, 3):
-        for l_channel in points_dict:
-            retval[l_channel][l_intensity] = \
-              make_clusters(points_dict[l_channel][l_intensity], radius, minpoints)
+    retval = defaultdict()
+    for band, intensity in points_dict:
+        retval[band, intensity] = \
+            make_clusters(points_dict, band, intensity, radius, minpoints)
 
     return retval
 
 
 Coord = namedtuple('Coord', ['x', 'y'])
 
-class cluster(list):
-    def __init__(self, *args, **kwargs):
+class GroupPoints(list):
+    def __init__(self, band, intensity, *args, **kwargs):
         list.__init__(self, *args, **kwargs)
+        self.__band      = band
+        self.__intensity = intensity
+
+    def append(self, value):
+        if not isinstance(value, Coord):
+            raise TypeError("value not Coord")
+        list.append(self, value)
+
+    def isband(self, band):
+        return band == self.__band
+
+    def isintensity(self, intenity):
+        return intensity == self.__intensity
+
+
+class ClusterPoints(GroupPoints):
+    def __init__(self, band, intensity, *args, **kwargs):
+        GroupPoints.__init__(self, band, intensity, *args, **kwargs)
 
     @property
     def medoid(self):
@@ -198,10 +206,9 @@ class cluster(list):
             def f(points):
                 tots = sum((dist(loc, p) for p in points))
                 return tots / len(points)
-
             return f
 
-        averages = (fun(self) for fun in imap(average_dissimilarity, self))
+        averages = (fun(self) for fun in map(average_dissimilarity, self))
         key = min(enumerate(averages), key=itemgetter(1))[0]
 
         return self[key]
@@ -217,59 +224,59 @@ class cluster(list):
 
         return ((num/float(den)) < threshold)
 
-    def append(self, value):
-        if not isinstance(value, Coord):
-            raise TypeError("value not Coord")
-        list.append(self, value)
-
 
 @ptrace
 def overlapping_clusters(cluster_dict, step_gen):
     """
     INPUT :
-      dictionary[band][intensity][cluster_id] = [(x, y)...]
-
-      because cluster_id is effectively arbitrary, this
-      information isn't preserved
+      dictionary[band, intensity][cluster...] = [(x, y)...]
     OUTPUT:
-      dictionary[intensity][cluster][band] = [(x, y)...]
+      yields overlapping clusters data as simplex dict + medoid
     """
+    @ptrace
+    def simplexify(kwargs):
+        s = sum(map(len, kwargs.values()))
+        ret = {}
+        for key in kwargs:
+            ret[key] = len(kwargs[key])/s
 
-    bit       = iter(cluster_dict)
-    band      = next(bit)
-    intensity = next(step_gen)
+        ret['medoid'] = sorted(kwargs.values(), key=len, reverse=True)[0].medoid
+        kwargs.clear()
+        return ret
 
-    cid = next(iter(cluster_dict[band][intensity]))
+    @ptrace
+    def firstOverlapping(src, dsts):
+        for i_cluster in dsts:
+            if src.overlaps(i_cluster):
+                # may be a good idea to pop this list... we will see
+                return i_cluster
+        return []
 
-    retval = defaultdict(lambda: defaultdict(lambda: defaultdict(cluster)))
-    for intensity in take(step_gen, 3):
-        it     = iter(cluster_dict)
-        f_band = next(it)
+    maxtensity   = next(step_gen)
+    maxintensity = lambda b_i: b_i[1] == maxtensity
 
-        for f_cluster_id, f_cluster in cluster_dict[f_band][intensity].items():
+    d = {}
+    for band, intensity in filter(maxintensity, cluster_dict):
+        d[band] = cluster_dict[band, intensity] # re-index clusters
 
-            retval[intensity][f_cluster_id][f_band] = f_cluster
-            for i_band in it:
-                MATCH_IN_BAND = False
-                for i_cluster in cluster_dict[i_band][intensity].values():
-                    if f_cluster.overlaps(i_cluster):
-                        retval[intensity][f_cluster_id][i_band] = i_cluster
-                        MATCH_IN_BAND = True
-                        break
-                # only one match per band/intensity/cluster tuple
-                if MATCH_IN_BAND: break
-
-    return retval
+    it    = iter(d)
+    fband = next(it) # select arbitrary band, may need to select largest
+    rg    = regen(it)
+    for cluster in d[fband]:
+        p = {fband:cluster}
+        for band in rg:
+            p[band] = firstOverlapping(cluster, d[band])
+        yield simplexify(p)
 
 
 @ptrace
-def paint_points(base_img, points, color=[0, 0, 0], channels=3):
+def paint_points(base_img, points, color=[0, 0, 0], bands=3):
     """
-    Takes in base_img, iterable of points (x, y), color, and default channels
+    Takes in base_img, iterable of points (x, y), color, and default bands
     """
     new_img = np.array(base_img, copy=True)
     for x, y in points:
-        new_img[x, y] = color[:channels]
+        new_img[x, y] = color[:bands]
     return new_img
 
 
@@ -286,17 +293,12 @@ def colorize_clusters(base_img, clusters):
 
     @ptrace
     def colorize_my_cluster(i, c):
-        for x, y in clusters[c]:
+        for x, y in c:
             new_img[x, y] = colors[i][:3]
 
-    #mykey = lambda (i, (a, b)): len(b)
-    def mykey(i__a_b):# python3 compliance, which i find dumb
-        (i, (a, b)) = i__a_b
-        return b
-
-    for i, (c, _) in sorted(enumerate(clusters.items()), key=mykey, reverse=True):
-        print("welcome to channel", i)
+    for i, c in enumerate(clusters):
+        print("welcome to cluster", i)
         colorize_my_cluster(i, c)
-
+        
     return new_img
 
