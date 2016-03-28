@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.misc as misc
 
-from   utility import take, ptrace, window, regen, \
+from   .utility import take, ptrace, window, regen, \
     ParameterizedDefaultDict, split_filter
 
 

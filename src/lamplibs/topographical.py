@@ -4,9 +4,9 @@
 import argparse, argcomplete
 import sys
 
-from lamplight import image_info, save_images
-from lamplight import step_range_gen, topograph_image
-from lamplight import get_index_of, make_clusters_dict, colorize_clusters
+from .lamplight import image_info, save_images
+from .lamplight import step_range_gen, topograph_image
+from .lamplight import get_index_of, make_clusters_dict, colorize_clusters
 
 
 def interface(filename, directory):
@@ -28,24 +28,16 @@ def cli_interface(arguments):
     interface(filename, directory)
 
 
+#####################################
+##         PARSERS
+#####################################
+
 def generate_parser(parser):
-    """
-        helper function that generates the parser for this command
-    """
     parser.add_argument('image_filename', type=str,
         help="Image Filename to be split into R, G, B images")
     parser.add_argument('dst_directory', type=str,
         help="Location to save modified images")
     parser.set_defaults(func=cli_interface)
+    return parser
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    generate_parser(parser)
-    argcomplete.autocomplete(parser)
-    arguments = parser.parse_args()
-    sys.exit(arguments.func(arguments))
-
-
-if __name__ == "__main__":
-    main()

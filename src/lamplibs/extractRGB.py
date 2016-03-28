@@ -5,7 +5,7 @@ import argparse, argcomplete
 import os.path as osp
 import sys
 
-from lamplight import image_info, image_split, save_images
+from .lamplight import image_info, image_split, save_images
 
 def interface(filename, directory):
     img_type, name, src_image     = image_info(filename)
@@ -24,9 +24,6 @@ def cli_interface(arguments):
 
 
 def generate_parser(parser):
-    """
-      helper function that generates the parser for this command
-    """
     parser.add_argument('image_filename', type=str,
       help="Image Filename to be split into R, G, B images")
   
@@ -34,15 +31,4 @@ def generate_parser(parser):
       help="Location to save modified images")
 
     parser.set_defaults(func=cli_interface)
-
-
-def main():
-    parser = argparse.ArgumentParser()
-    generate_parser(parser)
-    argcomplete.autocomplete(parser)
-    arguments = parser.parse_args()
-    sys.exit(arguments.func(arguments))
-
-
-if __name__ == "__main__":
-    main()
+    return parser
