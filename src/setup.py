@@ -1,7 +1,5 @@
-#!/usr/bin/env python
 
 import os
-
 from setuptools import setup
 
 def read(fname):
@@ -9,7 +7,6 @@ def read(fname):
 
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
-# To use a consistent encoding
 from os import path
 
 here = path.abspath(path.dirname(__file__))
@@ -50,7 +47,7 @@ setup(
     },
   scripts = [],
   package_data={}, #{'peval': ['db_init.sql']},
-  data_files=[('share/%s/%s' % ('peval', x[0]), map(lambda y: x[0]+'/'+y, x[2])) for x in os.walk('example/')],
+  data_files=[('share/%s/%s' % ('peval', x[0]), map(lambda y: x[0]+'/'+y, x[2])) for x in os.walk('images'+osp.sep)],
   long_description=read(os.path.join('lamplibs','README.md')),
   install_requires = [
     'argcomplete',
