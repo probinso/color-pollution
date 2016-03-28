@@ -105,7 +105,7 @@ def topograph_image(image, step_gen):
 
 
 @ptrace
-def get_index_of(image):
+def get_index_of(image, step_gen):
     """
     splits image into dict[band][intensity] as (x, y) point pairs
     this is used to shrink and split the search space for clustering
@@ -116,7 +116,8 @@ def get_index_of(image):
     for x, column in enumerate(image):
         for y, pixel in enumerate(column):
             for band, intensity in enumerate(pixel):
-                ret[band, intensity].append(Coord(x,y))
+                if intensity == next(step_gen):
+                    ret[band, intensity].append(Coord(x,y))
     return ret
 
 
@@ -129,7 +130,7 @@ def make_clusters_dict(points_dict, step_gen, radius=5, minpoints=10):
       radius      - size of radius for ddbscan algorithm
       minpoints   - minimal number of points to be called a cluster
     Output:
-      dictionary[intensity][cluster_id][band] = [(x, y)]
+      dict[band, intensity][cluster...] = [Coord(x, y)...]
     """
     @ptrace
     def make_clusters(d, band, intensity, radius, minpoints):
@@ -255,9 +256,11 @@ def overlapping_clusters(cluster_dict, step_gen):
     maxtensity   = next(step_gen)
     maxintensity = lambda b_i: b_i[1] == maxtensity
 
+    print(len(cluster_dict))
     d = {}
     for band, intensity in filter(maxintensity, cluster_dict):
         d[band] = cluster_dict[band, intensity] # re-index clusters
+    print(len(d))
 
     it    = iter(d)
     fband = next(it) # select arbitrary band, may need to select largest
