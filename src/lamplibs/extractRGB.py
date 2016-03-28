@@ -9,7 +9,12 @@ from .lamplight import image_info, image_split, save_images
 
 def interface(filename, directory):
     img_type, name, src_image     = image_info(filename)
-    r_image, g_image, b_image, *_ = image_split(src_image)
+    r_image, g_image, b_image, *alpha = image_split(src_image)
+    if alpha: # handle alphas for .png file extension
+        r_image = r_image + alpha[0]
+        g_image = g_image + alpha[0]
+        b_image = b_image + alpha[0]
+
     save_images(directory, name, img_type, r_=r_image, b_=b_image, g_=g_image)
 
 
