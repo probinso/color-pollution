@@ -58,7 +58,9 @@ setup(
     'ddbscan',
     'matplotlib',
     'numpy',
-    'scipy'
+    'scipy',
+    'imread',
+    'Pillow',
   ]
 )
 
