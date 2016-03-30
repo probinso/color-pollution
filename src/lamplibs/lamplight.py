@@ -3,7 +3,6 @@
 
 from   collections import namedtuple, defaultdict
 
-from   math        import sqrt
 from   operator    import itemgetter
 import os.path as osp
 import ddbscan
@@ -200,7 +199,7 @@ class ClusterPoints(GroupPoints):
             def dist(x_y, p_q):
                 x, y = x_y
                 p, q = p_q
-                return sqrt((x-p)**2 + (y-p)**2)
+                return (x-p)**2 + (y-p)**2 # sqrt is monotonically increasing
             # python3 compliance
             # dist = lambda (x, y), (p, q): sqrt((x-p)**2 + (y-q)**2)
 
