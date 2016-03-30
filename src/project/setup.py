@@ -39,7 +39,7 @@ setup(
     ],
 
   url          = 'https://www.github.com/color-polution',
-  packages     = ['lamplibs'],
+  packages     = find_packages(exclude=[]),
   entry_points = { # enable cmd-line access
     "console_scripts": [
       'lamp = lamplibs.lamp:main',
