@@ -39,14 +39,19 @@ def generate_parser(parser):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Color Pollution Course Libs')
-    generate_parser(parser)
+    parser = argparse.ArgumentParser(
+        description='Color Pollution Course Libs',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    parser = generate_parser(parser)
     argcomplete.autocomplete(parser)
     arguments = parser.parse_args()
 
     if hasattr(arguments, 'func'):
-        sys.exit(arguments.func(arguments))
-
+        ret = arguments.func(arguments)
+    else:
+        ret = parser.print_help()
+    sys.exit(ret)
 
 if __name__ == "__main__":
     main()
