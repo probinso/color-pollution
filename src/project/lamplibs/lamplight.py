@@ -272,17 +272,6 @@ def overlapping_clusters(cluster_dict, step_gen):
 
 
 @ptrace
-def paint_points(base_img, points, color=[0, 0, 0], bands=3):
-    """
-    Takes in base_img, iterable of points (x, y), color, and default bands
-    """
-    new_img = np.array(base_img, copy=True)
-    for x, y in points:
-        new_img[x, y] = color[:bands]
-    return new_img
-
-
-@ptrace
 def colorize_clusters(base_img, clusters):
     """
     clusters must be a dictionary

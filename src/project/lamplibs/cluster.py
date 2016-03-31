@@ -6,7 +6,7 @@ import argparse, argcomplete
 import sys
 
 from .lamplight import step_range_gen, image_info, save_images
-from .lamplight import topograph_image, paint_points
+from .lamplight import topograph_image
 from .lamplight import get_index_of, make_clusters_dict, overlapping_clusters
 from .lamplight import colorize_clusters
 
