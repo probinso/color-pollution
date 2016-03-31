@@ -215,7 +215,7 @@ class ClusterPoints(GroupPoints):
 
         return self[key]
 
-    def overlaps(self, other, threshold=0.05):
+    def overlaps(self, other, threshold=0.2):
         if not isinstance(other, type(self)):
             raise TypeError("other does not share type")
 
