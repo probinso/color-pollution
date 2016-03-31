@@ -13,7 +13,7 @@ here = path.abspath(path.dirname(__file__))
 
 setup(
   name         = 'lamplibs',
-  version      = '0.0',
+  version      = '0.0.0',
   description  = 'Colour Pollution Course',
   author       = 'Philip Robinson',
   author_email = 'pmoss.robinson@gmail.com',

@@ -11,6 +11,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.misc as misc
 
+from sys import stderr
+
 from   .utility import take, ptrace, window, regen, \
     ParameterizedDefaultDict, split_filter
 
@@ -112,8 +114,8 @@ def get_index_of(image, step_gen):
     this function is much more useful if run on result of topograph_image
     """
     ret = ParameterizedDefaultDict(GroupPoints)
-    for x, column in enumerate(image):
-        for y, pixel in enumerate(column):
+    for x, col in enumerate(image):
+        for y, pixel in enumerate(col):
             for band, intensity in enumerate(pixel):
                 if intensity == next(step_gen):
                     ret[band, intensity].append(Coord(x,y))
@@ -121,7 +123,7 @@ def get_index_of(image, step_gen):
 
 
 @ptrace
-def make_clusters_dict(points_dict, step_gen, radius=5, minpoints=10):
+def make_clusters_dict(points_dict, step_gen, radius=20, minpoints=10):
     """
     Input:
       points_dict - dictionary of points indexed by d[band][intensity]
@@ -131,6 +133,7 @@ def make_clusters_dict(points_dict, step_gen, radius=5, minpoints=10):
     Output:
       dict[band, intensity][cluster...] = [Coord(x, y)...]
     """
+
     @ptrace
     def make_clusters(d, band, intensity, radius, minpoints):
         """
@@ -149,7 +152,7 @@ def make_clusters_dict(points_dict, step_gen, radius=5, minpoints=10):
             if scan.points_data[i].cluster == -1:
                 # cluster_id == -1 is an anomolous point
                 continue
-            d[scan.points_data[i].cluster].append(Coord(*p))
+            d[scan.points_data[i].cluster].append(p)
 
         retval = []
         for key in d:
@@ -200,12 +203,11 @@ class ClusterPoints(GroupPoints):
                 x, y = x_y
                 p, q = p_q
                 return (x-p)**2 + (y-p)**2 # sqrt is monotonically increasing
-            # python3 compliance
-            # dist = lambda (x, y), (p, q): sqrt((x-p)**2 + (y-q)**2)
 
             def f(points):
                 tots = sum((dist(loc, p) for p in points))
                 return tots / len(points)
+
             return f
 
         averages = (fun(self) for fun in map(average_dissimilarity, self))
@@ -301,6 +303,6 @@ def colorize_clusters(base_img, clusters):
     for i, c in enumerate(clusters):
         print("welcome to cluster", i)
         colorize_my_cluster(i, c)
-        
+
     return new_img
 
