@@ -15,7 +15,7 @@ def select_clusters(image):
     step_gen  = step_range_gen(20)
     top_image = topograph_image(image, step_gen)
 
-    radius, size = 30, 10
+    radius, size = 30, 5
 
     def paint(top_img, dst_img):
         points_dict  = get_index_of(top_img, step_gen)

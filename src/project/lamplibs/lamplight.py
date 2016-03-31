@@ -257,11 +257,9 @@ def overlapping_clusters(cluster_dict, step_gen):
     maxtensity   = next(step_gen)
     maxintensity = lambda b_i: b_i[1] == maxtensity
 
-    print(len(cluster_dict))
     d = {}
     for band, intensity in filter(maxintensity, cluster_dict):
         d[band] = cluster_dict[band, intensity] # re-index clusters
-    print(len(d))
 
     it    = iter(d)
     fband = next(it) # select arbitrary band, may need to select largest
