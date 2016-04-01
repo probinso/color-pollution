@@ -13,8 +13,7 @@ import scipy.misc as misc
 
 from sys import stderr
 
-from   .utility import take, ptrace, window, regen, \
-    ParameterizedDefaultDict, split_filter
+from   .utility import ptrace, window, regen,  ParameterizedDefaultDict
 
 
 """Lamplight Module
@@ -54,6 +53,7 @@ def save_images(dst, name, img_type, **kwargs):
         print(save_modified(i, kwargs[i]))
 
 
+@ptrace
 def image_split(src_image):
     """
     split image to RBG and then saves them to dst directory
@@ -133,6 +133,9 @@ def make_clusters_dict(points_dict, step_gen, radius=20, minpoints=10):
     Output:
       dict[band, intensity][cluster...] = [Coord(x, y)...]
     """
+    # Check out scikitlearn for clustering instead of scipy
+    # use boolean indexing from numpy to compair against
+    #   booleans instead of integers
 
     @ptrace
     def make_clusters(d, band, intensity, radius, minpoints):
@@ -161,11 +164,11 @@ def make_clusters_dict(points_dict, step_gen, radius=20, minpoints=10):
         del d
         return retval
 
-    retval = defaultdict()
+    retval = {}
     for band, intensity in points_dict:
         retval[band, intensity] = \
             make_clusters(points_dict, band, intensity, radius, minpoints)
-
+    print(len(retval), file=stderr)
     return retval
 
 
@@ -215,7 +218,7 @@ class ClusterPoints(GroupPoints):
 
         return self[key]
 
-    def overlaps(self, other, threshold=0.2):
+    def overlaps(self, other):
         if not isinstance(other, type(self)):
             raise TypeError("other does not share type")
 
@@ -224,7 +227,7 @@ class ClusterPoints(GroupPoints):
         num = len(small.difference(large))
         den = len(small)
 
-        return ((num/float(den)) < threshold)
+        return num/den
 
 
 @ptrace
@@ -247,12 +250,10 @@ def overlapping_clusters(cluster_dict, step_gen):
         return ret
 
     @ptrace
-    def firstOverlapping(src, dsts):
-        for i_cluster in dsts:
-            if src.overlaps(i_cluster):
-                # may be a good idea to pop this list... we will see
-                return i_cluster
-        return []
+    def mostOverlapping(src, dsts, threshold=0.2):
+        scores = map(src.overlaps, dsts)
+        key, remaining = min(enumerate(scores), key = lambda e_v: e_v[1])
+        return dsts[key] if remaining < threshold else []
 
     maxtensity   = next(step_gen)
     maxintensity = lambda b_i: b_i[1] == maxtensity
@@ -267,7 +268,7 @@ def overlapping_clusters(cluster_dict, step_gen):
     for cluster in d[fband]:
         p = {fband:cluster}
         for band in rg:
-            p[band] = firstOverlapping(cluster, d[band])
+            p[band] = mostOverlapping(cluster, d[band])
         yield simplexify(p)
 
 
@@ -287,7 +288,7 @@ def colorize_clusters(base_img, clusters):
         for x, y in c:
             new_img[x, y] = colors[i][:3]
 
-    for i, c in enumerate(clusters):
+    for i, c in enumerate(sorted(clusters, key=len, reverse=True)):
         print("welcome to cluster", i)
         colorize_my_cluster(i, c)
 
