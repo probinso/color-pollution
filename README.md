@@ -22,7 +22,7 @@ pip install --upgrade git+https://github.com/probinso/color-polution.git#subdire
 ```
 Once installed, commands can be run, as described, using:
 ```
-lamp -h
+lamp --help
 ```
 
 To help with this course, my complete playlist of python tutorial videos can be found [here](https://www.youtube.com/playlist?list=PL96V6k-MWWMhAXQmH0AJDKM6WnfpaCx4S).
