@@ -20,6 +20,10 @@ Libraries we develop can be installed using pip as designated below:
 ```
 pip install --upgrade git+https://github.com/probinso/color-polution.git#subdirectory=src/project
 ```
+Once installed, commands can be run, as described, using:
+```
+lamp -h
+```
 
 To help with this course, my complete playlist of python tutorial videos can be found [here](https://www.youtube.com/playlist?list=PL96V6k-MWWMhAXQmH0AJDKM6WnfpaCx4S).
 
