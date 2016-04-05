@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-"""
 
 from   collections import namedtuple, defaultdict
+from   functools   import partial
 
 from   operator    import itemgetter
 import os.path as osp
@@ -10,6 +11,7 @@ import imghdr
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.misc as misc
+from sklearn.cluster import DBSCAN
 
 from sys import stderr
 
@@ -143,23 +145,25 @@ def make_clusters_dict(points_dict, step_gen, radius=20, minpoints=10):
         Takes in an iterable of (x, y) points
         returns a dict of lists of points
         """
-        points = d[band, intensity]
-        scan = ddbscan.DDBSCAN(radius, minpoints)
-        for p in points:
-            scan.add_point(p, count=1, desc="")
+        points    = d[band, intensity]
+        xy_arrays = np.array(points)
 
-        scan.compute()
+        db = DBSCAN(radius, minpoints).fit(xy_arrays)
 
-        d = defaultdict(list)
-        for i, p in enumerate(scan.points):
-            if scan.points_data[i].cluster == -1:
-                # cluster_id == -1 is an anomolous point
-                continue
-            d[scan.points_data[i].cluster].append(p)
+        core_samples = db.core_sample_indices_
+        labels = db.labels_
+        n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
+
+        clusters = [ xy_arrays[labels == i] for i in range(n_clusters_)]
 
         retval = []
-        for key in d:
-            cp = ClusterPoints(band, intensity, d[key])
+        def starmap(func):
+            gnc = lambda x: func(*x)
+            return partial(map, gnc)
+
+        toCoords = starmap(Coord)
+        for cluster in clusters:
+            cp = ClusterPoints(band, intensity, toCoords(cluster.tolist()))
             retval.append(cp)
         del d
         return retval
@@ -168,7 +172,7 @@ def make_clusters_dict(points_dict, step_gen, radius=20, minpoints=10):
     for band, intensity in points_dict:
         retval[band, intensity] = \
             make_clusters(points_dict, band, intensity, radius, minpoints)
-    print(len(retval), file=stderr)
+
     return retval
 
 

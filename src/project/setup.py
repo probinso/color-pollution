@@ -58,6 +58,7 @@ setup(
     'scipy',
     'imread',
     'Pillow',
+    'scikit-learn',
   ]
 )
 
