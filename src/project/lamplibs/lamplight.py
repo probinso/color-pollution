@@ -6,12 +6,11 @@ from   functools   import partial
 
 from   operator    import itemgetter
 import os.path as osp
-import ddbscan
 import imghdr
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.misc as misc
-from sklearn.cluster import DBSCAN
+from   sklearn.cluster import DBSCAN
 
 from sys import stderr
 
@@ -135,10 +134,6 @@ def make_clusters_dict(points_dict, step_gen, radius=20, minpoints=10):
     Output:
       dict[band, intensity][cluster...] = [Coord(x, y)...]
     """
-    # Check out scikitlearn for clustering instead of scipy
-    # use boolean indexing from numpy to compair against
-    #   booleans instead of integers
-
     @ptrace
     def make_clusters(d, band, intensity, radius, minpoints):
         """
@@ -148,22 +143,21 @@ def make_clusters_dict(points_dict, step_gen, radius=20, minpoints=10):
         points    = d[band, intensity]
         xy_arrays = np.array(points)
 
-        db = DBSCAN(radius, minpoints).fit(xy_arrays)
+        dbs = DBSCAN(radius, minpoints).fit(xy_arrays)
 
-        core_samples = db.core_sample_indices_
-        labels = db.labels_
+        core_samples = dbs.core_sample_indices_
+        labels = dbs.labels_
         n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
 
-        clusters = [ xy_arrays[labels == i] for i in range(n_clusters_)]
+        clusters = [xy_arrays[labels == i] for i in range(n_clusters_)]
 
         retval = []
-        def starmap(func):
+        def starmap(func, collection):
             gnc = lambda x: func(*x)
-            return partial(map, gnc)
+            return map(gnc, collection)
 
-        toCoords = starmap(Coord)
         for cluster in clusters:
-            cp = ClusterPoints(band, intensity, toCoords(cluster.tolist()))
+            cp = ClusterPoints(band, intensity, starmap(Coord, cluster.tolist()))
             retval.append(cp)
         del d
         return retval
