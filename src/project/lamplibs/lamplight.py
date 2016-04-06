@@ -286,7 +286,7 @@ def colorize_clusters(base_img, clusters):
 
     def colorize_my_cluster(i, c):
         for x, y in c:
-            new_img[x, y] = colors[i][:3]
+            new_img[x, y][:3] = colors[i][:3]
 
     for i, c in enumerate(sorted(clusters, key=len, reverse=True)):
         colorize_my_cluster(i, c)
