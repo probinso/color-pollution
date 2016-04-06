@@ -14,7 +14,7 @@ from   sklearn.cluster import DBSCAN
 
 from sys import stderr
 
-from   .utility import ptrace, window, regen,  ParameterizedDefaultDict
+from .utility import ptrace, window, regen,  ParameterizedDefaultDict
 
 
 """Lamplight Module
@@ -109,7 +109,7 @@ def topograph_image(image, step_gen):
 @ptrace
 def get_index_of(image, step_gen):
     """
-    splits image into dict[band][intensity] as (x, y) point pairs
+    splits image into dict[band, intensity] as (x, y) point pairs
     this is used to shrink and split the search space for clustering
 
     this function is much more useful if run on result of topograph_image
@@ -195,6 +195,7 @@ class ClusterPoints(GroupPoints):
         GroupPoints.__init__(self, band, intensity, *args, **kwargs)
 
     @property
+    @ptrace
     def medoid(self):
         """
         given an iterable of (x, y) points, return the medoid
@@ -238,12 +239,14 @@ def overlapping_clusters(cluster_dict, step_gen):
     """
     @ptrace
     def simplexify(kwargs):
-        s = sum(map(len, kwargs.values()))
+        den = sum(map(len, kwargs.values()))
         ret = {}
         for key in kwargs:
-            ret[key] = len(kwargs[key])/s
+            num      = len(kwargs[key])
+            ret[key] = num/den
 
-        ret['medoid'] = sorted(kwargs.values(), key=len, reverse=True)[0].medoid
+        ret['medoid'] = max(kwargs.values(), key=len).medoid
+
         kwargs.clear()
         return ret
 
@@ -281,13 +284,11 @@ def colorize_clusters(base_img, clusters):
     new_img = np.array(base_img, copy=True)
     colors  = plt.cm.Spectral(np.linspace(0 , 1, len(clusters)))*255
 
-    @ptrace
     def colorize_my_cluster(i, c):
         for x, y in c:
             new_img[x, y] = colors[i][:3]
 
     for i, c in enumerate(sorted(clusters, key=len, reverse=True)):
-        print("welcome to cluster", i)
         colorize_my_cluster(i, c)
 
     return new_img
