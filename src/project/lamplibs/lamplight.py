@@ -218,8 +218,8 @@ class ClusterPoints(GroupPoints):
 
             return f
 
-        averages = (fun(self) for fun in map(average_dissimilarity, self))
-        key = min(enumerate(averages), key=itemgetter(1))[0]
+        averages   = (fun(self) for fun in map(average_dissimilarity, self))
+        key, value = min(enumerate(averages), key=itemgetter(1))
         """
 
         return self[key]
