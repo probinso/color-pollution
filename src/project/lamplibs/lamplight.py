@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.misc as misc
 from   scipy.spatial.distance import cdist as distancematrix
-from   sklearn.cluster import DBSCANm
+from   sklearn.cluster import DBSCAN
 
 from sys import stderr
 
