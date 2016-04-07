@@ -7,7 +7,7 @@ import sys
 
 from .lamplight import step_range_gen, image_info, save_images
 from .lamplight import topograph_image
-from .lamplight import get_index_of, make_clusters_dict, overlapping_clusters
+from .lamplight import get_index_of, make_clusters_dict, overlapping_clusters, simplexify
 from .lamplight import colorize_clusters
 
 
@@ -21,7 +21,7 @@ def select_clusters(image):
         points_dict  = get_index_of(top_img, step_gen)
         cluster_dict = make_clusters_dict(points_dict, step_gen, radius, size)
         for overlapping in overlapping_clusters(cluster_dict, step_gen):
-            print(overlapping)
+            print(simplexify(overlapping), file=sys.stdout)
 
         channel, intensity = 2, next(step_gen) # blue, 255
         clusters = cluster_dict[channel, intensity]

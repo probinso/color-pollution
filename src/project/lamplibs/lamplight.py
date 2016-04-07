@@ -281,7 +281,7 @@ def overlapping_clusters(cluster_dict, step_gen):
         p = {fband:cluster}
         for band in rg:
             p[band] = mostOverlapping(cluster, d[band])
-        yield simplexify(p)
+        yield p
 
 
 @ptrace
