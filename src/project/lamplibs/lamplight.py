@@ -285,7 +285,7 @@ def overlapping_clusters(cluster_dict, step_gen):
 
 
 @ptrace
-def colorize_clusters(base_img, clusters):
+def colorize_clusters(base_img, color, *clusters):
     """
     clusters must be a dictionary
 
@@ -293,14 +293,13 @@ def colorize_clusters(base_img, clusters):
     Outputs a copy of base_img with identified clusters filled with colors
     """
     new_img = np.array(base_img, copy=True)
-    colors  = plt.cm.Spectral(np.linspace(0 , 1, len(clusters)))*255
 
-    def colorize_my_cluster(i, c):
+    def colorize_my_cluster(c):
         for x, y in c:
-            new_img[x, y][:3] = colors[i][:3]
+            new_img[x, y][:3] = color
 
-    for i, c in enumerate(sorted(clusters, key=len, reverse=True)):
-        colorize_my_cluster(i, c)
+    for c in clusters:
+        colorize_my_cluster(c)
 
     return new_img
 

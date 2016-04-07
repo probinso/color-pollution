@@ -20,16 +20,23 @@ def select_clusters(image):
     def paint(top_img, dst_img):
         points_dict  = get_index_of(top_img, step_gen)
         cluster_dict = make_clusters_dict(points_dict, step_gen, radius, size)
+
+        order = lambda o: len(o[1])
         for overlapping in overlapping_clusters(cluster_dict, step_gen):
             print(simplexify(overlapping), file=sys.stdout)
+            for key, clstr in sorted(overlapping.items(), key=order, reverse=True):
+                col      = [0, 0, 0]
+                col[key] = 255
+                dst_img = colorize_clusters(dst_img, col, clstr)
 
-        channel, intensity = 2, next(step_gen) # blue, 255
-        clusters = cluster_dict[channel, intensity]
+        return dst_img
 
-        return colorize_clusters(dst_img, clusters)
+    import numpy as np
+    dst_img  = np.array(image, copy=True)
+    dst_img.fill(255)
 
-    save_top = paint(top_image, image)
-    return save_top
+    save_img = paint(top_image, dst_img)
+    return save_img
 
 
 def interface(filename, directory):
