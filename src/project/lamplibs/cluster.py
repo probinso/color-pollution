@@ -12,7 +12,7 @@ from .lamplight import colorize_clusters
 
 
 def select_clusters(image):
-    step_gen  = step_range_gen(20)
+    step_gen  = step_range_gen(10)
     top_image = topograph_image(image, step_gen)
 
     radius, size = 30, 5
