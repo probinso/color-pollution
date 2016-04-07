@@ -200,6 +200,12 @@ class ClusterPoints(GroupPoints):
         """
         given an iterable of (x, y) points, return the medoid
         """
+        from scipy.spatial.distance import cdist as distancematrix
+        xy_arrays  = np.array(self)
+        matrix     = distancematrix(xy_arrays, xy_arrays, metric='minkowski')
+        key, value = min(enumerate(np.sum(matrix, axis=0)), key=itemgetter(1))
+
+        """
         def average_dissimilarity(loc):
             def dist(x_y, p_q):
                 x, y = x_y
@@ -214,6 +220,7 @@ class ClusterPoints(GroupPoints):
 
         averages = (fun(self) for fun in map(average_dissimilarity, self))
         key = min(enumerate(averages), key=itemgetter(1))[0]
+        """
 
         return self[key]
 
