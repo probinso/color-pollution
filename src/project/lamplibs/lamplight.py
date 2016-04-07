@@ -10,7 +10,8 @@ import imghdr
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.misc as misc
-from   sklearn.cluster import DBSCAN
+from   scipy.spatial.distance import cdist as distancematrix
+from   sklearn.cluster import DBSCANm
 
 from sys import stderr
 
@@ -200,7 +201,6 @@ class ClusterPoints(GroupPoints):
         """
         given an iterable of (x, y) points, return the medoid
         """
-        from scipy.spatial.distance import cdist as distancematrix
         xy_arrays  = np.array(self)
         matrix     = distancematrix(xy_arrays, xy_arrays, metric='minkowski')
         key, value = min(enumerate(np.sum(matrix, axis=0)), key=itemgetter(1))
