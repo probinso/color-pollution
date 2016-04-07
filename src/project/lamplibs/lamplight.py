@@ -237,6 +237,22 @@ class ClusterPoints(GroupPoints):
 
 
 @ptrace
+def simplexify(overlapped_clusters):
+    """
+    dict = {0: cr, 1: cg, 2: cb}
+    """
+    den = sum(map(len, overlapped_clusters.values()))
+    ret = {}
+    for key in overlapped_clusters:
+        num      = len(overlapped_clusters[key])
+        ret[key] = num/den
+
+    ret['medoid'] = max(overlapped_clusters.values(), key=len).medoid
+
+    return ret
+
+
+@ptrace
 def overlapping_clusters(cluster_dict, step_gen):
     """
     INPUT :
@@ -244,18 +260,6 @@ def overlapping_clusters(cluster_dict, step_gen):
     OUTPUT:
       yields overlapping clusters data as simplex dict + medoid
     """
-    @ptrace
-    def simplexify(kwargs):
-        den = sum(map(len, kwargs.values()))
-        ret = {}
-        for key in kwargs:
-            num      = len(kwargs[key])
-            ret[key] = num/den
-
-        ret['medoid'] = max(kwargs.values(), key=len).medoid
-
-        kwargs.clear()
-        return ret
 
     @ptrace
     def mostOverlapping(src, dsts, threshold=0.2):
