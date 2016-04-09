@@ -15,7 +15,7 @@ def select_clusters(image):
     radius, size = 30, 5
 
     def paint(src_img, dst_img):
-        points_dict  = get_index_of(top_img, step_gen)
+        points_dict  = get_index_of(src_img, step_gen)
         cluster_dict = make_clusters_dict(points_dict, step_gen, radius, size)
 
         order = lambda o: len(o[1])

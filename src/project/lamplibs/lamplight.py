@@ -14,7 +14,7 @@ import imghdr
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.misc as misc
-from   scipy.spatial.distance import pdist as distancematrix
+from   scipy.spatial.distance import cdist as distancematrix
 from   sklearn.cluster import DBSCAN
 
 # Internal Dependencies
@@ -38,7 +38,7 @@ def image_info(filename):
 
 
 def empty_canvas(image):
-    dst_image = np.array(image, copy=True)
+    dst_img = np.array(image, copy=True)
     dst_img.fill(255)
     return dst_img
 
@@ -211,9 +211,9 @@ class ClusterPoints(GroupPoints):
         """
         given an iterable of (x, y) points, return the medoid
         """
-        xy_arrays  = np.array(self, dtype=np.int16)
-        matrix     = distancematrix(xy_arrays, metric='minkowski')
-        key, value = min(enumerate(np.sum(matrix, axis=0)), key=itemgetter(1))
+        xy_arrays = np.array(self)
+        matrix    = distancematrix(xy_arrays, xy_arrays, metric='minkowski')
+        key, _    = min(enumerate(np.sum(matrix, axis=0)), key=itemgetter(1))
 
         return self[key]
 
