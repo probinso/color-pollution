@@ -15,7 +15,7 @@ def interface(filename, directory):
 
     top_image = topograph_image(src_image, step_gen)
 
-    save_images(directory, name, img_type ,top_=top_image)
+    save_images(directory, name,top_=top_image)
 
 
 def cli_interface(arguments):

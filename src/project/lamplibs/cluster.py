@@ -11,8 +11,8 @@ from .lamplight import colorize_clusters
 
 
 def select_clusters(image):
-    step_gen = step_range_gen(10)
-    radius, size = 30, 5
+    step_gen = step_range_gen(30)
+    radius, size = 30, 20
 
     def paint(src_img, dst_img):
         points_dict  = get_index_of(src_img, step_gen)
@@ -37,7 +37,7 @@ def select_clusters(image):
 def interface(filename, directory):
     img_type, name, src_image = image_info(filename)
     new_image = select_clusters(src_image)
-    save_images(directory, name, img_type, clst_=new_image)
+    save_images(directory, name, clst_=new_image)
 
 
 def cli_interface(arguments):

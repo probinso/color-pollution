@@ -15,7 +15,7 @@ def interface(filename, directory):
         g_image = g_image + alpha[0]
         b_image = b_image + alpha[0]
 
-    save_images(directory, name, img_type, r_=r_image, b_=b_image, g_=g_image)
+    save_images(directory, name, r_=r_image, b_=b_image, g_=g_image)
 
 
 def cli_interface(arguments):
