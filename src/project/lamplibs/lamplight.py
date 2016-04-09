@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-"""
 
 # Python Standard Libarary
@@ -18,7 +17,7 @@ from   scipy.spatial.distance import cdist as distancematrix
 from   sklearn.cluster import DBSCAN
 
 # Internal Dependencies
-from .utility import ptrace, window, regen,  ParameterizedDefaultDict
+from .utility import ptrace, window, regen, ParameterizedDefaultDict
 
 
 """Lamplight Module
@@ -117,7 +116,7 @@ def topograph_image(image, step_gen):
 
 
 @ptrace
-def get_index_of(image, step_gen):
+def get_index_cond(image, cond=lambda x: x == 255):
     """
     splits image into dict[band, intensity] as (x, y) point pairs
     this is used to shrink and split the search space for clustering
@@ -128,17 +127,16 @@ def get_index_of(image, step_gen):
     for x, col in enumerate(image):
         for y, pixel in enumerate(col):
             for band, intensity in enumerate(pixel):
-                if intensity == next(step_gen):
+                if cond(intensity):
                     ret[band, intensity].append(Coord(x,y))
     return ret
 
 
 @ptrace
-def make_clusters_dict(points_dict, step_gen, radius=20, minpoints=10):
+def make_clusters_dict(points_dict, radius=20, minpoints=10):
     """
     Input:
       points_dict - dictionary of points indexed by d[band][intensity]
-      step_gen    - valid band generator
       radius      - size of radius for ddbscan algorithm
       minpoints   - minimal number of points to be called a cluster
     Output:
@@ -240,13 +238,13 @@ def simplexify(overlapped_clusters):
         num      = len(overlapped_clusters[key])
         ret[key] = num/den
 
-    ret['medoid'] = max(overlapped_clusters.values(), key=len).medoid
+    ret['medoid'] = min(overlapped_clusters.values(), key=len).medoid
 
     return ret
 
 
 @ptrace
-def overlapping_clusters(cluster_dict, step_gen):
+def overlapping_clusters(cluster_dict):
     """
     INPUT :
       dictionary[band, intensity][cluster...] = [(x, y)...]
@@ -256,15 +254,17 @@ def overlapping_clusters(cluster_dict, step_gen):
 
     @ptrace
     def mostOverlapping(src, dsts, threshold=0.2):
-        scores = map(src.overlaps, dsts)
-        key, remaining = min(enumerate(scores), key = lambda e_v: e_v[1])
+        """
+        returns the largest cluster who is most overlapping with src in [dsts...]
+
+        note that 'sorted' is a stable sorting algorithm
+        """
+        scores = map(src.overlaps, sorted(dsts, key=len, reverse=True))
+        key, remaining = min(enumerate(scores), key=itemgetter(1))
         return dsts[key] if remaining < threshold else []
 
-    maxtensity   = next(step_gen)
-    maxintensity = lambda b_i: b_i[1] == maxtensity
-
     d = {}
-    for band, intensity in filter(maxintensity, cluster_dict):
+    for band, intensity in cluster_dict:
         d[band] = cluster_dict[band, intensity] # re-index clusters
 
     it    = iter(d)
