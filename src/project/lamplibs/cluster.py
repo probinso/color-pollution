@@ -5,21 +5,19 @@
 import argparse, argcomplete
 import sys
 
-from .lamplight import step_range_gen, image_info, save_images, empty_canvas
-from .lamplight import get_index_of, make_clusters_dict, overlapping_clusters, simplexify
+from .lamplight import image_info, save_images, empty_canvas
+from .lamplight import get_index_cond, make_clusters_dict, overlapping_clusters, simplexify
 from .lamplight import colorize_clusters
 
 
-def select_clusters(image):
-    step_gen = step_range_gen(30)
-    radius, size = 30, 20
+def select_clusters(image, radius, size):
 
     def paint(src_img, dst_img):
-        points_dict  = get_index_of(src_img, step_gen)
-        cluster_dict = make_clusters_dict(points_dict, step_gen, radius, size)
+        points_dict  = get_index_cond(src_img)
+        cluster_dict = make_clusters_dict(points_dict, radius, size)
 
         order = lambda o: len(o[1])
-        for overlapping in overlapping_clusters(cluster_dict, step_gen):
+        for overlapping in overlapping_clusters(cluster_dict):
             print(simplexify(overlapping), file=sys.stdout)
             for key, clstr in sorted(overlapping.items(), key=order, reverse=True):
                 col      = [0, 0, 0]
@@ -34,9 +32,9 @@ def select_clusters(image):
     return save_img
 
 
-def interface(filename, directory):
+def interface(filename, directory, radius, size):
     img_type, name, src_image = image_info(filename)
-    new_image = select_clusters(src_image)
+    new_image = select_clusters(src_image, radius, size)
     save_images(directory, name, clst_=new_image)
 
 
@@ -47,7 +45,9 @@ def cli_interface(arguments):
     """
     filename  = arguments.image_filename
     directory = arguments.dst_directory
-    interface(filename, directory)
+    radius    = arguments.radius
+    size      = arguments.size
+    interface(filename, directory, radius, size)
 
 
 #####################################
@@ -58,5 +58,9 @@ def generate_parser(parser):
         help="Image Filename to be split into R, G, B images")
     parser.add_argument('dst_directory', type=str,
         help="Location to save modified images")
+    parser.add_argument('--radius', type=int, default=30,
+        help="Cluster acceptance radius")
+    parser.add_argument('--size', type=int, default=20,
+        help="Cluster minimum size")
     parser.set_defaults(func=cli_interface)
     return parser
