@@ -1,20 +1,24 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-"""
 
+# Python Standard Libarary
 from   collections import namedtuple, defaultdict
 from   functools   import partial
-
+from   math        import ceil
 from   operator    import itemgetter
 import os.path as osp
+from   sys import stderr
+
+# External Dependencies
 import imghdr
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.misc as misc
-from   scipy.spatial.distance import cdist as distancematrix
+#from   scipy.spatial.distance import cdist as distancematrix
+from   scipy.spatial.distance import pdist as distancematrix
 from   sklearn.cluster import DBSCAN
 
-from sys import stderr
-
+# Internal Dependencies
 from .utility import ptrace, window, regen,  ParameterizedDefaultDict
 
 
@@ -32,6 +36,12 @@ def image_info(filename):
     name, suffix = osp.basename(filename).rsplit('.', 1)
     src_image    = misc.imread(filename)
     return img_type, name, src_image
+
+
+def empty_canvas(image):
+    dst_image = np.array(image, copy=True)
+    dst_img.fill(255)
+    return dst_img
 
 
 def save_images(dst, name, img_type, **kwargs):
@@ -89,8 +99,8 @@ class step_range_gen(regen):
 @ptrace
 def topograph_image(image, step_gen):
     """
-    Takes in NxMxC matrix and a step size and a delta
-    returns NxMxC matrix with contours in each C cell
+    Takes in NxMxC numpy matrix and a step size and a delta
+    returns  NxMxC numpy matrix with contours in each C cell
     """
     new_img = np.array(image, copy=True)
 
@@ -139,7 +149,7 @@ def make_clusters_dict(points_dict, step_gen, radius=20, minpoints=10):
     def make_clusters(d, band, intensity, radius, minpoints):
         """
         Takes in an iterable of (x, y) points
-        returns a dict of lists of points
+        returns a list of ClusterPoints
         """
         points    = d[band, intensity]
         xy_arrays = np.array(points)
@@ -153,9 +163,10 @@ def make_clusters_dict(points_dict, step_gen, radius=20, minpoints=10):
         clusters = [xy_arrays[labels == i] for i in range(n_clusters_)]
 
         retval = []
-        def starmap(func, collection):
-            gnc = lambda x: func(*x)
-            return map(gnc, collection)
+
+        def starmap(func, iterable):
+            gunc = lambda x: func(*x)
+            return map(gunc, iterable)
 
         for cluster in clusters:
             cp = ClusterPoints(band, intensity, starmap(Coord, cluster.tolist()))
@@ -201,26 +212,9 @@ class ClusterPoints(GroupPoints):
         """
         given an iterable of (x, y) points, return the medoid
         """
-        xy_arrays  = np.array(self)
-        matrix     = distancematrix(xy_arrays, xy_arrays, metric='minkowski')
+        xy_arrays  = np.array(self, dtype=np.int16)
+        matrix     = distancematrix(xy_arrays, metric='minkowski')
         key, value = min(enumerate(np.sum(matrix, axis=0)), key=itemgetter(1))
-
-        """
-        def average_dissimilarity(loc):
-            def dist(x_y, p_q):
-                x, y = x_y
-                p, q = p_q
-                return (x-p)**2 + (y-p)**2 # sqrt is monotonically increasing
-
-            def f(points):
-                tots = sum((dist(loc, p) for p in points))
-                return tots / len(points)
-
-            return f
-
-        averages   = (fun(self) for fun in map(average_dissimilarity, self))
-        key, value = min(enumerate(averages), key=itemgetter(1))
-        """
 
         return self[key]
 

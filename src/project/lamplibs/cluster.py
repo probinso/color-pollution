@@ -5,19 +5,16 @@
 import argparse, argcomplete
 import sys
 
-from .lamplight import step_range_gen, image_info, save_images
-from .lamplight import topograph_image
+from .lamplight import step_range_gen, image_info, save_images, empty_canvas
 from .lamplight import get_index_of, make_clusters_dict, overlapping_clusters, simplexify
 from .lamplight import colorize_clusters
 
 
 def select_clusters(image):
-    step_gen  = step_range_gen(10)
-    top_image = topograph_image(image, step_gen)
-
+    step_gen = step_range_gen(10)
     radius, size = 30, 5
 
-    def paint(top_img, dst_img):
+    def paint(src_img, dst_img):
         points_dict  = get_index_of(top_img, step_gen)
         cluster_dict = make_clusters_dict(points_dict, step_gen, radius, size)
 
@@ -31,18 +28,16 @@ def select_clusters(image):
 
         return dst_img
 
-    import numpy as np
-    dst_img  = np.array(image, copy=True)
-    dst_img.fill(255)
+    dst_img  = empty_canvas(image)
+    save_img = paint(image, dst_img)
 
-    save_img = paint(top_image, dst_img)
     return save_img
 
 
 def interface(filename, directory):
     img_type, name, src_image = image_info(filename)
     new_image = select_clusters(src_image)
-    save_images(directory, name, img_type, top_=new_image)
+    save_images(directory, name, img_type, clst_=new_image)
 
 
 def cli_interface(arguments):
