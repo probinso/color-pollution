@@ -14,6 +14,7 @@ import shutil
 import sys
 import tempfile
 import time
+import xdg.BaseDirectory
 
 
 global DEBUG
@@ -37,6 +38,40 @@ def split_filter(li, cond, op=lambda x:x):
         index = cond(elm)
         retval[index].append(op(elm) if index else elm)
     return retval
+
+
+def test_path(path):
+    if not osp.exists(path):
+        raise FormattedError("File error: {} does not exist", path)
+    return path
+
+
+def location_resource(
+  fname='.',
+  location=xdg.BaseDirectory.save_data_path('lamplibs')
+  ):
+    return osp.join(location, fname)
+
+
+def get_resource(fname='.'):
+    path = location_resource(fname=fname)
+    return test_path(path)
+
+
+def commit_resource(full_path):
+    srcdir, fname = osp.split(test_path(resolve_path(full_path)))
+    copy_directory_files(srcdir, location_resource(), [fname])
+    return True
+
+
+def copy_directory_files(srcdir, dstdir, filenames):
+    """
+      copies [filenames] from srcdir to dstdir
+    """
+    for filename in filenames:
+        srcpath = osp.join(srcdir, filename)
+        dstpath = osp.join(dstdir, filename)
+        shutil.copyfile(srcpath, dstpath)
 
 
 class regen(object):
@@ -131,8 +166,8 @@ def ptrace(fn):
 
 def path_walk(srcpath, suffix='*'):
     """
-      Takes in dirpath and returns list of files and subdirectories
-      (includes hidden)
+    Takes in dirpath and returns list of files and subdirectories
+    (includes hidden)
     """
     # glob ignores hidden files.
     paths = glob.glob(osp.join(srcpath, suffix)) + \
@@ -146,39 +181,28 @@ def path_walk(srcpath, suffix='*'):
     return files
 
 
-def sign_paths(*filenames):
+def sign_path(filename, signature=None):
     """
-      input  :: list of *filenames
-      output :: unique identifier for set of filenames
+    input  :: filename and accumulating signature
+    output :: unique identifier for set of filename
     """
 
-    def sign_path(filename, signature=None):
-        """
-          input  :: filename and accumulating signature
-          output :: unique identifier for set of filename
-        """
-        with open(filename, mode='rb') as f:
-            buf = osp.basename(filename)
-            signature = sign_buffer(buf, signature)
-            buf = f.read()
-            signature = sign_buffer(buf, signature)
-
-        return signature
-
-    SIGTYPE = hashlib.sha1
+    SIGTYPE = hashlib.md5
     def sign_buffer(buf, signature=None):
         """
-          input  :: buffer and accumulator signature
-          output :: unique identifier for buffer
+        input  :: buffer and accumulator signature
+        output :: unique identifier for buffer
         """
         signature = SIGTYPE() if not signature else signature
 
         signature.update(SIGTYPE(buf).hexdigest())
         return signature
 
-    signature = None
-    for filename in simple_list(filenames):
-        signature = sign_path(filename, signature)
+    with open(filename, mode='rb') as f:
+        buf = True:
+        while buf:
+            buf = f.read(4096)
+            signature = sign_buffer(buf, signature)
 
     return signature
 
@@ -186,7 +210,7 @@ def sign_paths(*filenames):
 @contextmanager
 def TemporaryDirectory(suffix='', prefix='tmp', dir=None, persist=False):
     """
-      Like tempfile.NamedTemporaryFile, but creates a directory.
+    Like tempfile.NamedTemporaryFile, but creates a directory.
     """
     tree = tempfile.mkdtemp(suffix, prefix, dir)
     try:
