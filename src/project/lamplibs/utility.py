@@ -14,6 +14,7 @@ import shutil
 import sys
 import tempfile
 import time
+import xdg.BaseDirectory
 
 
 global DEBUG
@@ -37,6 +38,40 @@ def split_filter(li, cond, op=lambda x:x):
         index = cond(elm)
         retval[index].append(op(elm) if index else elm)
     return retval
+
+
+def test_path(path):
+    if not osp.exists(path):
+        raise FormattedError("File error: {} does not exist", path)
+    return path
+
+
+def location_resource(
+  fname='.',
+  location=xdg.BaseDirectory.save_data_path('lamplibs')
+  ):
+    return osp.join(location, fname)
+
+
+def get_resource(fname='.'):
+    path = location_resource(fname=fname)
+    return test_path(path)
+
+
+def commit_resource(full_path):
+    srcdir, fname = osp.split(test_path(resolve_path(full_path)))
+    copy_directory_files(srcdir, location_resource(), [fname])
+    return True
+
+
+def copy_directory_files(srcdir, dstdir, filenames):
+    """
+      copies [filenames] from srcdir to dstdir
+    """
+    for filename in filenames:
+        srcpath = osp.join(srcdir, filename)
+        dstpath = osp.join(dstdir, filename)
+        shutil.copyfile(srcpath, dstpath)
 
 
 class regen(object):
