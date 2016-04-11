@@ -12,6 +12,7 @@ db = pny.Database("sqlite", DB_LOC, create_db=True)
 
 
 class Image(db.Entity):
+    _table_ = "tbl_image"
     id      = pny.PrimaryKey(str)
     type    = pny.Required(str)
     height  = pny.Required(int)
@@ -26,12 +27,14 @@ class Image(db.Entity):
 
 
 class Topograph(db.Entity):
+    _table_   = "tbl_topograph"
     dst_image = pny.PrimaryKey(Image, reverse="topograph")
     step      = pny.Required(int)
     src_image = pny.Required(Image, reverse="top_images")
 
 
 class Cluster(db.Entity):
+    _table_   = "tbl_cluster"
     dst_image = pny.PrimaryKey(Image, reverse="cluster")
     radius    = pny.Required(int)
     size      = pny.Required(int)
@@ -40,6 +43,7 @@ class Cluster(db.Entity):
 
 
 class Lamp(db.Entity):
+    _table_  = "tbl_lamp"
     cluster  = pny.Required(Cluster)
     red      = pny.Optional(float)
     green    = pny.Optional(float)
