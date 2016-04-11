@@ -59,8 +59,8 @@ def save_images(dst, name, img_type='bmp', **kwargs):
         misc.imsave(result, image)
         return result
 
-    for i in kwargs:
-        print(save_modified(i, kwargs[i]))
+    li = save_modified(i, kwargs[i]) for i in kwargs]
+    return li
 
 
 @ptrace
