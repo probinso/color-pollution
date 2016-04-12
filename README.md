@@ -24,6 +24,10 @@ Once installed, commands and subcommands can be run, as described, using:
 ```
 lamp --help
 ```
+To uninstall
+```
+pip uninstall lamplibs
+```
 
 To help with this course, my complete playlist of python tutorial videos can be found [here](https://www.youtube.com/playlist?list=PL96V6k-MWWMhAXQmH0AJDKM6WnfpaCx4S).
 
