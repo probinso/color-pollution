@@ -195,7 +195,6 @@ def sign_path(filename, SIGTYPE=hashlib.md5):
         d = SIGTYPE()
         for buf in iter(partial(f.read, 128), b''):
             d.update(buf)
-
     return d.hexdigest()
 
 
