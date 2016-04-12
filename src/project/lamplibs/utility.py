@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-"""
 
-
 from collections import OrderedDict, Iterable
 from contextlib  import contextmanager
 from functools   import wraps, partial
