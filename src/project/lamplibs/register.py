@@ -10,6 +10,7 @@ from   .lamplight import image_info, save_images
 from   .          import model as mod
 from   .utility   import commit_resource, sign_path, TemporaryDirectory
 
+
 ########################################
 #                IMAGES
 ########################################
@@ -29,7 +30,7 @@ def register_image_db(label, height, width, img_type, derived=True):
 def register_image_data(src_image):
     with TemporaryDirectory() as tmpdir:
         [filename] = save_images(tmpdir, 'tmp', tmp_=src_image)
-        register_image_file(filename, True)
+        return register_image_file(filename, True)
 
 
 def register_image_file(filename, derived=False):
@@ -38,11 +39,12 @@ def register_image_file(filename, derived=False):
     label = commit_resource(filename)
 
     register_image_db(label, h, w, image_type, derived)
+    return label
 
 
 def interface(filename):
     register_image_file(filename)
-    img_type, name, src_image = image_info(filename)
+    _, _, src_image = image_info(filename)
     register_image_data(src_image)
 
 
