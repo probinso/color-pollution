@@ -9,6 +9,7 @@ import sys
 from . import cluster
 from . import extractRGB as rgb
 from . import topographical
+from . import register
 
 
 def cluster_parser(subparsers):
@@ -20,6 +21,12 @@ def cluster_parser(subparsers):
 def extractRGB_parser(subparsers):
     parser = subparsers.add_parser('rgb')
     rgb.generate_parser(parser)
+    return parser
+
+
+def extractRGB_parser(subparsers):
+    parser = subparsers.add_parser('register')
+    register.generate_parser(parser)
     return parser
 
 

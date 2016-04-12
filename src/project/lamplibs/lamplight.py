@@ -13,7 +13,7 @@ import imghdr
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.misc as misc
-from   scipy.spatial.distance import cdist as distancematrix
+from   scipy.spatial.distance import pdist as distancematrix
 from   sklearn.cluster import DBSCAN
 
 # Internal Dependencies
@@ -59,7 +59,7 @@ def save_images(dst, name, img_type='bmp', **kwargs):
         misc.imsave(result, image)
         return result
 
-    li = save_modified(i, kwargs[i]) for i in kwargs]
+    li = [save_modified(i, kwargs[i]) for i in kwargs]
     return li
 
 
@@ -210,7 +210,7 @@ class ClusterPoints(GroupPoints):
         given an iterable of (x, y) points, return the medoid
         """
         xy_arrays = np.array(self)
-        matrix    = distancematrix(xy_arrays, xy_arrays, metric='minkowski')
+        matrix    = distancematrix(xy_arrays, metric='minkowski')
         key, _    = min(enumerate(np.sum(matrix, axis=0)), key=itemgetter(1))
 
         return self[key]

@@ -1,7 +1,8 @@
 #!/usr/bin/env python
-import os.path as osp
-from   pony.orm import pny
-#https://editor.ponyorm.com/user/probinson/lamplibs
+import os.path  as osp
+import pony.orm as pny
+
+'https://editor.ponyorm.com/user/probinson/lamplibs'
 
 from . import utility
 
@@ -52,6 +53,5 @@ class Lamp(db.Entity):
     medoid_y = pny.Required(int)
 
 
-pny.sql_debug(True)
-pny.db.generate_mapping(check_tables=True, create_tables=True)
-
+# pny.sql_debug(True)
+db.generate_mapping(check_tables=True, create_tables=True)

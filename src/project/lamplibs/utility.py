@@ -4,17 +4,19 @@
 
 from collections import OrderedDict, Iterable
 from contextlib  import contextmanager
-from functools   import wraps
+from functools   import wraps, partial
 
 import glob
 import hashlib
 import itertools
+import os
 import os.path as osp
 import shutil
 import sys
 import tempfile
 import time
 import xdg.BaseDirectory
+
 
 
 global DEBUG
@@ -42,7 +44,7 @@ def split_filter(li, cond, op=lambda x:x):
 
 def test_path(path):
     if not osp.exists(path):
-        raise FormattedError("File error: {} does not exist", path)
+        raise FileNotFoundError("File error: {} does not exist".format(path))
     return path
 
 
@@ -59,9 +61,12 @@ def get_resource(fname='.'):
 
 
 def commit_resource(full_path):
-    srcdir, fname = osp.split(test_path(resolve_path(full_path)))
+    srcdir, fname = osp.split(test_path(full_path))
+    label = sign_path(full_path)
     copy_directory_files(srcdir, location_resource(), [fname])
-    return True
+    src = partial(osp.join, location_resource())
+    os.rename(src(fname), src(label))
+    return label
 
 
 def copy_directory_files(srcdir, dstdir, filenames):
@@ -181,30 +186,17 @@ def path_walk(srcpath, suffix='*'):
     return files
 
 
-def sign_path(filename, signature=None):
+def sign_path(filename, SIGTYPE=hashlib.md5):
     """
     input  :: filename and accumulating signature
     output :: unique identifier for set of filename
     """
-
-    SIGTYPE = hashlib.md5
-    def sign_buffer(buf, signature=None):
-        """
-        input  :: buffer and accumulator signature
-        output :: unique identifier for buffer
-        """
-        signature = SIGTYPE() if not signature else signature
-
-        signature.update(SIGTYPE(buf).hexdigest())
-        return signature
-
     with open(filename, mode='rb') as f:
-        buf = True:
-        while buf:
-            buf = f.read(4096)
-            signature = sign_buffer(buf, signature)
+        d = SIGTYPE()
+        for buf in iter(partial(f.read, 128), b''):
+            d.update(buf)
 
-    return signature
+    return d.hexdigest()
 
 
 @contextmanager
