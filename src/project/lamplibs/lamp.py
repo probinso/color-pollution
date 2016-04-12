@@ -24,7 +24,7 @@ def extractRGB_parser(subparsers):
     return parser
 
 
-def extractRGB_parser(subparsers):
+def register_parser(subparsers):
     parser = subparsers.add_parser('register')
     register.generate_parser(parser)
     return parser
@@ -41,6 +41,7 @@ def generate_parser(parser):
 
     cluster_parser(subparsers)
     extractRGB_parser(subparsers)
+    register_parser(subparsers)
     topograph_parser(subparsers)
     return parser
 
