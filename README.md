@@ -118,7 +118,7 @@ It is often our goal to measure, analyze, and communicate properties of physical
 ## Example of Smoothing
 
 Below is a source image of two street lamps taken at night. Our goal is to math on these lamps in order to identify what the spectral profile of these lamps are. A first attempted approach is to compute the ratio of red to blue light stored in the image, by selecting clusters of high intensity light in those bands. Unfortunately, there are a lot of places for information to be corrupted.
-- sensors are not perfect
+- silicon sensors are not perfect; infact their quantum efficientcy is uneven accross wavelengths
 - images produced are modified from raw format, in order to produce more human similar images
 - resolution of the image results in a forced reduction of expressible sensors
 - compression algorithm used to save the file to a computer may take liberties with individual pixels
