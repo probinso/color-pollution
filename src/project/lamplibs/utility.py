@@ -199,7 +199,7 @@ def sign_path(filename, signature=None):
         return signature
 
     with open(filename, mode='rb') as f:
-        buf = True:
+        buf = True
         while buf:
             buf = f.read(4096)
             signature = sign_buffer(buf, signature)
