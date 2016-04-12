@@ -1,0 +1,25 @@
+This is a discaimer for Color Pollution's videos on object oriented programming.
+
+When learning a programming language like python you will run into a lot of material encouraging you to develop and grow in 'object oriented programming'. It is important for a new programmer to understand that 'Object Oriented Programming' is one of many religions in the Software Science ethos.
+
+I strongly encourage you to strive to produce idiomatic code for the language that you are working in. Python happens to be a very object rich language, making understanding objects very benificial. However, Python's greatest strength is in expresiveness which can lend itself to many other programming paradigms aswell.
+
+I have found that almost every time I have developed an object from scratch in Python, I burn many hours jerry-rigging it into my use cases. Eventually replacing it with an existing type in the python standard libary.
+
+I have also found that industry scientists and data analysts don't subscribe to Object Oriented Programming, the way that endoctrinated software developers do. They are often able to find solutions without the need to develop new objects.
+
+That being said, there are two great advantages to understanding object oriented programming. Firstly, training your brain to approach problems using dogmatic design patterns helps you think about solutions in a different way. Secondly, and especially in Python, knowing how to manipulate existing types to your advantage will enable rapid development using others prior work.
+
+In these videos, I will mostly derive objects from those already existing. This is often the fastest way to produce a working solution. This also has the advantage of very small code profile, cutting down on testing needs.
+
+Those who have been trained in Object Oriented Programming, will likely dissagree with this choice. In a pure design, you implement only the methods needed by an object to complete it't job. This commuicates to future developers the intended use cases of your objects.
+
+As a consiquence of this approach, many methods we inherit from existing objects may not make sence to future developers. I find this a reasonable risk.
+
+
+
+
+
+
+
+
