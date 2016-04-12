@@ -211,7 +211,7 @@ class ClusterPoints(GroupPoints):
         """
         xy_arrays = np.array(self)
         matrix    = distancematrix(xy_arrays, metric='minkowski')
-        key, _    = min(enumerate(np.sum(matrix, axis=0)), key=itemgetter(1))
+        key, _    = min(enumerate(matrix), key=itemgetter(1))
 
         return self[key]
 
@@ -238,7 +238,8 @@ def simplexify(overlapped_clusters):
         num      = len(overlapped_clusters[key])
         ret[key] = num/den
 
-    ret['medoid'] = min(overlapped_clusters.values(), key=len).medoid
+    # medoids only exist on non-empty lists of points
+    ret['medoid'] = min(filter(bool, overlapped_clusters.values()), key=len).medoid
 
     return ret
 
