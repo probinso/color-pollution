@@ -18,7 +18,7 @@ Python was selected for this course because it is a language both primary [contr
 
 Libraries we develop can be installed using pip as designated below:
 ```
-pip install --upgrade git+https://github.com/probinso/color-polution.git#subdirectory=src/project
+pip install --upgrade git+https://github.com/probinso/color-polution.git@pony#subdirectory=src/project
 ```
 Once installed, commands and subcommands can be run, as described, using:
 ```
