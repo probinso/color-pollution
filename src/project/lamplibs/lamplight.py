@@ -11,7 +11,7 @@ from   sys import stderr
 # External Dependencies
 import imghdr
 import matplotlib.pyplot as plt
-import numpy as np
+import numpy as np;
 import scipy.misc as misc
 from   scipy.spatial.distance import pdist as distancematrix
 from   sklearn.cluster import DBSCAN
@@ -122,6 +122,7 @@ def get_index_cond(image, cond=lambda x: x == 255):
     this is used to shrink and split the search space for clustering
 
     this function is much more useful if run on result of topograph_image
+    additionally, This function works very poorly on lossy image formats
     """
     ret = ParameterizedDefaultDict(GroupPoints)
     for x, col in enumerate(image):
@@ -210,8 +211,8 @@ class ClusterPoints(GroupPoints):
         given an iterable of (x, y) points, return the medoid
         """
         xy_arrays = np.array(self)
-        matrix    = distancematrix(xy_arrays, metric='minkowski')
-        key, _    = min(enumerate(matrix), key=itemgetter(1))
+        matrix    = distancematrix(xy_arrays, xy_arrays, metric='minkowski')
+        key, _    = min(enumerate(map(np.sum, matrix)), key=itemgetter(1))
 
         return self[key]
 
