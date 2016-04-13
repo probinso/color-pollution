@@ -122,6 +122,7 @@ def get_index_cond(image, cond=lambda x: x == 255):
     this is used to shrink and split the search space for clustering
 
     this function is much more useful if run on result of topograph_image
+    additionally, This function works very poorly on lossy image formats
     """
     ret = ParameterizedDefaultDict(GroupPoints)
     for x, col in enumerate(image):
