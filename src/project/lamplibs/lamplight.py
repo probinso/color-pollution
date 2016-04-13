@@ -299,3 +299,19 @@ def colorize_clusters(base_img, color, *clusters):
 
     return new_img
 
+
+def outline_clusters(base_img, *clusters):
+    new_img = np.array(base_img, copy=True)
+    from scipy.spatial import ConvexHull
+    from skimage.draw  import polygon_perimeter
+    for c in clusters:
+        try:
+            hull      = ConvexHull(c)
+        except:
+            print("unable to create ConvexHull", file=stderr)
+            continue
+        perimiter = hull.points[hull.vertices]
+
+        pp = polygon_perimeter(perimiter[:,0], perimiter[:,1], shape=new_img.shape)
+        
+    return base_img

@@ -7,8 +7,8 @@ import sys
 
 from .lamplight import image_info, save_images, empty_canvas
 from .lamplight import get_index_cond, make_clusters_dict, overlapping_clusters, simplexify
-from .lamplight import colorize_clusters
-
+from .lamplight import colorize_clusters, outline_clusters
+from .utility   import regen
 
 def select_clusters(image, radius, size):
 
@@ -17,14 +17,16 @@ def select_clusters(image, radius, size):
         cluster_dict = make_clusters_dict(points_dict, radius, size)
 
         order = lambda o: len(o[1])
-        print(len(cluster_dict))
         for i, overlapping in enumerate(overlapping_clusters(cluster_dict)):
-            print("visiting cluster : {}".format(i))
+            print("visiting cluster : {}".format(i), file=sys.stderr)
             print(simplexify(overlapping), file=sys.stdout)
-            for key, clstr in sorted(overlapping.items(), key=order, reverse=True):
-                col      = [0, 0, 0]
-                col[key] = 255
-                dst_img = colorize_clusters(dst_img, col, clstr)
+            rg = regen(sorted(overlapping.items(), key=order, reverse=True))
+            _, largest = next(rg)
+            for band, clstr in rg:
+                col       = [0, 0, 0]
+                col[band] = 255
+                dst_img   = colorize_clusters(dst_img, col, clstr)
+            dst_img = outline_clusters(dst_img, largest)
 
         return dst_img
 
