@@ -146,10 +146,11 @@ top_image = topograph_image(src_image, step_gen)
 
 def paint(image):
     points_dict  = get_index_of(image)
-    cluster_dict = make_clusters_dict(points_dict, step_gen, 30, 100)
+    radius, size = 30, 100
+    cluster_dict = make_clusters_dict(points_dict, radius, size)
 
     channel, intensity = 1, next(step_gen) # green, 255
-    clusters = cluster_dict[channel][intensity]
+    clusters = cluster_dict[channel, intensity]
 
     return colorize_clusters(image, clusters)
 
