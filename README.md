@@ -1,5 +1,12 @@
 # Goals of this Course
-This is a course on light and sensor systems. Although there are many topics in this space, we will primarily focus on light pollution and its impact on astronomy. By the end of this material, you should be able to reason and communicate clearly about light, environment, and sensor systems.
+In this course we look at leveraging programming and low equipment costs to solve traditionally expensive. We will focus on creating tooling to enable
+- reproducible research
+- scalable hypothesis testing
+- wide adoption of results (including distribution and data visualization)
+
+(If you have suggestion for projects and available SMEs please feel free to contact us on this matter)
+
+Our first project will grow your understanding of light and sensor systems. Although there are many topics in this space, we will primarily focus on light pollution and its impact on astronomy. 
 
 To insure you are supposed to be here, we first introduce the character audiences benefiting from participation. One character is the Scientist. The Scientist hopes to learn, then leverage programming in their field, to either model or better communicate their discipline. The second character is the Programmer. The Programmer hopes to understand the relationship between physical systems, measurement techniques, and computer models; growing their appreciation for real world constraints. Finally, our third character wants to know about light pollution, and strategies for communicating about sensor systems.
 
@@ -11,12 +18,11 @@ For each section below we will link to material, either provided by others, or g
 - References to relative articles
 - Physical systems video lectures
 - Programming video lectures
-- Challenge problems to verify knowledge
 
 ## Why Python
 Python was selected for this course because it is a language both primary [contributors](./AUTHORS.md) are familiar with. Python is a mature, simple, and expressive programming language. We have also found that there exists a large body of public prior work, that can be leveraged to decrease development release time.
 
-Libraries we develop can be installed using pip as designated below:
+Libraries we developed can be installed using pip as designated below:
 ```
 pip install --upgrade git+https://github.com/probinso/color-polution.git@master#subdirectory=src/project
 ```
@@ -25,16 +31,14 @@ Once installed, commands and subcommands can be run, as described, using:
 lamp --help
 ```
 
-To help with this course, my complete playlist of python tutorial videos can be found [here](https://www.youtube.com/playlist?list=PL96V6k-MWWMhAXQmH0AJDKM6WnfpaCx4S).
+To help with this course, the complete playlist of python tutorial videos can be found [here](https://www.youtube.com/playlist?list=PL96V6k-MWWMhAXQmH0AJDKM6WnfpaCx4S). This will be broken into smaller topical lists on the youtube channel [here](https://www.youtube.com/channel/UC-EKRSRFcQ1Uda8oGVVZl7Q).
 
-# Dark Sky Objectives for Telescopes
-As a primary example used in this course we talk about light polutions effect on astronomy. In our material we defend that artificially produced blue light has greater impact on the astronomy industry than other wavelengths for terrestrial telescopes. Although we go into greater detail in other sections, this argument can be summarized below.
+# Problem: Dark Sky Objectives for Telescopes
+In this project we talk about light polution's effect on terrestrial astronomy. Although we go into greater detail in other sections, this we summarize below.
 
-The below image shows measurements of our atmosphere's natural light [emissions](YO DOG NEED WORKSHEET), also known as night glow. We can observe that the Blue 400~550nm band has little natural emissions; where as the remaining terrestrial visible light spectrum has intense emissions.
+The below image shows measurements of our atmosphere's natural light [emissions](YO DOG NEED WORKSHEET), (also known as night glow). We can observe that the Blue 400~550nm band (also known as g-prime band) has little natural emissions; where as the remaining terrestrial visible light spectrum has intense emissions.
 
 ![Night Glow](./images/index.png)
-
-Although blue is not naturally emitted, it scatters very easily in our atmosphere due to [rayleigh scattering](YO DOG rayleigh scattering). This is why artificial blue light so greatly impacts terrestrial viewing of the night sky. Bellow is the code used to generate that image.
 
 ```python
 import numpy as np
@@ -55,6 +59,10 @@ plt.annotate('[O1]', (635, 4.2), color ='r')
 plt.xlim(400, 1000)
 plt.show()
 ```
+
+Although blue has low natural emissions, it scatters very easily in our atmosphere due to [rayleigh scattering](YO DOG rayleigh scattering). In order for telescopes to make useful images, they filter bands that have high signal-noise in the atmosphere. Since it is exceptionally expensive to setup telescopes, and relocation is often not an option, astronomers lobby policy makers to influence public artificial lighting decisions.
+
+
 
 # Communicating about Color
 [Color](./COLOR.md) is a very abstract concept, for which under-specified discussions may have very real consequences. As a function of environment and impacted sensors, we often use need very different tools to communicate about color. The method we are most familiar with, is well visualized in the image below and to the left, authored by Randall Monroe of xkcd. Although computers have very specific descriptor languages for colors spanning one of these labeled sections, human need to communicate with each other most commonly doesn't need such high granularity.
