@@ -1,5 +1,5 @@
 # Goals of this Course
-In this course we look at leveraging programming and low equipment costs to solve traditionally expensive. We will focus on creating tooling to enable
+In this course we look at leveraging programming and low equipment costs. We will focus on creating tooling to enable
 - reproducible research
 - scalable hypothesis testing
 - wide adoption of results (including distribution and data visualization)
