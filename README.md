@@ -4,7 +4,7 @@ In this course we look at leveraging programming and low equipment costs to solv
 - scalable hypothesis testing
 - wide adoption of results (including distribution and data visualization)
 
-(If you have suggestion for projects and available SMEs please feel free to contact us on this matter)
+If you have suggestion for future projects and available SMEs please feel free to contact us [here](pmoss.robinson+bluetion@gmail.com) on this matter. All data for proposed projects must be publically accessable.
 
 Our first project will grow your understanding of light and sensor systems. Although there are many topics in this space, we will primarily focus on light pollution and its impact on astronomy. 
 
@@ -33,9 +33,10 @@ lamp --help
 
 To help with this course, the complete playlist of python tutorial videos can be found [here](https://www.youtube.com/playlist?list=PL96V6k-MWWMhAXQmH0AJDKM6WnfpaCx4S). This will be broken into smaller topical lists on the youtube channel [here](https://www.youtube.com/channel/UC-EKRSRFcQ1Uda8oGVVZl7Q).
 
-# Problem: Dark Sky Objectives for Telescopes
+# Project: Dark Sky Objectives for Telescopes and Terestrial Astronomy
 In this project we talk about light polution's effect on terrestrial astronomy. Although we go into greater detail in other sections, this we summarize below.
 
+## Background Information
 The below image shows measurements of our atmosphere's natural light [emissions](YO DOG NEED WORKSHEET), (also known as night glow). We can observe that the Blue 400~550nm band (also known as g-prime band) has little natural emissions; where as the remaining terrestrial visible light spectrum has intense emissions.
 
 ![Night Glow](./images/index.png)
@@ -60,9 +61,11 @@ plt.xlim(400, 1000)
 plt.show()
 ```
 
-Although blue has low natural emissions, it scatters very easily in our atmosphere due to [rayleigh scattering](YO DOG rayleigh scattering). In order for telescopes to make useful images, they filter bands that have high signal-noise in the atmosphere. Since it is exceptionally expensive to setup telescopes, and relocation is often not an option, astronomers lobby policy makers to influence public artificial lighting decisions.
+Although blue has low natural emissions, it scatters very easily in our atmosphere due to [rayleigh scattering](http://spaceplace.nasa.gov/blue-sky/en/) resulting in greater signal-noise in these bands. In order for telescopes to capture useful images, they filter out bands that have high signal-noise in the atmosphere. This results in less informative images, yielding lower return on investment.
 
+It is exceptionally expensive to setup telescopes, and relocation is often not an option. In order to preserve their ability to contribute, astronomers join organizations [like International Dark Sky Association](http://darksky.org/) that lobby policy makers to influence public artificial lighting decisions.
 
+## Historical Consiquence of Language
 
 # Communicating about Color
 [Color](./COLOR.md) is a very abstract concept, for which under-specified discussions may have very real consequences. As a function of environment and impacted sensors, we often use need very different tools to communicate about color. The method we are most familiar with, is well visualized in the image below and to the left, authored by Randall Monroe of xkcd. Although computers have very specific descriptor languages for colors spanning one of these labeled sections, human need to communicate with each other most commonly doesn't need such high granularity.
