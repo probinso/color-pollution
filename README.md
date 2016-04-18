@@ -33,7 +33,7 @@ lamp --help
 
 To help with this course, the complete playlist of python tutorial videos can be found [here](https://www.youtube.com/playlist?list=PL96V6k-MWWMhAXQmH0AJDKM6WnfpaCx4S). This will be broken into smaller topical lists on the youtube channel [here](https://www.youtube.com/channel/UC-EKRSRFcQ1Uda8oGVVZl7Q).
 
-# Project: Dark Sky Objectives for Telescopes and Terestrial Astronomy
+# Project: Dark Sky Objectives for Terestrial Astronomy
 In this project we talk about light polution's effect on terrestrial astronomy. Although we go into greater detail in other sections, this we summarize below.
 
 ## Background Information
