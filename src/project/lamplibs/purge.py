@@ -7,14 +7,28 @@ import sys
 
 from .utility import location_resource, shutil
 
-def interface():
-    shutil.rmtree(location_resource('./'), True)
+def interface(force):
+    def yes_or_no(question):
+        reply = str(input(question+' (y/n): ')).lower().strip()
+        return reply[0] == 'y' if reply else False
+
+    if not force:
+        force = yes_or_no("are you sure you want to purge?")
+
+    if force:
+        shutil.rmtree(location_resource('./'), True)
+        print("store purged")
+    else:
+        print("purge ignored")
 
 
 def cli_interface(arguments):
-    interface()
+    force = arguments.force
+    interface(force)
 
 
 def generate_parser(parser):
+    parser.add_argument('-f', dest='force', action='store_true', default=False,
+        help="skip prompt")
     parser.set_defaults(func=cli_interface)
     return parser

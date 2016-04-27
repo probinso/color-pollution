@@ -128,6 +128,7 @@ def get_index_cond(image, cond=lambda x: x == 255):
     for x, col in enumerate(image):
         for y, pixel in enumerate(col):
             for band, intensity in enumerate(pixel):
+                if band == 3: continue # transparentcy is not applicable
                 if cond(intensity):
                     ret[band, intensity].append(Coord(x,y))
     return ret
