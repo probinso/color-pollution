@@ -1,5 +1,5 @@
 # Goals of this Course
-In this course we develop a python program to analyse the rgb content of light sources in photographs, to ascertain their spectral profile. We will focus on creating tooling to enable
+In this course we develop a python program to analyse the rgb content of light sources in photographs to ascertain and approximate their spectral profile. We will focus on creating tooling to enable
 - reproducible research
 - scalable hypothesis testing
 - wide adoption/rejection of results (including distribution and data visualization)
