@@ -9,6 +9,10 @@ If you have comments about this project, please open a github issue.
 ## Why Python
 Python was selected for this course because it is a language both primary [contributors](./AUTHORS.md) are familiar with. Python is a mature, simple, and expressive programming language. Python also has a large body of public prior work, that we leverage to decrease development release time.
 
+Although most work is done in python3, there is some legacy python2.7 code that we will tend to as needed. We strongly encourage the use of python3 at this point because of this article [Python 2.7 vs Python 3](https://www.webucator.com/blog/2016/03/still-using-python-2-it-is-time-to-upg\
+rade/).
+
+## Software Support
 Libraries we developed can be installed using pip as designated below:
 ```
 pip install --upgrade git+https://github.com/probinso/color-polution.git@master#subdirectory=src/project
