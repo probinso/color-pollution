@@ -4,21 +4,7 @@ In this course we develop a python program to analyse the rgb content of light s
 - scalable hypothesis testing
 - wide adoption/rejection of results (including distribution and data visualization)
 
-If you have suggestion for future projects and available SMEs please feel free to contact us [here](pmoss.robinson+bluetion@gmail.com) on this matter. All data for proposed projects must be publically accessable.
-
-# Introduction
-Our first project will grow your understanding of light and sensor systems. Although there are many topics in this space, we will primarily focus on how industries communicate their lighting needs. Our motivating example is a study of light pollution and impact to astronomy.
-
-To insure you are supposed to be here, we first introduce the character audiences benefiting from participation. One character is the Scientist. The Scientist hopes to learn, then leverage programming in their field, to either model or better communicate their discipline. The second character is the Programmer. The Programmer hopes to understand the relationship between physical systems, measurement techniques, and computer models; growing their appreciation for real world constraints. Finally, our third character wants to know about light pollution, and strategies for communicating about sensor systems.
-
-Participation in the programming materials, you are expected to have a brief understanding of programming. We will record code walk-troughs which may include terms that are unfamiliar to a non-programmer. We will, however, openly discuss some of our design decisions in a way that should help to grow a young programmer.
-
-Hopefully, you consider yourself at least one of these characters. This material is intended to be accessible and digestible by any of these characters. As we understand that different characters will have different interests, we will present material separated into sections that you may navigate freely for your own purposes and interests.
-
-For each section below we will link to material, either provided by others, or generated ourselves. For any section, this may include:
-- References to relative articles
-- Physical systems video lectures
-- Programming video lectures
+If you have comments about this project, please open a github issue.
 
 ## Why Python
 Python was selected for this course because it is a language both primary [contributors](./AUTHORS.md) are familiar with. Python is a mature, simple, and expressive programming language. We have also found that there exists a large body of public prior work, that can be leveraged to decrease development release time.
@@ -31,8 +17,26 @@ Once installed, commands and subcommands can be run, as described, using:
 ```
 lamp --help
 ```
+To uninstall
+```
+pip uninstall lamplibs
+```
 
 To help with this course, the complete playlist of python tutorial videos can be found [here](https://www.youtube.com/playlist?list=PL96V6k-MWWMhAXQmH0AJDKM6WnfpaCx4S). This will be broken into smaller topical lists on the youtube channel [here](https://www.youtube.com/channel/UC-EKRSRFcQ1Uda8oGVVZl7Q).
+
+# Introduction
+Our project will grow your understanding of light and sensor systems. Although there are many topics in this space, we will primarily focus on how industries communicate their lighting needs. Our motivating example is a study of light pollution and impact to astronomy.
+
+To insure you are supposed to be here, we first introduce the character audiences benefiting from participation. One character is the Scientist. The Scientist hopes to learn, then leverage programming in their field, to either model or better communicate their discipline. The second character is the Programmer. The Programmer hopes to understand the relationship between physical systems, measurement techniques, and computer models; growing their appreciation for real world constraints. Finally, our third character wants to know about light pollution, and strategies for communicating about sensor systems.
+
+Participation in the programming materials, you are expected to have a brief understanding of programming. We will record code walk-troughs which may include terms that are unfamiliar to a non-programmer. We will, however, openly discuss some of our design decisions in a way that should help to grow a young programmer.
+
+Hopefully, you consider yourself at least one of these characters. This material is intended to be accessible and digestible by any of these characters. As we understand that different characters will have different interests, we will present material separated into sections that you may navigate freely for your own purposes and interests.
+
+For each section below we will link to material, either provided by others, or generated ourselves. For any section, this may include:
+- References to relative articles
+- Physical systems video lectures
+- Programming video lectures
 
 # Project: Dark Sky Objectives for Terestrial Astronomy
 In this project we discuss light polution's effect on terrestrial astronomy. Although we go into greater detail in other sections, we summarize this below.
