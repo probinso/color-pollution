@@ -313,5 +313,5 @@ def outline_clusters(base_img, *clusters):
         perimiter = hull.points[hull.vertices]
 
         pp = polygon_perimeter(perimiter[:,0], perimiter[:,1], shape=new_img.shape)
-        
+
     return base_img
