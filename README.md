@@ -16,14 +16,27 @@ You should feel free to skip any sections that are not aligned with your interes
 # Motivation
 There is a growing body of technical literature that report on the adverse effects artificial lighting has on various eco-systems, bio-sensory systems, or artificial sensors.  Examples of these topics include (along with reference materials):
 - [Astronomy](#) (light pollution)
-- [Human Health](#) (circadian rhythm)
+- [Human Health](#) (immune system)
 - [Fish Behavior](#) (impacting population)
 - [Bird Behavior](#) (impacting population)
 - [Turtle Behavior](#) (impacting migration)
 - [Insect Behavior](#)
 - [Plant Life](#) (plant growth)
 
-The primary [contributors](./AUTHORS.md) of this course have developed a tool that can be tailored to address any of the above topics.  However, you will see in the [Introduction Section](./ASTRO.md) that we focusing our discussion towards light pollution and how it impacts data obtained by telescopes that use CCD (Charge Coupled Device) arrays.
+The primary [contributors](./AUTHORS.md) of this course have developed a tool that can be tailored to address any of the above topics.  However, you will see in the [Introduction](./ASTRO.md) section, that we focusing our discussion towards light pollution and how it impacts data obtained by telescopes that use CCD (Charge Coupled Device) arrays.
+
+## Expectations
+For each section below we will link to material, either provided by others, or generated ourselves. For any section, this may include:
+- References to relative articles
+- Physical systems video lectures
+- Programming video lectures
+
+## Table of Contents
+1. [Introduction](./ASTRO.md)
+2. [Color](./COLOR.COMM.md)
+3. [Software](./SOFTWARE.md)
+4. [Measurement Equiptment](./SENSORS.md)
+5. [Conclusions](#)
 
 ---
 
@@ -75,4 +88,3 @@ We are hoping to gather and develop lecture materials for a course we are design
         - No light
         - Low pressure sodium with filter
         - Other light options
-
