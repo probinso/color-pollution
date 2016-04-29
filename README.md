@@ -6,7 +6,7 @@ In this course we develop a python program to analyse the rgb content of light s
 
 If you have comments about this project, please open a github issue. If you are not concerned with programming, and only want to understand the problem space, please skip to **Introduction**.
 
-## Why Python
+## Why Python?
 Python was selected for this course because it is a language both primary [contributors](./AUTHORS.md) are familiar with. Python is a mature, simple, and expressive programming language. Python also has a large body of public prior work, that we leverage to decrease development release time.
 
 Although most work is done in python3, there is some legacy python2.7 code that we will tend to as needed. We strongly encourage the use of python3 at this point. [Here](https://www.webucator.com/blog/2016/03/still-using-python-2-it-is-time-to-upgrade/) is a nice article about adoption of python3.
