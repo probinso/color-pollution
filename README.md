@@ -25,12 +25,13 @@ There is a growing body of technical literature that report on the adverse effec
 
 The primary [contributors](./AUTHORS.md) of this course have developed a tool that can be tailored to address any of the above topics.  However, you will see in the [Introduction](./ASTRO.md) section, that we focusing our discussion towards light pollution and how it impacts data obtained by telescopes that use CCD (Charge Coupled Device) arrays.
 
-## Contents
+## Expectations
 For each section below we will link to material, either provided by others, or generated ourselves. For any section, this may include:
 - References to relative articles
 - Physical systems video lectures
 - Programming video lectures
 
+## Table of Contents
 1. [Introduction](./ASTRO.md)
 2. [Color](./COLOR.COMM.md)
 3. [Software](./SOFTWARE.md)
