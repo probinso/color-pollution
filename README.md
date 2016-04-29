@@ -4,7 +4,7 @@ In this course we develop a python program to analyse the rgb content of light s
 - scalable hypothesis testing
 - wide adoption/rejection of results (including distribution and data visualization)
 
-This course has several audiences. The Scientist hopes to learn, then leverage programming in their field, to either model or better communicate their discipline. The second character is the Programmer. The Programmer hopes to understand the relationship between physical systems, measurement techniques, and computer models; growing their appreciation for real world constraints. Finally, the Curious, who want to know about light pollution, and strategies for communicating about sensor systems.
+This course has several audiences. The Scientist wants to leverage programming in their field, to either model or better communicate their discipline. The Programmer wnts to understand the relationship between physical systems, measurement techniques, and computer models. Finally, the Curious, who want to know about light pollution, and strategies for communicating about sensor systems.
 
 Participation in the programming materials, you are expected to have a brief understanding of programming. We will record code walk-troughs which may include terms that are unfamiliar to a non-programmer. We will, however, openly discuss some of our design decisions in a way that should help to grow a young programmer.
 
