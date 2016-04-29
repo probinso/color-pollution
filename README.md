@@ -1,11 +1,12 @@
 # Goals of this Course
-In this course we look at leveraging programming and low equipment costs. We will focus on creating tooling to enable
+In this course we develop a python program to analyse the rgb content of light sources in photographs, to ascertain their spectral profile. We will focus on creating tooling to enable
 - reproducible research
 - scalable hypothesis testing
-- wide adoption of results (including distribution and data visualization)
+- wide adoption/rejection of results (including distribution and data visualization)
 
 If you have suggestion for future projects and available SMEs please feel free to contact us [here](pmoss.robinson+bluetion@gmail.com) on this matter. All data for proposed projects must be publically accessable.
 
+# Introduction
 Our first project will grow your understanding of light and sensor systems. Although there are many topics in this space, we will primarily focus on how industries communicate their lighting needs. Our motivating example is a study of light pollution and impact to astronomy.
 
 To insure you are supposed to be here, we first introduce the character audiences benefiting from participation. One character is the Scientist. The Scientist hopes to learn, then leverage programming in their field, to either model or better communicate their discipline. The second character is the Programmer. The Programmer hopes to understand the relationship between physical systems, measurement techniques, and computer models; growing their appreciation for real world constraints. Finally, our third character wants to know about light pollution, and strategies for communicating about sensor systems.
