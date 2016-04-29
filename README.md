@@ -9,7 +9,7 @@ The target audiences for this course are
 - **Programmers** who want to understand the relationship between physical systems and measurement techniques.
 - **Lighting Engineers** who want to know how light impacts sensor systems.
 
-For optional participation in the programming materials, you are expected to have some practical exposure to python. We have recorded code walk-throughs which may include terms that are unfamiliar to a non-programmer. We, however, openly discuss some of our algorithmic and design decisions. All of our code and data is publicly availible.
+For optional participation in the programming materials, you are expected to have some practical exposure to python. We have recorded code walk-throughs which include terms that may be unfamiliar to a non-programmer. We, however, openly discuss some of our algorithmic and design decisions. All of our code and data is publicly availible.
 
 You should feel free to skip any sections that are not aligned with your interests. If you have comments about this material, please open a github issue.
 
