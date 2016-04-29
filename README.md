@@ -9,9 +9,9 @@ The target audiences for this course are
 - **Programmers** who want to understand the relationship between physical systems and measurement techniques.
 - **Lighting Engineers** who want to know how light impacts sensor systems.
 
-For optional participation in the programming materials, you are expected to have some practical exposure to python. We will record code walk-throughs which may include terms that are unfamiliar to a non-programmer. We will, however, openly discuss some of our algorithmic and design decisions. All of our code and data is publicly availible.
+For optional participation in the programming materials, you are expected to have some practical exposure to python. We have recorded code walk-throughs which may include terms that are unfamiliar to a non-programmer. We, however, openly discuss some of our algorithmic and design decisions. All of our code and data is publicly availible.
 
-If you have comments about this project, please open a github issue. You should feel free to skip any sections that are not aligned with your interests. Subsections may apear as hyperlinks that should only extend the current section's material.
+You should feel free to skip any sections that are not aligned with your interests. If you have comments about this material, please open a github issue.
 
 # Introduction
 Our project will grow your understanding of light and sensor systems. Although there are many topics in this space, we will primarily focus on how industries communicate their lighting needs. Our motivating example is a study of light pollution and impact to astronomy.
