@@ -1,33 +1,53 @@
-# Electromagnetic Radiation
-For this section, we will develop a basic knowledge of **electromagnetic radiation**; we will introduce this in increasing detail, through Ray Tracing, Waves, and Particles. Finally, we will discuss different bands of measured electromagnetic radiation.
+# Communicating about Color
+[Color](./COLOR.md) is a very abstract concept, for which under-specified discussions may have very real consequences. As a function of environment and impacted sensors, we often use need very different tools to communicate about color. The method we are most familiar with, is well visualized in the image below and to the left, authored by Randall Monroe of xkcd. Although computers have very specific descriptor languages for colors spanning one of these labeled sections, human need to communicate with each other most commonly doesn't need such high granularity.
 
-Most of our accessible data and example material is limited to terrestrial color, however a good understanding of electromagnetic radiation in general will allow you to abstract the information of this course environments dissimilar to terrestrial atmospheres.
+<img src="https://imgs.xkcd.com/blag/satfaces_map_1024.png" height=400 />
+<img src="src/project/lamplibs/images/CIE1931.png" height=400 />
 
-## Ray Tracing
-The simplest, and oldest consistent means of discussing traveling light, is to think of it has a series of rays. We claim that light is emitted from a source, with a color property, and travels in a straight line. These rays then bounce off of impeding objects, until they have either been perceived or absorbed.
+Below is the code used to generate the [CIE chart](./src/notebooks/CIE%20Charts.ipynb) found to the upper right. Points included in the legend represent engineering specifications for specific light sources. The code below was used to generate this plot.
 
-This is the model we used to design old *camera obscura* and *pinhole cameras* of the 18th century. Because light is bouncing off in every direction from an impeding object, if you create a dark enough chamber with a pinhole opening then you can view an inverted image of the original object. The walls of the chamber block out light that would white wash the image. In other words, the use of a pinhole limits the **signal to noise ratio.**
+```python
+from collections import namedtuple
+from colour.plotting import CIE_1931_chromaticity_diagram_plot
+import matplotlib.pyplot as plt
+from pandas import read_csv
+from numpy  import array, transpose
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Pinhole-camera.svg/2000px-Pinhole-camera.svg.png" width=400 />
+datafile = lambda filename: transpose(array(read_csv(filename)))
+Blackbody_xy = datafile('./datasets/BlackBody_xy.csv')
 
-## Waves
-Although thinking of **electromagnetic radiation** in the form of rays is helpful, it is an incomplete view of the world. We see this when we take a white light and shine it at a prism. If the light was traveling as a ray, then the light that leaves the prism would come out as white as well. This is not the case. We find that, in fact, white light is a composite span of wavelengths which bend at different angles in different mediums.
+legend = dict()
+ColorPoint = namedtuple('ColorPoint', ['x', 'y', 'label'])
+legend['ro'] = ColorPoint(0.464, 0.523, 'LE174-H00-N50-2A CW7 DOE')
+legend['mo'] = ColorPoint(0.511, 0.477, 'LE174-H00-N30 (PC Cover CW8) DOE')
+legend['bo'] = ColorPoint(0.531, 0.464, 'LE174-H00-N30-2A CW9 DOE')
+legend['wo'] = ColorPoint(0.562, 0.432, 'PC Converted Amber LED')
+legend['co'] = ColorPoint(0.450, 0.410, '3000K Blackbody Source')
+legend['go'] = ColorPoint(0.350, 0.355, '5000K Blackbody Source')
 
-![Prism Experiment](http://www-psych.stanford.edu/~lera/psych115s/notes/lecture5/images/floyd.jpg)
+def createPlot(**legend):
+    CIE_1931_chromaticity_diagram_plot(standalone = False)
 
-## Particles
-In order to understand concepts like **quantum efficiency**, we will also need to think of lite as a series of particles (traveling in a wave along a ray). A quantum of **electromagnetic radiation** is called a photon. **Electromagnetic radiation** sources emit with differing densities of photons. Each obstacle in a photon's path has a probability of interrupting the photon's travel before colliding with a recording sensor.
+    plt.xlabel('x', fontsize=20)
+    plt.ylabel('y', fontsize=20)
+    plt.tick_params(axis='x', labelsize=15)
+    plt.tick_params(axis='y', labelsize=15)
 
-## Bands
-We often talk about Bands of the Electromagnetic Spectrum in order to simplify communication. A band is a continuous range of wavelengths that we have assigned a useful label. Human Visible light is a very narrow band. Other bands are often labeled by our technologies that use them.
+    for key in legend:
+        point = legend[key]
+        plt.plot(point.x, point.y, key,
+                 markersize=10,
+                 label=point.label)
 
-<img src="http://hyperphysics.phy-astr.gsu.edu/hbase/imgmod/emus.gif" />
+    plt.plot(Blackbody_xy[0], Blackbody_xy[1], '--',
+             color = 'black', linewidth = 0.5)
 
-Additionally, it would be nice to use sensors to exactly determine the wavelength of incident **electromagnetic radiation**, however, existing sensor systems are limited to communicating only a triggered state. It is common practice to reduce a continuous span of wavelengths to well defined bands and measure intensity by counting the triggered sensors per band in unit area. This is inspired by how biological systems reduce colors. This translation is similar to using the Floor function across the real number line.
+    plt.grid(True)
+    plt.legend(loc=1, fontsize=15, numpoints=1)
+    plt.xlim(-.1,.9), plt.ylim(-.1,.9)
 
-Since many disciplines are concerned with bands outside of human visible light, they use color mapping strategies to produce images. This is a technique often used in data visualization to improve communication. We have a dedicated section below to introduce color mapping techniques and ways to communicate colors.
+    plt.show()
 
-# Light Sources
-## Spectral Profiles
-### Identifying Elements in Stars
-### Artificial Lighting
+createPlot(**legend)
+```
+
