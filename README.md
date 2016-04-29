@@ -15,13 +15,13 @@ You should feel free to skip any sections that are not aligned with your interes
 
 # Motivation
 There is a growing body of technical literature that report on the adverse effects artificial lighting has on various eco-systems, bio-sensory systems, or artificial sensors.  Examples of these topics include (along with reference materials):
-- [Astronomy](#) (light pollution)
-- [Human Health](#) (immune system)
-- [Fish Behavior](#) (impacting population)
-- [Bird Behavior](#) (impacting population)
-- [Turtle Behavior](#) (impacting migration)
-- [Insect Behavior](#)
-- [Plant Life](#) (plant growth)
+- [Astronomy¹](./BIB.md) (light pollution)
+- [Human Health²](./BIB.md) (immune system)
+- [Fish Behavior³](./BIB.md) (impacting population)
+- [Bird Behavior⁴](./BIB.md) (impacting population)
+- [Turtle Behavior⁵](#) (impacting migration)
+- [Insect Behavior⁶](#)
+- [Plant Life⁷](#) (plant growth)
 
 The primary [contributors](./AUTHORS.md) of this course have developed a tool that can be tailored to address any of the above topics.  However, you will see in the [Introduction](./ASTRO.md) section, that we focusing our discussion towards light pollution and how it impacts data obtained by telescopes that use CCD (Charge Coupled Device) arrays.
 
