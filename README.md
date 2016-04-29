@@ -4,7 +4,7 @@ In this course we develop a python program to analyse the rgb content of light s
 - scalable hypothesis testing
 - wide adoption/rejection of results (including distribution and data visualization)
 
-If you have comments about this project, please open a github issue. If you are not concerned with programming, and only want to understand the problem space, please skip to _Introduction_.
+If you have comments about this project, please open a github issue. If you are not concerned with programming, and only want to understand the problem space, please skip to *Introduction*.
 
 ## Why Python
 Python was selected for this course because it is a language both primary [contributors](./AUTHORS.md) are familiar with. Python is a mature, simple, and expressive programming language. Python also has a large body of public prior work, that we leverage to decrease development release time.
