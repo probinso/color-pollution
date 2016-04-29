@@ -7,7 +7,7 @@ In this course we develop a python program to analyse the rgb content of light s
 If you have comments about this project, please open a github issue.
 
 ## Why Python
-Python was selected for this course because it is a language both primary [contributors](./AUTHORS.md) are familiar with. Python is a mature, simple, and expressive programming language. We have also found that there exists a large body of public prior work, that can be leveraged to decrease development release time.
+Python was selected for this course because it is a language both primary [contributors](./AUTHORS.md) are familiar with. Python is a mature, simple, and expressive programming language. Python also has a large body of public prior work, that we leverage to decrease development release time.
 
 Libraries we developed can be installed using pip as designated below:
 ```
