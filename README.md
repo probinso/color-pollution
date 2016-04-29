@@ -1,6 +1,6 @@
-![logo](./images/moon.png)
-
 # Goals of this Course
+<img src="./images/logo.png" width=100 />
+
 In this course we develop a python program to analyse the rgb content of light sources in photographs to approximate their spectral profile. We will focus on
 - reproducible research
 - scalable hypothesis testing
