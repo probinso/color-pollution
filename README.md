@@ -1,5 +1,5 @@
 # Goals of this Course
-In this course we develop a python program to analyse the rgb content of light sources in photographs to ascertain and approximate their spectral profile. We will focus on creating tooling to enable
+In this course we develop a python program to analyse the rgb content of light sources in photographs to approximate their spectral profile. We will focus on creating tooling to enable
 - reproducible research
 - scalable hypothesis testing
 - wide adoption/rejection of results (including distribution and data visualization)
@@ -9,11 +9,11 @@ If you have comments about this project, please open a github issue.
 If you are not concerned with programming, and only with to understand the problem space, please skip to `Introduction`.
 
 ## Why Python
-Python was selected for this course because it is a language both primary [contributors](./AUTHORS.md) are familiar with. Python is a mature, simple, and expressive programming language. We have also found that there exists a large body of public prior work, that can be leveraged to decrease development release time.
+Python was selected for this course because it is a language both primary [contributors](./AUTHORS.md) are familiar with. Python is a mature, simple, and expressive programming language. Python also has a large body of public prior work, that we leverage to decrease development release time.
 
-[Python 2.7 vs Python 3](https://www.webucator.com/blog/2016/03/still-using-python-2-it-is-time-to-upg\
-rade/)
+Although most work is done in python3, there is some legacy python2.7 code that we will tend to as needed. We strongly encourage the use of python3 at this point. [Here](https://www.webucator.com/blog/2016/03/still-using-python-2-it-is-time-to-upgrade/) is a nice article about adoption of python3.
 
+## Software Support
 Libraries we developed can be installed using pip as designated below:
 ```
 pip install --upgrade git+https://github.com/probinso/color-polution.git@master#subdirectory=src/project
