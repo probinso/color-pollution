@@ -13,6 +13,17 @@ For optional participation in the programming materials, you are expected to hav
 
 You should feel free to skip any sections that are not aligned with your interests. If you have comments about this material, please open a github issue.
 
+# Motivation
+There is a growing body of technical literature that report on the adverse effects artificial lighting has on various eco-systems, bio-sensory systems, or artificial sensors.  Examples of these topics include (along with reference materials):
+- [Astronomy](#) (light pollution)
+- [Human Health](#) (circadian rhythm)
+- [Fish Behavior](#) (impacting population)
+- [Bird Behavior](#) (impacting population)
+- [Insect Behavior](#)
+- [Plant Life](#) (Growth)
+
+The primary [contributors](./AUTHORS.md) of this course have developed a tool that can be tailored to address any of the above topics.  However, you will see in the introduction section that we focusing our discussion towards light pollution and how it impacts data obtained by telescopes that use CCD (Charge Coupled Device) arrays.
+
 # Introduction
 Our project will grow your understanding of light and sensor systems. Although there are many topics in this space, we will primarily focus on how industries communicate their lighting needs. Our motivating example is a study of light pollution and impact to astronomy.
 
@@ -20,6 +31,9 @@ For each section below we will link to material, either provided by others, or g
 - References to relative articles
 - Physical systems video lectures
 - Programming video lectures
+
+## Table of Contents
+
 
 # Project: Dark Sky Objectives for Terestrial Astronomy
 In this project we discuss light polution's effect on terrestrial astronomy. Although we go into greater detail in other sections, we summarize this below.
