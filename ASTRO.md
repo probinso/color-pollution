@@ -1,14 +1,6 @@
 # Introduction
 Our project will grow your understanding of light and sensor systems. Although there are many topics in this space, we will primarily focus on how industries communicate their lighting needs. Our motivating example is a study of light pollution and impact to astronomy.
 
-For each section below we will link to material, either provided by others, or generated ourselves. For any section, this may include:
-- References to relative articles
-- Physical systems video lectures
-- Programming video lectures
-
-## Table of Contents
-
-
 # Project: Dark Sky Objectives for Terestrial Astronomy
 In this project we discuss light polution's effect on terrestrial astronomy. Although we go into greater detail in other sections, we summarize this below.
 
