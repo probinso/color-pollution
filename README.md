@@ -1,40 +1,33 @@
 # Goals of this Course
-This is a course on light and sensor systems. Although there are many topics in this space, we will primarily focus on light pollution and its impact on astronomy. By the end of this material, you should be able to reason and communicate clearly about light, environment, and sensor systems.
+In this course we develop a python program to analyse the rgb content of light sources in photographs to approximate their spectral profile. We will focus on
+- reproducible research
+- scalable hypothesis testing
+- wide adoption/rejection of results (including distribution and data visualization)
 
-To insure you are supposed to be here, we first introduce the character audiences benefiting from participation. One character is the Scientist. The Scientist hopes to learn, then leverage programming in their field, to either model or better communicate their discipline. The second character is the Programmer. The Programmer hopes to understand the relationship between physical systems, measurement techniques, and computer models; growing their appreciation for real world constraints. Finally, our third character wants to know about light pollution, and strategies for communicating about sensor systems.
+The target audiences for this course are
+- **Scientists** who want to leverage programming in their field, to build models and visualization tools.
+- **Programmers** who want to understand the relationship between physical systems and measurement techniques.
+- **Lighting Engineers and Photographers** who want to know how light impacts sensor systems.
 
-Participation in the programming materials, you are expected to have a brief understanding of programming. We will record code walk-troughs which may include terms that are unfamiliar to a non-programmer. We will, however, openly discuss some of our design decisions in a way that should help to grow a young programmer.
+For optional participation in the programming materials, you are expected to have some practical exposure to python. We have recorded code walk-throughs which include terms that may be unfamiliar to a non-programmer. We, however, openly discuss some of our algorithmic and design decisions. All of our code and data is publicly availible.
 
-Hopefully, you consider yourself at least one of these characters. This material is intended to be accessible and digestible by any of these characters. As we understand that different characters will have different interests, we will present material separated into sections that you may navigate freely for your own purposes and interests.
+You should feel free to skip any sections that are not aligned with your interests. If you have comments about this material, please open a github issue.
+
+# Introduction
+Our project will grow your understanding of light and sensor systems. Although there are many topics in this space, we will primarily focus on how industries communicate their lighting needs. Our motivating example is a study of light pollution and impact to astronomy.
 
 For each section below we will link to material, either provided by others, or generated ourselves. For any section, this may include:
 - References to relative articles
 - Physical systems video lectures
 - Programming video lectures
-- Challenge problems to verify knowledge
 
-## Why Python
-Python was selected for this course because it is a language both primary [contributors](./AUTHORS.md) are familiar with. Python is a mature, simple, and expressive programming language. We have also found that there exists a large body of public prior work, that can be leveraged to decrease development release time.
+# Project: Dark Sky Objectives for Terestrial Astronomy
+In this project we discuss light polution's effect on terrestrial astronomy. Although we go into greater detail in other sections, we summarize this below.
 
-Libraries we develop can be installed using pip as designated below:
-```
-pip install --upgrade git+https://github.com/probinso/color-polution.git@master#subdirectory=src/project
-```
-Once installed, commands and subcommands can be run, as described, using:
-```
-lamp --help
-```
-
-To help with this course, my complete playlist of python tutorial videos can be found [here](https://www.youtube.com/playlist?list=PL96V6k-MWWMhAXQmH0AJDKM6WnfpaCx4S).
-
-# Dark Sky Objectives for Telescopes
-As a primary example used in this course we talk about light polutions effect on astronomy. In our material we defend that artificially produced blue light has greater impact on the astronomy industry than other wavelengths for terrestrial telescopes. Although we go into greater detail in other sections, this argument can be summarized below.
-
-The below image shows measurements of our atmosphere's natural light [emissions](YO DOG NEED WORKSHEET), also known as night glow. We can observe that the Blue 400~550nm band has little natural emissions; where as the remaining terrestrial visible light spectrum has intense emissions.
+## Background Information
+The below image shows measurements of our atmosphere's natural light [emissions](YO DOG NEED WORKSHEET), (also known as night glow). We can observe that the Blue 400~550nm band (also known as g-prime band) has little natural emissions; where as the remaining terrestrial visible light spectrum has intense emissions.
 
 ![Night Glow](./images/index.png)
-
-Although blue is not naturally emitted, it scatters very easily in our atmosphere due to [rayleigh scattering](YO DOG rayleigh scattering). This is why artificial blue light so greatly impacts terrestrial viewing of the night sky. Bellow is the code used to generate that image.
 
 ```python
 import numpy as np
@@ -56,103 +49,12 @@ plt.xlim(400, 1000)
 plt.show()
 ```
 
-# Communicating about Color
-[Color](./COLOR.md) is a very abstract concept, for which under-specified discussions may have very real consequences. As a function of environment and impacted sensors, we often use need very different tools to communicate about color. The method we are most familiar with, is well visualized in the image below and to the left, authored by Randall Monroe of xkcd. Although computers have very specific descriptor languages for colors spanning one of these labeled sections, human need to communicate with each other most commonly doesn't need such high granularity.
+Although blue has low natural emissions, it scatters very easily in our atmosphere due to [rayleigh scattering](http://spaceplace.nasa.gov/blue-sky/en/) resulting in greater signal-noise in these bands. In order for telescopes to capture useful images, they filter out bands that have high signal-noise in the atmosphere. This results in less informative images, yielding lower return on investment.
 
-<img src="https://imgs.xkcd.com/blag/satfaces_map_1024.png" height=400 />
-<img src="src/project/lamplibs/images/CIE1931.png" height=400 />
+It is exceptionally expensive to setup telescopes, and relocation is often not an option. In order to preserve their ability to contribute, astronomers join organizations like [International Dark Sky Association](http://darksky.org/) that lobby to influence public artificial lighting policies.
 
-Below is the code used to generate the [CIE chart](./src/notebooks/CIE%20Charts.ipynb) found to the upper right. Points included in the legend represent engineering specifications for specific light sources. The code below was used to generate this plot.
+## Historical Consiquence of Language
 
-```python
-from collections import namedtuple
-from colour.plotting import CIE_1931_chromaticity_diagram_plot
-import matplotlib.pyplot as plt
-from pandas import read_csv
-from numpy  import array, transpose
-
-datafile = lambda filename: transpose(array(read_csv(filename)))
-Blackbody_xy = datafile('./datasets/BlackBody_xy.csv')
-
-legend = dict()
-ColorPoint = namedtuple('ColorPoint', ['x', 'y', 'label'])
-legend['ro'] = ColorPoint(0.464, 0.523, 'LE174-H00-N50-2A CW7 DOE')
-legend['mo'] = ColorPoint(0.511, 0.477, 'LE174-H00-N30 (PC Cover CW8) DOE')
-legend['bo'] = ColorPoint(0.531, 0.464, 'LE174-H00-N30-2A CW9 DOE')
-legend['wo'] = ColorPoint(0.562, 0.432, 'PC Converted Amber LED')
-legend['co'] = ColorPoint(0.450, 0.410, '3000K Blackbody Source')
-legend['go'] = ColorPoint(0.350, 0.355, '5000K Blackbody Source')
-
-def createPlot(**legend):
-    CIE_1931_chromaticity_diagram_plot(standalone = False)
-
-    plt.xlabel('x', fontsize=20)
-    plt.ylabel('y', fontsize=20)
-    plt.tick_params(axis='x', labelsize=15)
-    plt.tick_params(axis='y', labelsize=15)
-
-    for key in legend:
-        point = legend[key]
-        plt.plot(point.x, point.y, key,
-                 markersize=10,
-                 label=point.label)
-
-    plt.plot(Blackbody_xy[0], Blackbody_xy[1], '--',
-             color = 'black', linewidth = 0.5)
-
-    plt.grid(True)
-    plt.legend(loc=1, fontsize=15, numpoints=1)
-    plt.xlim(-.1,.9), plt.ylim(-.1,.9)
-
-    plt.show()
-
-createPlot(**legend)
-```
-
-# Approximation and Smoothing of Data
-
-In physics courses, you are often told to approximate values in your models. In my first life, I thought this was only to accommodate the  the lazy physicist. In my second life, I thought this was a strategy to accommodate the limitations introduced by using computers. Although these are good answers, they do not respect the true value of approximation.
-
-It is often our goal to measure, analyze, and communicate properties of physical systems such that the behavior of similar systems may be predicted. Measuring properties of a physical system is very difficult. Enormous time and cost is put into developing environments and tools to increase the accuracy of these measurements. When we do not have these resources, approximations can be used to smooth out the noise inherent to our instrumentation and environment.
-
-## Example of Smoothing
-
-Below is a source image of two street lamps taken at night. Our goal is to math on these lamps in order to identify what the spectral profile of these lamps are. A first attempted approach is to compute the ratio of red to blue light stored in the image, by selecting clusters of high intensity light in those bands. Unfortunately, there are a lot of places for information to be corrupted.
-- silicon sensors are not perfect; infact their quantum efficientcy is uneven accross wavelengths
-- images produced are modified from raw format, in order to produce more human similar images
-- resolution of the image results in a forced reduction of expressible sensors
-- compression algorithm used to save the file to a computer may take liberties with individual pixels
-- an observed maximum intensity implies, only, that the sensor has been saturated. We are unable to differentiate light whose intensity would register `maximum` vs `maximum+50`.
-
-Click [here](./SENSORS.md) if you are concerned that photographs generated by digital cameras are not sufficient source material for addressing the above proposed problem.
-
-<img src="src/project/lamplibs/images/misty-street-lights.jpeg"     width=285 />
-<img src="src/project/lamplibs/images/src-misty-street-lights.jpeg" width=285 />
-<img src="src/project/lamplibs/images/top-misty-street-lights.jpeg" width=285 />
-
-On the left is the source image. The technique we used identified critical sections by clustering points of green at 255 intensity, with a minimum size of 100 points, and a minimum radial distance of 30. The middle image has not been modified, and only identifies one sparse cluster, which doesn't appreciate a realistic view of the world. With smoothing intensities of 230-255 into one bucket, we can produce much more useful results; as found on the right.  [DBSCAN](http://scikit-learn.org/stable/modules/generated/sklearn.cluster.DBSCAN.html) is the algorithm and python module that we are using for this.
-
-```python
-from lamplibs.lamplight import image_info
-from lamplibs.lamplight import topograph_image, get_index_of, make_clusters_dict
-from lamplibs.lamplight import colorize_clusters
-
-filename = "file.jpeg"
-img_type, name, src_image = image_info(filename)
-step_gen  = step_range_gen(25)
-top_image = topograph_image(src_image, step_gen)
-
-def paint(image):
-    points_dict  = get_index_of(image)
-    cluster_dict = make_clusters_dict(points_dict, step_gen, 30, 100)
-
-    channel, intensity = 1, next(step_gen) # green, 255
-    clusters = cluster_dict[channel][intensity]
-
-    return colorize_clusters(image, clusters)
-
-save_top, save_src = paint(top_image), paint(src_image)
-```
 
 ---
 
