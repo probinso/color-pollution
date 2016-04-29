@@ -25,7 +25,7 @@ There is a growing body of technical literature that report on the adverse effec
 - [Insect Behavior](#)
 - [Plant Life](#) (plant growth)
 
-The primary [contributors](./AUTHORS.md) of this course have developed a tool that can be tailored to address any of the above topics.  However, you will see in the introduction section that we focusing our discussion towards light pollution and how it impacts data obtained by telescopes that use CCD (Charge Coupled Device) arrays.
+The primary [contributors](./AUTHORS.md) of this course have developed a tool that can be tailored to address any of the above topics.  However, you will see in the [./ASTRO.md](Introduction) section that we focusing our discussion towards light pollution and how it impacts data obtained by telescopes that use CCD (Charge Coupled Device) arrays.
 
 ---
 
