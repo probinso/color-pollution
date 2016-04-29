@@ -5,9 +5,9 @@ In this course we develop a python program to analyse the rgb content of light s
 - wide adoption/rejection of results (including distribution and data visualization)
 
 The target audiences for this course are
-- Scientists who want to leverage programming in their field, to build models and visualization tools.
-- Programmers who want to understand the relationship between physical systems and measurement techniques.
-- **Others** who want to know how light impacts sensor systems.
+- **Scientists** who want to leverage programming in their field, to build models and visualization tools.
+- **Programmers** who want to understand the relationship between physical systems and measurement techniques.
+- **Lighting Engineers** who want to know how light impacts sensor systems.
 
 Participation in the programming materials, you are expected to have a brief understanding of programming. We will record code walk-troughs which may include terms that are unfamiliar to a non-programmer. We will, however, openly discuss some of our design decisions in a way that should help to grow a young programmer.
 
