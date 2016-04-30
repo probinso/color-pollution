@@ -19,8 +19,8 @@ def interface(filename, directory, step):
 
 def cli_interface(arguments):
     """
-        by convention it is helpful to have a wrapper_cli method that interfaces
-        from commandline to function space.
+    by convention it is helpful to have a wrapper_cli method that interfaces
+    from commandline to function space.
     """
     filename  = arguments.image_filename
     directory = arguments.dst_directory
