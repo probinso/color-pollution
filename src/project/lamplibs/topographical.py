@@ -6,15 +6,36 @@ import sys
 
 from .lamplight import image_info, save_images
 from .lamplight import step_range_gen, topograph_image
+from .utility   import sign_path, get_resource
+
+from .register  import register_image_file, register_image_data
+from .          import model as mod
+
+@mod.pny.db_session
+def register_topograph_db(src_uid, dst_uid, step):
+    top = mod.Topograph.get(dst_image=dst_uid, step=step, src_image=src_uid)
+    if not top:
+        top = mod.Topograph(
+            dst_image=dst_uid,
+            step=step,
+            src_image=src_uid
+        )
+
+
+def register_topograph(dst_data, src, step):
+    pass
 
 
 def interface(filename, directory, step):
-    img_type, name, src_image = image_info(filename)
-    step_gen  = step_range_gen(10)
+    img_type, suid, src_image = register_image_file(filename)
+    step_gen  = step_range_gen(step)
 
     top_image = topograph_image(src_image, step_gen)
 
-    save_images(directory, name,top_=top_image)
+    img_type, duid, dst_image = register_image_data(top_image)
+    register_topograph(dst_image)
+
+    save_images(directory, name, top_=top_image)
 
 
 def cli_interface(arguments):

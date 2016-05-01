@@ -35,16 +35,15 @@ def register_image_data(src_image):
 
 def register_image_file(filename, derived=False):
     image_type, name, dst_data = image_info(filename)
-    (h, w, d) = dst_data.shape
+    (h, w, _d) = dst_data.shape
     label = commit_resource(filename)
 
     register_image_db(label, h, w, image_type, derived)
-    return label
+    return image_type, label, dst_data
 
 
 def interface(filename):
-    register_image_file(filename)
-    _, _, src_image = image_info(filename)
+    _, _, src_image = register_image_file(filename)
     register_image_data(src_image)
 
 
