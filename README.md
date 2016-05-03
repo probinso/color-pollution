@@ -33,8 +33,8 @@ For each section below we will link to material, either provided by others, or g
 
 ## Table of Contents
 1. [Introduction](./ASTRO.md)
-2. [Color](./COLOR.COMM.md)
-3. [Software](./SOFTWARE.md)
-4. [Measurement Equiptment](./SENSORS.md)
+2. [Measurement Equiptment](./SENSORS.md)
+3. [What is in a photo](#)
+4. [Hypothesis testing](./SOFTWARE.md)
 5. [Conclusions](#)
 
