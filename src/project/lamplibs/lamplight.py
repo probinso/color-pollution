@@ -13,7 +13,7 @@ import imghdr
 import matplotlib.pyplot as plt
 import numpy as np;
 import scipy.misc as misc
-from   scipy.spatial.distance import pdist as distancematrix
+from   scipy.spatial.distance import cdist as distancematrix
 from   sklearn.cluster import DBSCAN
 
 # Internal Dependencies
