@@ -20,3 +20,17 @@ pip uninstall lamplibs
 ```
 
 # What it do?
+This program has a few goals:
+1. yield informative visualizations for communicating about light sources
+2. yield a `spectral simplex` for every lamp in a sample image
+3. classify types of light sources using their `spectral simplex` as a feature vector
+4. allow for use of a shared database for all the above operations
+
+## What is a spectral simplex?
+Most images are stored as an array of pixels with three channels
+
+# How it do?
+## Libraries
+- PonyORM :: pythonic object relational model
+- Pillow, imread :: Reading and writing images
+- matplotlib ::
