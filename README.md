@@ -35,6 +35,6 @@ For each section below we will link to material, either provided by others, or g
 1. [Introduction](./ASTRO.md)
 2. [Measurement Equiptment](./SENSORS.md)
 3. [What is in a photo](#)
-4. [Hypothesis testing](./src/prject/README.md)
+4. [Hypothesis testing](./src/project/README.md)
 5. [Conclusions](#)
 
