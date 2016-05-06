@@ -52,7 +52,6 @@ setup(
   install_requires = [
     'argcomplete',
     'argparse',
-    'ddbscan',
     'matplotlib',
     'numpy',
     'scipy',

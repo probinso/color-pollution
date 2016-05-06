@@ -35,4 +35,27 @@ It is exceptionally expensive to setup telescopes, and relocation is often not a
 
 ## Historical Consiquence of Language
 
+---
 
+- Lamp technology
+  - LED
+  - Cooresponding Color Temperature (CCT)
+    - Blackbody Color Temperature
+    - metamers
+    + calculate CCT
+    + calculate color
+    + quantify colors from blackbody radiators
+- Dark Sky Objectives for Terestrial Astronomy
+  - night glow spectra
+  - atmospheric scattering
+  - Keck telescope (at high level)
+    - CCD telescope description
+    - sloan filters
+  - light pollution (cloud glow image)
+    - Current metrics for light pollution
+      - Rayleigh scattering index
+      - scotopic/photopic ratio
+      - percent blue content
+- Overview of project
+  - example of using photo to extract information (Aurora Borealis)
+  - project description
