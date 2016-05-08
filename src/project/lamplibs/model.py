@@ -2,6 +2,9 @@
 import os.path  as osp
 import pony.orm as pny
 
+from  shutil  import copy
+from .utility import get_resource
+
 'https://editor.ponyorm.com/user/probinson/lamplibs'
 
 from . import utility
@@ -25,6 +28,15 @@ class Image(db.Entity):
 
     cluster        = pny.Optional("Cluster", reverse="dst_image")
     cluster_images = pny.Set("Cluster", reverse="src_image")
+
+
+@pny.db_session
+def retrieve_image(resource, destination, rename='output'):
+    img = Image.get(id=resource)
+    if not img:
+        raise FileNotFoundError("database resource '{}'".format(resource))
+    savename = rename + '.' + img.type
+    copy(get_resource(resource), osp.join(destination, savename))
 
 
 class Topograph(db.Entity):
