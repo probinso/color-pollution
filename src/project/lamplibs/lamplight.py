@@ -42,7 +42,7 @@ def empty_canvas(image):
     return dst_img
 
 
-def save_images(dst, name, img_type='bmp', **kwargs):
+def save_images(dst, name, img_type='png', **kwargs):
     """
     input:
       dst  is a directory destination
@@ -53,7 +53,6 @@ def save_images(dst, name, img_type='bmp', **kwargs):
       saves images into dst with name in bmp format
     """
 
-    @ptrace
     def save_modified(prefix, image):
         result = osp.join(dst, prefix + name + '.' + img_type)
         misc.imsave(result, image)
