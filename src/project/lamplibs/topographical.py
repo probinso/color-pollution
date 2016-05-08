@@ -6,7 +6,7 @@ import sys
 
 from .lamplight import image_info, save_images
 from .lamplight import step_range_gen, topograph_image
-from .utility   import sign_path, get_resource, copy_directory_files
+from .utility   import sign_path
 
 from .register  import register_image_file, register_image_data
 from .          import model as mod
