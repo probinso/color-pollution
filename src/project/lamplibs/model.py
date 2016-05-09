@@ -2,8 +2,9 @@
 import os.path  as osp
 import pony.orm as pny
 
-from  shutil  import copy
-from .utility import get_resource
+from  shutil    import copy
+from .utility   import get_resource, ptrace
+from .lamplight import image_info
 
 'https://editor.ponyorm.com/user/probinson/lamplibs'
 
@@ -29,7 +30,14 @@ class Image(db.Entity):
     cluster        = pny.Optional("Cluster", reverse="dst_image")
     cluster_images = pny.Set("Cluster", reverse="src_image")
 
+    @property
+    def data(self):
+        *_, data = image_info(get_resource(self.id))
+        return data
 
+
+
+@ptrace
 @pny.db_session
 def retrieve_image(resource, destination, rename='output'):
     img = Image.get(id=resource)

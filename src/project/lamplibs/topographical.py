@@ -5,36 +5,34 @@ import argparse, argcomplete
 import sys
 
 from .lamplight import image_info, save_images
-from .lamplight import step_range_gen, topograph_image
+from .lamplight import topograph_image
 from .utility   import sign_path
 
 from .register  import register_image_file, register_image_data
 from .          import model as mod
 
 @mod.pny.db_session
-def register_topograph_db(src_img, dst_img, step):
-    top = mod.Topograph.get(dst_image=dst_img, step=step, src_image=src_img)
+def register_topograph_db(src_image, dst_image, step):
+    top = mod.Topograph.get(dst_image=dst_image, step=step, src_image=src_image)
     if not top:
         top = mod.Topograph(
-            dst_image=dst_img,
+            dst_image=dst_image,
             step=step,
-            src_image=src_img
+            src_image=src_image
         )
-    return top.dst_image
+    return top
+
 
 @mod.pny.db_session
 def check_topograph(src, step):
-    s_img_type, suid, src_data = register_image_file(src)
-    src_img = mod.Image.get(id=suid)
-    top = mod.Topograph.get(step=step, src_image=src_img)
-    if top:
-        resource = top.dst_image.id
-    else:
-        step_gen  = step_range_gen(step)
-        top_image = topograph_image(src_data, step_gen)
-        _d_img_type, duid, _dst_data = register_image_data(top_image)
-        resource = register_topograph_db(suid, duid, step).id
-    return resource
+    src_image = register_image_file(src)
+    top = mod.Topograph.get(step=step, src_image=src_image)
+    if not top:
+        top_data  = topograph_image(src_image.data, step)
+        top_image = register_image_data(top_data)
+        top       = register_topograph_db(src_image, top_image, step)
+
+    return top.dst_image.id
 
 
 def interface(filename, directory, step):

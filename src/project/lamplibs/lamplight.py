@@ -30,9 +30,9 @@ def image_info(filename):
     Takes in a filename
     returns a tuple (filetype, basename(filename), numpy image)
     """
-    img_type     = imghdr.what(filename)
-    name, suffix = osp.basename(filename).rsplit('.', 1)
-    src_image    = misc.imread(filename)
+    img_type    = imghdr.what(filename)
+    name, *_ext = osp.basename(filename).rsplit('.', 1)
+    src_image   = misc.imread(filename)
     return img_type, name, src_image
 
 
@@ -94,12 +94,13 @@ class step_range_gen(regen):
 
 
 @ptrace
-def topograph_image(image, step_gen):
+def topograph_image(image, step):
     """
     Takes in NxMxC numpy matrix and a step size and a delta
     returns  NxMxC numpy matrix with contours in each C cell
     """
-    new_img = np.array(image, copy=True)
+    step_gen = step_range_gen(step)
+    new_img  = np.array(image, copy=True)
 
     """step_gen ~ (255, 245, 235, 225,...) """
     def myfunc(color):
