@@ -57,7 +57,7 @@ def cli_interface(arguments):
 #####################################
 def generate_parser(parser):
     parser.add_argument('image_filename', type=str,
-        help="Image Filename to be split into R, G, B images")
+        help="Image Filename to be clustered")
     parser.add_argument('dst_directory', type=str,
         help="Location to save modified images")
     parser.add_argument('--radius', type=int, default=30,
