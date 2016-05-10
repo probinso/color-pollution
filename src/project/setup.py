@@ -48,7 +48,7 @@ setup(
   scripts = [],
   package_data={}, #{'peval': ['db_init.sql']},
   data_files=[(os.path.join('share','%s','%s') % ('lamplibs', x[0]), map(lambda y: x[0]+ os.path.sep +y, x[2])) for x in os.walk('images'+os.path.sep)],
-  long_description=read(os.path.join('lamplibs','README.md')),
+  long_description=read('README.md'),
   install_requires = [
     'argcomplete',
     'argparse',
