@@ -28,7 +28,7 @@ This program has a few goals:
 4. allow for use of a shared database for all the above operations
 
 ## What is a spectral simplex?
-Most images are stored as an array of pixels with three channels
+Most digital images are stored as an array of pixels, each with a red, green, and blue channel. The spectral simplex is the percent of high intensity red, green, and blue for a given area.
 
 # How it do?
 ## Libraries

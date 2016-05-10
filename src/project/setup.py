@@ -58,6 +58,7 @@ setup(
     'imread',
     'Pillow',
     'scikit-learn',
+    'pony',
   ]
 )
 

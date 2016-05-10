@@ -62,13 +62,13 @@ def get_resource(fname='.'):
 def commit_resource(full_path):
     srcdir, fname = osp.split(test_path(full_path))
     label = sign_path(full_path)
-    copy_directory_files(srcdir, location_resource(), [fname])
+    copy_directory_files(srcdir, location_resource(), fname)
     src = partial(osp.join, location_resource())
     os.rename(src(fname), src(label))
     return label
 
 
-def copy_directory_files(srcdir, dstdir, filenames):
+def copy_directory_files(srcdir, dstdir, *filenames):
     """
       copies [filenames] from srcdir to dstdir
     """
