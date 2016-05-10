@@ -1,3 +1,4 @@
+![Lamp Art](./images/output.png)
 # Goals of this Course
 In this course we develop a python program to analyse the rgb content of light sources in photographs to approximate their spectral profile. We will focus on
 - reproducible research
