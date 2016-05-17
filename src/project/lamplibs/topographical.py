@@ -11,7 +11,7 @@ from .utility   import sign_path
 from .register  import register_image_file, register_image_data
 from .          import model as mod
 
-@mod.pny.db_session
+
 def register_topograph_db(src_image, dst_image, step):
     top = mod.Topograph.get(dst_image=dst_image, step=step, src_image=src_image)
     if not top:
@@ -26,7 +26,7 @@ def register_topograph_db(src_image, dst_image, step):
 @mod.pny.db_session
 def check_topograph(src, step):
     src_image = register_image_file(src)
-    top = mod.Topograph.get(step=step, src_image=src_image)
+    top       = mod.Topograph.get(step=step, src_image=src_image)
     if not top:
         top_data  = topograph_image(src_image.data, step)
         top_image = register_image_data(top_data)
