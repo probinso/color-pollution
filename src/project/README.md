@@ -11,7 +11,7 @@ Examples of light types:
 ### Current Status
 This program takes as input night time images of lit street lamps. This returns approximate spectral profile of each lamp and it's relative position.
 
-This project is still a work in progress. The end product uses unsupervised classification techniques to label types of lamps (high pressure sodium vs cool white LED vs ect.). Every computationally expensive task's result will be cached in a database using methods transparent to the user.
+This project is still a work in progress. The end product uses unsupervised classification techniques to label types of lamps. Every computationally expensive task result will be cached in a database using methods transparent to the user.
 
 # Run without install of lamplibs
 The program requires the following libraries to run:
