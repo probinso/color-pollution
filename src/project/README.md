@@ -42,7 +42,7 @@ To uninstall
 $ pip uninstall lamplibs
 ```
 
-# What it do?
+# What it does?
 Once installed, commands and subcommands can be run, as described, using
 ```
 $ lamp --help
