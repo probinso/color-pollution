@@ -18,9 +18,8 @@ def select_clusters(image, radius, size):
         cluster_dict = make_clusters_dict(points_dict, radius, size)
 
         order = lambda o: len(o[1])
-        print(len(cluster_dict))
         for i, overlapping in enumerate(overlapping_clusters(cluster_dict)):
-            print("visiting cluster : {}".format(i))
+            print("visiting lamp : {}".format(i))
             print(simplexify(overlapping), file=sys.stdout)
             for key, clstr in sorted(overlapping.items(), key=order, reverse=True):
                 col      = [0, 0, 0]
