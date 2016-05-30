@@ -5,7 +5,6 @@ Examples of light types:
 - Moon
 - Cool White LEDs
 - Warm White LEDs
-- Winslow Bulbs
 - High Pressure Sodium
 - Low Pressure Sodium
 
