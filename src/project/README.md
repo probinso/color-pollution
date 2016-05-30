@@ -52,8 +52,7 @@ The `topograph` subcommand produces a topographical leveling of an input image. 
 $ lamp topograph  ./demo/0.JPG . --step 10  # produces output.png
 $ mv ./output.png ./demo/1.png
 ```
-<img src="demo/0.JPG" width=430 />
-<img src="demo/1.png" width=430 />
+<img src="demo/0.JPG" width=430 /> <img src="demo/1.png" width=430 />
 
 The `cluster` subcommand identifies lamps by using **dbscan** in each color channel (red-green-blue) over high intensity values. The area of each cluster represents the measured output of a lamp in each channel. **Lamps** are grouped clusters from each channel that share the most overlapping area. The **relative position** of a lamp is the **medoid** of it's smallest cluster. This command yields a *splat image* to help visualize lamps, and prints **relative position** and **feature vector** of lamps.
 ```
@@ -79,8 +78,7 @@ visiting lamp : 8
 
 $ mv ./output.png ./demo/2.png
 ```
-<img src="demo/1.png" width=430 />
-<img src="demo/2.png" width=430 />
+<img src="demo/1.png" width=430 /> <img src="demo/2.png" width=430 />
 
 The `purge` subcommand purges your system of the existing caching database.
 ```bash
