@@ -1,6 +1,7 @@
-#!/usr/bin/env python3
-# PYTHON_ARGCOMPLETE_OK
 # -*- coding: utf-8 -*-"""
+"""
+This module administrates lamp clustering and feature extraction.
+"""
 
 import argparse, argcomplete
 import sys

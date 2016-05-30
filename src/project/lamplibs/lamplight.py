@@ -1,4 +1,14 @@
 # -*- coding: utf-8 -*-"""
+"""
+This module encapsulates the logic of the model view controller.
+
+Classes Provided:
+  GroupPoints(list)
+    a list of ('Coord', ['x', 'y']).
+
+  ClusterPoints(GroupPoints)
+    extends GroupPoints with 'medoid(self)' and 'overlaps(self, other)' methods.
+"""
 
 # Python Standard Libarary
 from   collections import namedtuple, defaultdict
@@ -11,7 +21,7 @@ from   sys import stderr
 # External Dependencies
 import imghdr
 import matplotlib.pyplot as plt
-import numpy as np;
+import numpy as np
 import scipy.misc as misc
 from   scipy.spatial.distance import cdist as distancematrix
 from   sklearn.cluster import DBSCAN
@@ -84,7 +94,7 @@ def image_split(src_image):
     return map(np_one_color, np_lst)
 
 
-class step_range_gen(regen):
+class _step_range_gen(regen):
     """
     Object, probably needs documentation
     """
@@ -99,7 +109,7 @@ def topograph_image(image, step):
     Takes in NxMxC numpy matrix and a step size and a delta
     returns  NxMxC numpy matrix with contours in each C cell
     """
-    step_gen = step_range_gen(step)
+    step_gen = _step_range_gen(step)
     new_img  = np.array(image, copy=True)
 
     """step_gen ~ (255, 245, 235, 225,...) """

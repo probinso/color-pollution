@@ -1,4 +1,8 @@
-#!/usr/bin/env python
+# -*- coding: utf-8 -*-"""
+"""
+This module describes the Model in our Model View Controller.
+"""
+
 import os.path  as osp
 import pony.orm as pny
 

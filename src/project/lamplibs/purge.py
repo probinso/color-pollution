@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 # PYTHON_ARGCOMPLETE_OK
+# -*- coding: utf-8 -*-"""
+"""
+This module provides operational support for purging the Model's database.
+"""
 
 import argparse, argcomplete
 import os.path as osp

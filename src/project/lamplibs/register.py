@@ -1,5 +1,8 @@
-#!/usr/bin/env python3
-# PYTHON_ARGCOMPLETE_OK
+# -*- coding: utf-8 -*-"""
+"""
+This module registers images to the database, The CLI to this operation has
+been depricated.
+"""
 
 import argparse, argcomplete
 import os

@@ -1,5 +1,7 @@
-#!/usr/bin/env python3
-# PYTHON_ARGCOMPLETE_OK
+# -*- coding: utf-8 -*-"""
+"""
+This module provides operational support of data smoothing over images.
+"""
 
 import argparse, argcomplete
 import sys

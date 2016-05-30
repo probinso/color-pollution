@@ -16,6 +16,7 @@ This project is still a work in progress. The end product uses unsupervised clas
 
 # Don't Install lamplibs
 The program requires the following libraries to run:
+- appdirs
 - argcomplete
 - argparse
 - imread

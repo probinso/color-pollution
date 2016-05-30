@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 
 import os
 from setuptools import setup
@@ -50,6 +51,7 @@ setup(
   data_files=[(os.path.join('share','%s','%s') % ('lamplibs', x[0]), map(lambda y: x[0]+ os.path.sep +y, x[2])) for x in os.walk('images'+os.path.sep)],
   long_description=read('README.md'),
   install_requires = [
+    'appdirs',
     'argcomplete',
     'argparse',
     'matplotlib',

@@ -1,6 +1,7 @@
-#!/usr/bin/env python3
-# PYTHON_ARGCOMPLETE_OK
-
+# -*- coding: utf-8 -*-"""
+"""
+This module provides a simple CLI for extracting Red-Green-Blue from images
+"""
 import argparse, argcomplete
 import os.path as osp
 import sys

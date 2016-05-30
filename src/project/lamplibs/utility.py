@@ -1,5 +1,11 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-"""
+"""
+This module encapsulates all general functions and types that are not
+program specific. The 'appdirs' requirement is the only library outside
+of standard library, which is used for cross platform support.
+"""
+
+from appdirs     import user_data_dir
 
 from collections import OrderedDict, Iterable
 from contextlib  import contextmanager
@@ -14,12 +20,11 @@ import shutil
 import sys
 import tempfile
 import time
-import xdg.BaseDirectory
-
 
 
 global DEBUG
-DEBUG = True
+DEBUG = False
+
 
 def simple_list(li):
     """
@@ -49,8 +54,9 @@ def test_path(path):
 
 def location_resource(
   fname='.',
-  location=xdg.BaseDirectory.save_data_path('lamplibs')
+  location=user_data_dir('lamplibs', 'SadClownFactory')
   ):
+    os.makedirs(location, exist_ok=True)
     return osp.join(location, fname)
 
 
@@ -113,6 +119,10 @@ def window(generator, size=2):
 
 
 class ParameterizedDefaultDict(dict):
+    """
+    defaultdict that takes a callable as its parameter, then passes indicies as
+    parameters to default.
+    """
     def __init__(self, default, *args, **kwargs):
         assert(callable(default))
         self.__default = default
@@ -129,11 +139,14 @@ class ParameterizedDefaultDict(dict):
         return super(self.__class__, self).__getitem__(*index)
 
     def __call__(self, *args):
-        # so that self.__class__ can be used as a memoizer
+        # so that self.__class__ can also be used as a memoizer
         return self[args]
 
 
 class OrderedDefaultDict(OrderedDict):
+    """
+    DefaultDict that preserves insertion order upon iteration
+    """
     def __init__(self, default, *args, **kwargs):
         OrderedDict.__init__(self, *args, **kwargs)
         assert(callable(default))
@@ -145,6 +158,9 @@ class OrderedDefaultDict(OrderedDict):
 
 
 def ptrace(fn):
+    """
+    Decorator used to help identify bottlenecks.
+    """
     def __get_time_hhmmss(diff):
         m, s = divmod(diff, 60)
         h, m = divmod(m, 60)

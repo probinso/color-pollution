@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 # PYTHON_ARGCOMPLETE_OK
+# -*- coding: utf-8 -*-"""
+"""
+This module administrates the CLI of each existing subcommand.
+"""
 
 # EXTERNAL PACKAGES
 import argparse, argcomplete
