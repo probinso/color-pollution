@@ -1,18 +1,7 @@
-# Lamp
-This program takes as input night time images of lit street lamps. The end yield is approximate spectral profile of each lamp and it's location.
-```bash
-lamp -h
-usage: lamp-runner.py [-h] {cluster,rgb,register,purge,topograph} ...
+# Lamp (Work in Progress)
+This program takes as input night time images of lit street lamps. Presently, the yield is approximate spectral profile of each lamp and it's location.
 
-Color Pollution Course Libs
-
-positional arguments:
-  {cluster,rgb,register,purge,topograph}
-                        subcommand
-
-optional arguments:
-  -h, --help            show this help message and exit
-```
+This project is still a work in progress. The end product uses unsupervised classification techniques to label types of lamps (high pressure sodium vs cool white LED vs ect.). Every computationally expensive task's result will be cached in a database using methods transparent to the user.
 
 # What it do?
 
