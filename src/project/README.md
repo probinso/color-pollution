@@ -14,7 +14,7 @@ This program takes as input night time images of lit street lamps. Presently, th
 
 This project is still a work in progress. The end product uses unsupervised classification techniques to label types of lamps (high pressure sodium vs cool white LED vs ect.). Every computationally expensive task's result will be cached in a database using methods transparent to the user.
 
-# Don't Install lamplibs
+# Run without install of lamplibs
 The program requires the following libraries to run:
 - appdirs
 - argcomplete
