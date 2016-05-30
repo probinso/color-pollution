@@ -37,17 +37,16 @@ Or if downloaded locally
 ```
 $ pip install --upgrade .
 ```
-
-Once installed, commands and subcommands can be run, as described, using:
-```
-$ lamp --help
-```
 To uninstall
 ```
 $ pip uninstall lamplibs
 ```
 
 # What it do?
+Once installed, commands and subcommands can be run, as described, using
+```
+$ lamp --help
+```
 The `topograph` subcommand produces a topographical leveling of an input image. This is used to standardize yield accross multiple input's with lossy compression filetypes. This intermediate step always yields a png (because it's lossless) that is cached in a database, to prevent repeat work.
 
 The `cluster` subcommand identifies lamps by using **dbscan** in each color channel (red-green-blue) over high intensity values. The area of each cluster represents the measured output of a lamp in each channel. **Lamps** are grouped clusters from each channel who share the most overlapping area. The **location** of a lamp is the **medoid** of it's smallest cluster. This command yields a *splat image* to help visualize lamps, and prints **location** and **approximate spectral simplex** of lamps.
