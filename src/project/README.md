@@ -8,8 +8,13 @@ To help with this course, the complete playlist of python tutorial videos can be
 # Install lamplibs
 Libraries we developed can be installed using pip as designated below:
 ```
-pip install --upgrade git+https://github.com/probinso/color-polution.git@master#subdirectory=src/project
+pip install --upgrade --user git+https://github.com/probinso/color-polution.git@master#subdirectory=src/project
 ```
+Or if downloaded locally
+```
+pip install --upgrade --user .
+```
+
 Once installed, commands and subcommands can be run, as described, using:
 ```
 lamp --help
@@ -20,15 +25,15 @@ pip uninstall lamplibs
 ```
 
 # What it do?
-This program has a few goals:
+This program takes as input night time images of lit street lamps. The end yield is approximate spectral profile of each lamp and it's location.
 
-1. yield informative visualizations for communicating about light sources
-2. yield a `spectral simplex` for every lamp in a sample image
-3. classify types of light sources using their `spectral simplex` as a feature vector
-4. allow for use of a shared database for all the above operations
+The `topograph` subcommand produces a topographical leveling of an input image. This is used to standardize yield accross multiple input's with lossy compression filetypes. This intermediate step always yields a png (because it's lossless) that is cached in a database, to prevent repeat work.
 
-## What is a spectral simplex?
-Most digital images are stored as an array of pixels, each with a red, green, and blue channel. The spectral simplex is the percent of high intensity red, green, and blue for a given area.
+The `cluster` subcommand identifies lamps by using **dbscan** in each color channel (red-green-blue) over high intensity values. The area of each cluster represents the measured output of a lamp in each channel. **Lamps** are grouped clusters from each channel who share the most overlapping area. The **location** of a lamp is the **medoid** of it's smallest cluster. This command yields a *splat image* to help visualize lamps, and prints **location** and **approximate spectral simplex** of lamps.
+```
+lamp topograph ./input_image.jpg . --step 10              # produces output.png
+lamp cluster   ./output.png      . --size 20 --radius 30  # replaces output.png
+```
 
 # How it do?
 ## Libraries
