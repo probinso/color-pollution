@@ -49,14 +49,16 @@ $ lamp --help
 ```
 The `topograph` subcommand produces a topographical leveling of an input image. This is used to standardize yield accross multiple input's with lossy compression filetypes. This intermediate step always yields a png (because it's lossless) that is cached in a database to prevent repeat work. Output images often look very similar, unless step size is very large.
 ```
-$ lamp topograph ./input_image.jpg . --step 10        # produces output.png
+$ lamp topograph  ./demo/0.JPG . --step 10  # produces output.png
+$ mv ./output.png ./demo/1.png
 ```
-<img src="demo/0.JPG" height=400 />
-<img src="demo/1.png" height=400 />
+<img src="demo/0.JPG" width=400 />
+<img src="demo/1.png" width=400 />
 
 The `cluster` subcommand identifies lamps by using **dbscan** in each color channel (red-green-blue) over high intensity values. The area of each cluster represents the measured output of a lamp in each channel. **Lamps** are grouped clusters from each channel that share the most overlapping area. The **relative position** of a lamp is the **medoid** of it's smallest cluster. This command yields a *splat image* to help visualize lamps, and prints **relative position** and **feature vector** of lamps.
 ```
-$ lamp cluster   ./output.png . --size 20 --radius 30  # replaces output.png
+$ lamp cluster    ./demo/1.png . --size 20 --radius 30  # produces output.png
+$ mv ./output.png ./demo/2.png
 ```
 <img src="demo/1.png" width=400 />
 <img src="demo/2.png" width=400 />
