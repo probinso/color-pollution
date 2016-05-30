@@ -55,6 +55,10 @@ $ lamp topograph ./input_image.jpg . --step 10              # produces output.pn
 $ lamp cluster   ./output.png      . --size 20 --radius 30  # replaces output.png
 ```
 
+<img src="demo/0.JPG" width=285 />
+<img src="demo/1.png" width=285 />
+<img src="demo/2.png" width=285 />
+
 The `purge` subcommand purges your system of the existing caching database.
 ```bash
 $ ./lamp purge
