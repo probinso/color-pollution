@@ -1,4 +1,15 @@
 # Lamp (Work in Progress)
+This is a program to automatically identify light source types from photographs taken at night. The program uses data smoothing and unsupervised learning techniques to classify light sources. 
+
+Examples of light types:
+- Moon
+- Cool White LEDs
+- Warm White LEDs
+- Winslow Bulbs
+- High Pressure Sodium
+- Low Pressure Sodium
+
+### Current Status
 This program takes as input night time images of lit street lamps. Presently, the yield is approximate spectral profile of each lamp and it's location.
 
 This project is still a work in progress. The end product uses unsupervised classification techniques to label types of lamps (high pressure sodium vs cool white LED vs ect.). Every computationally expensive task's result will be cached in a database using methods transparent to the user.
