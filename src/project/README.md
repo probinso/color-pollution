@@ -1,4 +1,4 @@
-# Lamp (Work in Progress)
+# Lamp (work in progress)
 This is a program to automatically identify light source types from photographs taken at night. The program uses data smoothing and unsupervised learning techniques to classify light sources. 
 
 Examples of light types:
