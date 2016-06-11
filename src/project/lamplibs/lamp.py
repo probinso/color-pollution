@@ -10,11 +10,11 @@ import argparse, argcomplete
 import sys
 
 # INTERNAL PACKAGES
+from . import purge
 from . import cluster
 from . import extractRGB as rgb
 from . import topographical
 from . import register
-from . import purge
 
 def cluster_parser(subparsers):
     parser = subparsers.add_parser('cluster')

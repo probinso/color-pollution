@@ -21,10 +21,7 @@ import sys
 import tempfile
 import time
 
-
-global DEBUG
-DEBUG = False
-
+DEBUG = True
 
 def simple_list(li):
     """
