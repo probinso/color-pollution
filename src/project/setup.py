@@ -10,6 +10,11 @@ def read(fname):
 from setuptools import setup, find_packages
 from os import path
 
+import sys
+if sys.version_info.major < 3:
+    print("I'm only for 3, please upgrade")
+    sys.exit(1)
+
 here = path.abspath(path.dirname(__file__))
 
 setup(
