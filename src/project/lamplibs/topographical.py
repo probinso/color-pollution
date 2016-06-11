@@ -8,7 +8,7 @@ import sys
 
 from .lamplight import image_info, save_images
 from .lamplight import topograph_image
-from .utility   import sign_path
+from .utility   import sign_path, ptrace
 
 from .register  import register_image_file, register_image_data
 from .          import model as mod
@@ -26,6 +26,7 @@ def register_topograph_db(src_image, dst_image, step):
 
 
 @mod.pny.db_session
+@ptrace
 def check_topograph(src, step):
     src_image = register_image_file(src)
     top       = mod.Topograph.get(step=step, src_image=src_image)

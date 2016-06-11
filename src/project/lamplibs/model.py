@@ -6,6 +6,8 @@ This module describes the Model in our Model View Controller.
 import os.path  as osp
 import pony.orm as pny
 
+from math import sqrt, pi, ceil
+
 from  shutil    import copy
 from .utility   import get_resource, ptrace
 from .lamplight import image_info
@@ -31,9 +33,6 @@ class Image(db.Entity):
     topograph  = pny.Optional("Topograph", reverse="dst_image")
     top_images = pny.Set("Topograph", reverse="src_image")
 
-    cluster        = pny.Optional("Cluster", reverse="dst_image")
-    cluster_images = pny.Set("Cluster", reverse="src_image")
-
     @property
     def data(self):
         *_, data = image_info(get_resource(self.id))
@@ -56,25 +55,40 @@ class Topograph(db.Entity):
     dst_image = pny.PrimaryKey(Image, reverse="topograph")
     step      = pny.Required(int)
     src_image = pny.Required(Image, reverse="top_images")
+    cluster_images = pny.Set("Cluster")
 
 
 class Cluster(db.Entity):
     _table_   = "tbl_cluster"
-    dst_image = pny.PrimaryKey(Image, reverse="cluster")
     radius    = pny.Required(int)
     size      = pny.Required(int)
-    src_image = pny.Required(Image, reverse="cluster_images")
     lamps     = pny.Set("Lamp")
+    topograph = pny.Required(Topograph)
 
 
 class Lamp(db.Entity):
     _table_  = "tbl_lamp"
+
     cluster  = pny.Required(Cluster)
-    red      = pny.Optional(float)
-    green    = pny.Optional(float)
-    blue     = pny.Optional(float)
+    red      = pny.Optional(int)
+    green    = pny.Optional(int)
+    blue     = pny.Optional(int)
+
     medoid_x = pny.Required(int)
     medoid_y = pny.Required(int)
+
+    @property
+    def feature_vector(self):
+        _   = dict(enumerate(['red', 'green', 'blue']))
+        ret = {}
+        den = [getattr(self, _[key]) for key in _]
+        for key in _:
+            ret[key] = float(den[key] / sum(den))
+
+        ret['radius']   = ceil(sqrt(max(den) / pi))
+        ret['medoid_x'] = self.medoid_x
+        ret['medoid_y'] = self.medoid_y
+        return ret
 
 
 # pny.sql_debug(True)

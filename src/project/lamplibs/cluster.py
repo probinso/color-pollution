@@ -6,11 +6,13 @@ This module administrates lamp clustering and feature extraction.
 import argparse, argcomplete
 import sys
 
-from .lamplight import image_info, save_images, empty_canvas
-from .lamplight import get_index_cond, make_clusters_dict, overlapping_clusters, simplexify
-from .lamplight import colorize_clusters
+from .lamplight import image_info
+from .lamplight import get_index_cond, make_clusters_dict, overlapping_clusters, simplify
+from .topographical import check_topograph
 
+from . import model as mod
 
+"""
 def select_clusters(image, radius, size):
 
     def paint(src_img, dst_img):
@@ -32,12 +34,42 @@ def select_clusters(image, radius, size):
     save_img = paint(image, dst_img)
 
     return save_img
+"""
 
 
-def interface(filename, directory, radius, size):
-    img_type, name, src_image = image_info(filename)
-    new_image = select_clusters(src_image, radius, size)
-    save_images(directory, name, clst_=new_image)
+@mod.pny.db_session
+def check_lamps(resource, step, radius, size):
+    top  = mod.Topograph.get(dst_image=resource, step=step)
+    clst = mod.Cluster.get(topograph=top, radius=radius, size=size)
+    if not clst:
+        clst  = mod.Cluster(topograph=top, radius=radius, size=size)
+        _, _, src_image = image_info(mod.get_resource(resource))
+        local_lamps = []
+        for simple_lamp in get_lamps(src_image, radius, size):
+            local_lamps.append(
+                mod.Lamp(cluster=clst,
+                         red=simple_lamp[0],
+                         green=simple_lamp[1],
+                         blue=simple_lamp[2],
+                         medoid_x=simple_lamp['medoid'].x,
+                         medoid_y=simple_lamp['medoid'].y)
+            )
+    return map(lambda obj: getattr(obj, 'feature_vector'), clst.lamps)
+
+
+def get_lamps(src_image, radius, size):
+    points_dict  = get_index_cond(src_image)
+    cluster_dict = make_clusters_dict(points_dict, radius, size)
+    for i, raw_lamp in enumerate(overlapping_clusters(cluster_dict)):
+        print("creating lamp : {}".format(i), file=sys.stderr)
+        yield simplify(raw_lamp)
+
+
+def interface(filename, step, radius, size):
+    resource = check_topograph(filename, step)
+    #img_type, name, src_image = image_info(mod.get_resource(resource))
+    for lamp in check_lamps(resource, step, radius, size):
+        print(lamp)
 
 
 def cli_interface(arguments):
@@ -46,10 +78,10 @@ def cli_interface(arguments):
     from commandline to function space.
     """
     filename  = arguments.image_filename
-    directory = arguments.dst_directory
     radius    = arguments.radius
     size      = arguments.size
-    interface(filename, directory, radius, size)
+    step      = arguments.step
+    interface(filename, step, radius, size)
 
 
 #####################################
@@ -58,11 +90,10 @@ def cli_interface(arguments):
 def generate_parser(parser):
     parser.add_argument('image_filename', type=str,
         help="Image Filename to be clustered")
-    parser.add_argument('dst_directory', type=str,
-        help="Location to save modified images")
     parser.add_argument('--radius', type=int, default=30,
         help="Cluster acceptance radius")
     parser.add_argument('--size', type=int, default=20,
         help="Cluster minimum size")
+    parser.add_argument('--step', type=int, default=10)
     parser.set_defaults(func=cli_interface)
     return parser

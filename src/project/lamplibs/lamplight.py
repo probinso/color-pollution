@@ -240,7 +240,7 @@ class ClusterPoints(GroupPoints):
 
 
 @ptrace
-def simplexify(overlapped_clusters):
+def simplify(overlapped_clusters):
     """
     dict = {0: cr, 1: cg, 2: cb}
     """
@@ -248,11 +248,10 @@ def simplexify(overlapped_clusters):
     ret = {}
     for key in overlapped_clusters:
         num      = len(overlapped_clusters[key])
-        ret[key] = num/den
+        ret[key] = num
 
     # medoids only exist on non-empty lists of points
     ret['medoid'] = min(filter(bool, overlapped_clusters.values()), key=len).medoid
-
     return ret
 
 
@@ -280,9 +279,7 @@ def overlapping_clusters(cluster_dict):
     for band, intensity in cluster_dict:
         d[band] = cluster_dict[band, intensity] # re-index clusters
 
-    it    = iter(d)
-    fband = next(it) # select arbitrary band, may need to select largest
-    rg    = regen(it)
+    fband, *rg = iter(d)
     for cluster in d[fband]:
         p = {fband:cluster}
         for band in rg:
