@@ -12,6 +12,7 @@ import sys
 # INTERNAL PACKAGES
 from . import purge
 from . import cluster
+from . import render
 from . import extractRGB as rgb
 from . import topographical
 from . import register
@@ -19,6 +20,11 @@ from . import register
 def cluster_parser(subparsers):
     parser = subparsers.add_parser('cluster')
     cluster.generate_parser(parser)
+    return parser
+
+def render_parser(subparsers):
+    parser = subparsers.add_parser('render')
+    render.generate_parser(parser)
     return parser
 
 
@@ -50,6 +56,7 @@ def generate_parser(parser):
     subparsers = parser.add_subparsers(help="subcommand")
 
     cluster_parser(subparsers)
+    render_parser(subparsers)
     extractRGB_parser(subparsers)
     register_parser(subparsers)
     purge_parser(subparsers)

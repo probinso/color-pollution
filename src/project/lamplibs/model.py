@@ -5,6 +5,7 @@ This module describes the Model in our Model View Controller.
 
 import os.path  as osp
 import pony.orm as pny
+import matplotlib.pyplot as plt
 
 from math import sqrt, pi, ceil
 
@@ -79,11 +80,11 @@ class Lamp(db.Entity):
 
     @property
     def feature_vector(self):
-        _   = dict(enumerate(['red', 'green', 'blue']))
+        _   = ['red', 'green', 'blue']
         ret = {}
-        den = [getattr(self, _[key]) for key in _]
+        den = [getattr(self, key) for key in _]
         for key in _:
-            ret[key] = float(den[key] / sum(den))
+            ret[key] = getattr(self, key) #float(den[key] / sum(den))
 
         ret['radius']   = ceil(sqrt(max(den) / pi))
         ret['medoid_x'] = self.medoid_x

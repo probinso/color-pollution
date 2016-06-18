@@ -222,7 +222,7 @@ class ClusterPoints(GroupPoints):
         given an iterable of (x, y) points, return the medoid
         """
         xy_arrays = np.array(self)
-        matrix    = distancematrix(xy_arrays, xy_arrays, metric='minkowski')
+        matrix    = distancematrix(xy_arrays, xy_arrays, metric='sqeuclidean')
         key, _    = min(enumerate(map(np.sum, matrix)), key=itemgetter(1))
 
         return self[key]
@@ -306,3 +306,51 @@ def colorize_clusters(base_img, color, *clusters):
 
     return new_img
 
+import matplotlib.pyplot as plt
+from math import sqrt, ceil
+
+def pie(tumpdir, *lamps):
+    colors = ['red', 'green', 'blue']
+    for lamp in lamps:
+        sizes = [lamp[x] for x in colors]
+        patches, _ = plt.pie(sizes, colors=colors, startangle=90)
+        plt.axis('equal')
+        plt.tight_layout()
+        itemgetter(list(), 0)
+        filename = osp.join(tumpdir, 'foo.png')
+        plt.savefig(filename, bbox_inches='tight', transparent=True)
+        plt.close()
+        size = lamp['radius']
+        yield filename, size, lamp['medoid_x'], lamp['medoid_y']
+
+
+from PIL import Image, ImageChops
+
+@ptrace
+def pie_canvas(tumpdir, shape, *lamps):
+
+    def trim(im):
+        bg = Image.new(im.mode, im.size, im.getpixel((0,0)))
+        diff = ImageChops.difference(im, bg)
+        diff = ImageChops.add(diff, diff, 2.0, -100)
+        bbox = diff.getbbox()
+        return im.crop(bbox) if bbox else im
+
+    bg_h, bg_w, *_  = shape
+    background = Image.new('RGBA', (bg_w, bg_h), (255, 255, 255, 255))
+
+    for filename, file_size, loc_y, loc_x in pie(tumpdir, *lamps):
+        print(file_size, loc_x, loc_y)
+        img = Image.open(filename, 'r')
+        img = trim(img)
+
+        img.thumbnail((file_size, file_size), Image.ANTIALIAS)
+        img_w, img_h = file_size, file_size
+        offset =  loc_x - file_size // 4, loc_y - file_size // 4
+        background.paste(img, offset, mask=img)
+        img.close()
+        #filename, file_size, loc_y, loc_x = 0, 0, 0, 0
+
+    dst = osp.join(tumpdir, 'out.png')
+    background.save(dst)
+    return dst
