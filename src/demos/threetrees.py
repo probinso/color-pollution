@@ -4,37 +4,45 @@
 """
 Object Oriented Programming
 """
-class OTree(object):
+
+from collections import Iterable
+class OTree:
+  __slots__ = ('_value', '_left', '_right')
   def __init__(self, value):
-    self.__value = value
-    self.__left  = None
-    self.__right = None
+    if not isinstance(value, Iterable):
+      it = iter((value,))
+    else:
+      it = iter(value)
+
+    self._value = next(it)
+    self._left  = None
+    self._right = None
+
+    for elm in it:
+      self.insert(elm)
 
   def insert(self, value):    
     current = self
     while True:
-      if value < current.__value:
-        if current.__left is None:
-          current.__left = OTree(value)
+      if value < current._value:
+        if current._left is None:
+          current._left = OTree(value)
           break
         else:
-          current = current.__left
+          current = current._left
       else:
-        if current.__right is None:
-          current.__right = OTree(value)
+        if current._right is None:
+          current._right = OTree(value)
           break
         else:
-          current = current.__right
+          current = current._right
 
-  def isin(self, value):
+  def __contains__(self, key):
     current = self
     while current:
-      if value == current.__value:
+      if key == current._value:
         return True
-      if value < current.__value:
-        current = current.__left
-      else:
-        current = current.__right
+      current = current._left if key < current._value else current._right
     return False
 
 """
