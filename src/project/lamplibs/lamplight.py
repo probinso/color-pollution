@@ -27,7 +27,7 @@ from   scipy.spatial.distance import cdist as distancematrix
 from   sklearn.cluster import DBSCAN
 
 # Internal Dependencies
-from .utility import ptrace, window, regen, ParameterizedDefaultDict
+from .utility import window, regen, ParameterizedDefaultDict
 
 
 """Lamplight Module
@@ -72,7 +72,6 @@ def save_images(dst, name, img_type='png', **kwargs):
     return li
 
 
-@ptrace
 def image_split(src_image):
     """
     split image to RBG and then saves them to dst directory
@@ -103,7 +102,6 @@ class _step_range_gen(regen):
         regen.__init__(self, gen)
 
 
-@ptrace
 def topograph_image(image, step):
     """
     Takes in NxMxC numpy matrix and a step size and a delta
@@ -125,7 +123,6 @@ def topograph_image(image, step):
     return new_img if step == 1 else topograph(new_img)
 
 
-@ptrace
 def get_index_cond(image, cond=lambda x: x == 255):
     """
     splits image into dict[band, intensity] as (x, y) point pairs
@@ -144,7 +141,6 @@ def get_index_cond(image, cond=lambda x: x == 255):
     return ret
 
 
-@ptrace
 def make_clusters_dict(points_dict, radius=20, minpoints=10):
     """
     Input:
@@ -154,7 +150,6 @@ def make_clusters_dict(points_dict, radius=20, minpoints=10):
     Output:
       dict[band, intensity][cluster...] = [Coord(x, y)...]
     """
-    @ptrace
     def make_clusters(d, band, intensity, radius, minpoints):
         """
         Takes in an iterable of (x, y) points
@@ -216,7 +211,6 @@ class ClusterPoints(GroupPoints):
         GroupPoints.__init__(self, band, intensity, *args, **kwargs)
 
     @property
-    @ptrace
     def medoid(self):
         """
         given an iterable of (x, y) points, return the medoid
@@ -239,7 +233,6 @@ class ClusterPoints(GroupPoints):
         return num/den
 
 
-@ptrace
 def simplify(overlapped_clusters):
     """
     dict = {0: cr, 1: cg, 2: cb}
@@ -255,7 +248,6 @@ def simplify(overlapped_clusters):
     return ret
 
 
-@ptrace
 def overlapping_clusters(cluster_dict):
     """
     INPUT :
@@ -264,7 +256,6 @@ def overlapping_clusters(cluster_dict):
       yields overlapping clusters data as simplex dict + medoid
     """
 
-    @ptrace
     def mostOverlapping(src, dsts, threshold=0.2):
         """
         returns the largest cluster who is most overlapping with src in [dsts...]
@@ -287,7 +278,6 @@ def overlapping_clusters(cluster_dict):
         yield p
 
 
-@ptrace
 def colorize_clusters(base_img, color, *clusters):
     """
     clusters must be a dictionary

@@ -11,48 +11,34 @@ import sys
 
 from   .lamplight import image_info, save_images
 from   .          import model as mod
-from   .utility   import commit_resource, sign_path, TemporaryDirectory
+from   .utility   import commit_resource, sign_path, TemporaryDirectory, get_resource
 
 
 ########################################
 #                IMAGES
 ########################################
-@mod.pny.db_session
-def register_image_db(label, height, width, img_type, derived=True):
-    img = mod.Image.get(id=label)
-    if not img:
-        img = mod.Image(
-            id=label,
-            height=height,
-            width=width,
-            type=img_type,
-            derived=derived
-        )
-    return img
-
-
-def register_image_data(src_image):
+def commit_register_image_data(src_image):
     with TemporaryDirectory() as tmpdir:
         [filename] = save_images(tmpdir, 'tmp', tmp_=src_image)
-        return register_image_file(filename, True)
+        label = commit_resource(filename)
+    return _register_image_file(label)
 
 
-def register_image_file(filename, derived=False):
-    image_type, name, dst_data = image_info(filename)
-    (h, w, _d) = dst_data.shape
+def commit_register_image_file(filename):
     label = commit_resource(filename)
+    return _register_image_file(label)
 
-    return register_image_db(label, h, w, image_type, derived)
 
-
-def interface(filename):
-    img = register_image_file(filename)
-    register_image_data(img.data)
+@mod.check_tables(mod.Image)
+def _register_image_file(label):
+    image_type, name, dst_data = image_info(get_resource(label))
+    (h, w, _d) = dst_data.shape
+    return {'label':label, 'height':h, 'width':w, 'img_type':image_type}
 
 
 def cli_interface(arguments):
     filename = arguments.image_filename
-    interface(filename)
+    _ = commit_register_image_file(filename)
 
 
 def generate_parser(parser):

@@ -25,6 +25,7 @@ The program requires the following libraries to run:
 - pony
 - scipy
 - scikit-learn
+- dnf install libtiff{,-devel,-tools} libjpeg-turbo{,-devel,-utils} python3-numpy
 
 To run the program without installation replace `lamp` with `./lamp-runner.py` in the examples, and ignore the Install section.
 

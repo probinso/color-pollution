@@ -3,6 +3,8 @@
 This module describes the Model in our Model View Controller.
 """
 
+import inspect
+
 import os.path  as osp
 import pony.orm as pny
 
@@ -22,31 +24,103 @@ DBE    = osp.exists(DB_LOC)
 db = pny.Database("sqlite", DB_LOC, create_db=True)
 
 
+from functools import wraps, partial
+
+
+def db_session(func):
+    @wraps(func)
+    @pny.db_session(retry=5)
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs)
+    return wrapper
+
+
+def re_get(orm_obj):
+    def todict(x):
+        d = dict()
+        for col in x._columns_:
+            try:
+                tump = getattr(x, col)
+            except: # slopy
+                continue
+            if isinstance(tump, pny.core.SetInstance):
+                continue
+
+            if isinstance(tump, pny.core.Entity):
+                tump = re_get(tump)
+            d[col] = tump
+        return d
+    return orm_obj.__class__.get(**todict(orm_obj))
+
+
+def check_tables(cls, feature=None):
+    f_args = lambda f: [x for x in inspect.getargspec(f)[0]]
+
+    def re_orm(kwargs):
+        for key in kwargs:
+            if isinstance(kwargs[key], pny.core.Entity):
+                kwargs[key] = re_get(kwargs[key])
+        return kwargs
+
+    def real_decorator(work):
+        assert(all(x in cls._columns_ for x in f_args(work)))
+
+        def useful_return(entry):
+            if entry:
+                ret = getattr(entry, feature) if feature else entry
+                return {x for x in ret} if isinstance(ret, pny.core.SetInstance) else ret
+            return entry
+
+        @db_session
+        def get_entry(**kwargs):
+            kwargs = re_orm(kwargs)
+            entry  = cls.get(**kwargs)
+            return useful_return(entry)
+
+        @db_session
+        def add_entry(**kwargs):
+            kwargs = re_orm(kwargs)
+            entry  = cls.get(**kwargs)
+            if not entry:
+                entry = cls(**kwargs)
+            return useful_return(entry)
+
+        @wraps(work)
+        def wrapper(*args):
+            kwargs = dict(zip(f_args(work), args))
+            contents = get_entry(**kwargs)
+            if not contents:
+                key_dict = ptrace(work)(*args)
+                contents = add_entry(**key_dict)
+            return contents
+
+        return wrapper
+
+    return real_decorator
+
+
 class Image(db.Entity):
-    _table_ = "tbl_image"
-    id      = pny.PrimaryKey(str)
-    type    = pny.Required(str)
-    height  = pny.Required(int)
-    width   = pny.Required(int)
-    derived = pny.Required(bool)
+    _table_  = "tbl_image"
+    label    = pny.PrimaryKey(str)
+    img_type = pny.Required(str)
+    height   = pny.Required(int)
+    width    = pny.Required(int)
 
     topograph  = pny.Optional("Topograph", reverse="dst_image")
     top_images = pny.Set("Topograph", reverse="src_image")
 
     @property
     def data(self):
-        *_, data = image_info(get_resource(self.id))
+        *_, data = image_info(get_resource(self.label))
         return data
 
 
-
-@ptrace
-@pny.db_session
+@db_session
 def retrieve_image(resource, destination, rename='output'):
-    img = Image.get(id=resource)
+    img = Image.get(label=resource)
     if not img:
         raise FileNotFoundError("database resource '{}'".format(resource))
-    savename = rename + '.' + img.type
+    savename = rename + '.' + img.img_type
     copy(get_resource(resource), osp.join(destination, savename))
 
 
