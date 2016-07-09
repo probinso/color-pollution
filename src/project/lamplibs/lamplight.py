@@ -122,7 +122,7 @@ def topograph_image(image, step):
         return 0
 
     topograph = np.vectorize(myfunc)
-    return topograph(new_img)
+    return new_img if step == 1 else topograph(new_img)
 
 
 @ptrace
