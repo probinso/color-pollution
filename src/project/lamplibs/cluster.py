@@ -36,21 +36,21 @@ def make_cluster(radius, size, topograph):
 def check_cluster(topograph, radius, size):
     clst = make_cluster(radius, size, topograph)
     _, _, src_image = image_info(get_resource(topograph.dst_image.label))
-    local_lamps = []
     for simple_lamp in _get_lamps(src_image, radius, size):
         r, g, b = simple_lamp[0], simple_lamp[1], simple_lamp[2]
         x, y    = simple_lamp['medoid']
-        lamp    = check_lamp(clst, x, y, r, g, b)
+        lamp    = make_lamp(clst, x, y, r, g, b)
     return {'radius' : radius, 'size' : size, 'topograph' : topograph}
 
 
-@mod.check_tables(mod.Lamp)# should probably be a db_session instead
-def check_lamp(cluster, medoid_x, medoid_y, red, green, blue):
-    return {
-        'cluster':cluster,
-        'medoid_x':medoid_x, 'medoid_y':medoid_y,
-        'red':red, 'green':green, 'blue':blue
-    }
+@mod.db_session
+def make_lamp(cluster, medoid_x, medoid_y, red, green, blue):
+    cluster = mod.re_get(cluster)
+    lamp = mod.Lamp(
+        cluster=cluster,
+        medoid_x=medoid_x, medoid_y=medoid_y,
+        red=red, green=green, blue=blue)
+    return lamp
 
 
 def interface(filename, step, radius, size):
