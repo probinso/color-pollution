@@ -10,37 +10,21 @@ from .lamplight import image_info, save_images
 from .lamplight import topograph_image
 from .utility   import sign_path, ptrace
 
-from .register  import register_image_file, register_image_data
+from .register  import commit_register_image_data, commit_register_image_file
 from .          import model as mod
 
 
-def register_topograph_db(src_image, dst_image, step):
-    top = mod.Topograph.get(dst_image=dst_image, step=step, src_image=src_image)
-    if not top:
-        top = mod.Topograph(
-            dst_image=dst_image,
-            step=step,
-            src_image=src_image
-        )
-    return top
-
-
-@mod.pny.db_session
-@ptrace
-def check_topograph(src, step):
-    src_image = register_image_file(src)
-    top       = mod.Topograph.get(step=step, src_image=src_image)
-    if not top:
-        top_data  = topograph_image(src_image.data, step)
-        top_image = register_image_data(top_data)
-        top       = register_topograph_db(src_image, top_image, step)
-
-    return top.dst_image.id
+@mod.check_tables(mod.Topograph)
+def check_topograph(src_image, step):
+    top_data  = topograph_image(src_image.data, step)
+    top_image = commit_register_image_data(top_data)
+    return {'dst_image':top_image, 'src_image':src_image, 'step':step}
 
 
 def interface(filename, directory, step):
-    resource = check_topograph(filename, step)
-    mod.retrieve_image(resource, directory)
+    src_image = commit_register_image_file(filename)
+    resource  = check_topograph(src_image, step)
+    mod.retrieve_image(resource.dst_image.label, directory)
 
 
 def cli_interface(arguments):
