@@ -322,7 +322,7 @@ def pie(tumpdir, *lamps):
         plt.close()
 
         size = max(lamp.max_x - lamp.min_x, lamp.max_y - lamp.min_y)
-        yield filename, size, lamp.min_x, lamp.min_y
+        yield filename, size, lamp.min_x, lamp.max_y
 
 
 from PIL import Image, ImageChops
