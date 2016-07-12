@@ -77,6 +77,8 @@ class Lamp(db.Entity):
 
     medoid_x = pny.Required(int)
     medoid_y = pny.Required(int)
+    min_x, min_y = pny.Required(int), pny.Required(int)
+    max_x, max_y = pny.Required(int), pny.Required(int)
 
     @property
     def feature_vector(self):
@@ -86,7 +88,6 @@ class Lamp(db.Entity):
         for key in _:
             ret[key] = getattr(self, key) #float(den[key] / sum(den))
 
-        ret['radius']   = ceil(sqrt(max(den) / pi))
         ret['medoid_x'] = self.medoid_x
         ret['medoid_y'] = self.medoid_y
         return ret

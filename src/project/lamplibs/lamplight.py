@@ -27,7 +27,7 @@ from   scipy.spatial.distance import cdist as distancematrix
 from   sklearn.cluster import DBSCAN
 
 # Internal Dependencies
-from .utility import ptrace, window, regen, ParameterizedDefaultDict
+from utility import window, regen, ParameterizedDefaultDict
 
 
 """Lamplight Module
@@ -244,18 +244,28 @@ def simplify(overlapped_clusters):
     """
     dict = {0: cr, 1: cg, 2: cb}
     """
+    min_x, min_y = float('inf'), float('inf')
+    max_x, max_y = float('-inf'), float('-inf')
     den = sum(map(len, overlapped_clusters.values()))
     ret = {}
     for key in overlapped_clusters:
         num      = len(overlapped_clusters[key])
+        for x, y in overlapped_clusters[key]:
+            min_x = x if x < min_x else min_x
+            min_y = y if y < min_y else min_y
+            max_x = x if x > min_x else min_x
+            max_y = y if y > min_y else min_y
         ret[key] = num
 
     # medoids only exist on non-empty lists of points
     ret['medoid'] = min(filter(bool, overlapped_clusters.values()), key=len).medoid
+    ret['min_x']  = min_x
+    ret['min_y']  = min_y
+    ret['max_x']  = max_x
+    ret['max_y']  = max_y
     return ret
 
 
-@ptrace
 def overlapping_clusters(cluster_dict):
     """
     INPUT :
@@ -263,8 +273,6 @@ def overlapping_clusters(cluster_dict):
     OUTPUT:
       yields overlapping clusters data as simplex dict + medoid
     """
-
-    @ptrace
     def mostOverlapping(src, dsts, threshold=0.2):
         """
         returns the largest cluster who is most overlapping with src in [dsts...]
