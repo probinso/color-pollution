@@ -312,7 +312,7 @@ from math import sqrt, ceil
 def pie(tumpdir, *lamps):
     colors = ['red', 'green', 'blue']
     for lamp in lamps:
-        sizes = [lamp[x] for x in colors]
+        sizes = [getattr(lamp,x) for x in colors]
         patches, _ = plt.pie(sizes, colors=colors, startangle=90)
         plt.axis('equal')
         plt.tight_layout()
@@ -320,13 +320,14 @@ def pie(tumpdir, *lamps):
         filename = osp.join(tumpdir, 'foo.png')
         plt.savefig(filename, bbox_inches='tight', transparent=True)
         plt.close()
-        size = lamp['radius']
-        yield filename, size, lamp['medoid_x'], lamp['medoid_y']
+
+        size = max(lamp.max_x - lamp.min_x, lamp.max_y - lamp.min_y)
+        yield filename, size, lamp.min_x, lamp.min_y
 
 
 from PIL import Image, ImageChops
 
-@ptrace
+
 def pie_canvas(tumpdir, shape, *lamps):
 
     def trim(im):
@@ -340,13 +341,13 @@ def pie_canvas(tumpdir, shape, *lamps):
     background = Image.new('RGBA', (bg_w, bg_h), (255, 255, 255, 255))
 
     for filename, file_size, loc_y, loc_x in pie(tumpdir, *lamps):
-        print(file_size, loc_x, loc_y)
+        print(file_size, file_size, loc_x, loc_y)
         img = Image.open(filename, 'r')
         img = trim(img)
 
         img.thumbnail((file_size, file_size), Image.ANTIALIAS)
         img_w, img_h = file_size, file_size
-        offset =  loc_x - file_size // 4, loc_y - file_size // 4
+        offset =  loc_x, loc_y
         background.paste(img, offset, mask=img)
         img.close()
         #filename, file_size, loc_y, loc_x = 0, 0, 0, 0

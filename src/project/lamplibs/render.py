@@ -5,22 +5,20 @@ import os.path as osp
 
 from shutil import move
 
-from .cluster   import check_lamps, check_topograph
+from .cluster   import check_cluster, check_topograph
 from .utility   import TemporaryDirectory
 from .lamplight import pie_canvas, image_info
 from .          import model as mod
+from .register import commit_register_image_file
 
 
 def interface(filename, dst, step, radius, size):
-    resource = check_topograph(filename, step)
-    _img_type, _name, src_image = image_info(mod.get_resource(resource))
-
     with TemporaryDirectory(persist=True) as dd:
         src_image = commit_register_image_file(filename)
         topograph = check_topograph(src_image, step)
-        lamps = (lamp for lamp in check_cluster(topograph, radius, size)
+        lamps = (lamp for lamp in check_cluster(topograph, radius, size))
 
-        fname = pie_canvas(dd, src_image.shape, *lamps)
+        fname = pie_canvas(dd, src_image.data.shape, *lamps)
         move(fname, osp.join(dst, 'output.png'))
 
 
