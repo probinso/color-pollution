@@ -18,8 +18,7 @@ from . import model as mod
 def _get_lamps(src_image, radius, size):
     points_dict  = get_index_cond(src_image)
     cluster_dict = make_clusters_dict(points_dict, radius, size)
-    for i, raw_lamp in enumerate(overlapping_clusters(cluster_dict)):
-        #print("creating lamp : {}".format(i), file=sys.stderr)
+    for raw_lamp in overlapping_clusters(cluster_dict):
         yield simplify(raw_lamp)
 
 
@@ -37,22 +36,14 @@ def check_cluster(topograph, radius, size):
     clst = make_cluster(radius, size, topograph)
     _, _, src_image = image_info(get_resource(topograph.dst_image.label))
     for simple_lamp in _get_lamps(src_image, radius, size):
-        r, g, b = simple_lamp[0], simple_lamp[1], simple_lamp[2]
-        x, y    = simple_lamp['medoid']
-        min_x, min_y, max_x, max_y = simple_lamp['min_x'], simple_lamp['min_y'], simple_lamp['max_x'], simple_lamp['max_y']
-        lamp    = make_lamp(clst, x, y, r, g, b, min_x, min_y, max_x, max_y)
+        lamp = make_lamp(cluster=clst, **simple_lamp)
     return {'radius' : radius, 'size' : size, 'topograph' : topograph}
 
 
 @mod.db_session
-def make_lamp(cluster, medoid_x, medoid_y, red, green, blue, min_x, min_y, max_x, max_y):
-    cluster = mod.re_get(cluster)
-    lamp = mod.Lamp(
-        cluster=cluster,
-        medoid_x=medoid_x, medoid_y=medoid_y,
-        red=red, green=green, blue=blue,
-        min_x=min_x, max_x=max_x, min_y=min_y, max_y=max_y
-    )
+def make_lamp(**kwargs):
+    kwargs['cluster'] = mod.re_get(kwargs['cluster'])
+    lamp = mod.Lamp(**kwargs)
     return lamp
 
 

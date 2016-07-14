@@ -27,7 +27,7 @@ from   scipy.spatial.distance import cdist as distancematrix
 from   sklearn.cluster import DBSCAN
 
 # Internal Dependencies
-from .utility import window, regen, ParameterizedDefaultDict
+from .utility import window, regen, ParameterizedDefaultDict, TemporaryDirectory
 
 
 """Lamplight Module
@@ -237,25 +237,23 @@ def simplify(overlapped_clusters):
     """
     dict = {0: cr, 1: cg, 2: cb}
     """
-    min_x, min_y = float('inf'), float('inf')
+    min_x, min_y = float('inf'),  float('inf')
     max_x, max_y = float('-inf'), float('-inf')
-    den = sum(map(len, overlapped_clusters.values()))
     ret = {}
+    colors = ['red', 'green', 'blue']
     for key in overlapped_clusters:
-        num      = len(overlapped_clusters[key])
+        ret[colors[key]] = len(overlapped_clusters[key])
         for x, y in overlapped_clusters[key]:
-            min_x = x if x < min_x else min_x
-            min_y = y if y < min_y else min_y
-            max_x = x if x > min_x else min_x
-            max_y = y if y > min_y else min_y
-        ret[key] = num
+            if   x < min_x: min_x = x
+            elif x > max_x: max_x = x
+
+            if   y < min_y: min_y = y
+            elif y > max_y: max_y = y
 
     # medoids only exist on non-empty lists of points
-    ret['medoid'] = min(filter(bool, overlapped_clusters.values()), key=len).medoid
-    ret['min_x']  = min_x
-    ret['min_y']  = min_y
-    ret['max_x']  = max_x
-    ret['max_y']  = max_y
+    ret['medoid_x'], ret['medoid_y'] = min(filter(bool, overlapped_clusters.values()), key=len).medoid
+    ret.update({'min_x' : min_x, 'max_x' : max_x, 'min_y' : min_y, 'max_y' : max_y})
+    print(ret, file=stderr)
     return ret
 
 
@@ -307,50 +305,51 @@ def colorize_clusters(base_img, color, *clusters):
     return new_img
 
 import matplotlib.pyplot as plt
-from math import sqrt, ceil
+# from math import sqrt, ceil
 
-def pie(tumpdir, *lamps):
+def pie_files(lamps):
     colors = ['red', 'green', 'blue']
-    for lamp in lamps:
-        sizes = [getattr(lamp,x) for x in colors]
-        patches, _ = plt.pie(sizes, colors=colors, startangle=90)
-        plt.axis('equal')
-        plt.tight_layout()
-        itemgetter(list(), 0)
-        filename = osp.join(tumpdir, 'foo.png')
-        plt.savefig(filename, bbox_inches='tight', transparent=True)
-        plt.close()
+    for lamp in lamps: 
+        with TemporaryDirectory() as directory:
+            color_sizes = [getattr(lamp,x) for x in colors]
+            patches, _  = plt.pie(color_sizes, colors=colors, startangle=90)
+            plt.axis('equal')
+            plt.tight_layout()
+            filename = osp.join(directory, 'foo.png')
+            plt.savefig(filename, bbox_inches='tight', transparent=True)
+            plt.close()
 
-        size = max(lamp.max_x - lamp.min_x, lamp.max_y - lamp.min_y)
-        yield filename, size, lamp.min_x, lamp.min_y
+            yield filename, lamp
 
 
 from PIL import Image, ImageChops
+from .utility import ptrace
 
-
+@ptrace
 def pie_canvas(tumpdir, shape, *lamps):
 
-    def trim(im):
-        bg = Image.new(im.mode, im.size, im.getpixel((0,0)))
-        diff = ImageChops.difference(im, bg)
-        diff = ImageChops.add(diff, diff, 2.0, -100)
-        bbox = diff.getbbox()
-        return im.crop(bbox) if bbox else im
+    def resize(im, size):
+        def trim(im):
+            bg   = Image.new(im.mode, im.size, im.getpixel((0,0)))
+            diff = ImageChops.difference(im, bg)
+            diff = ImageChops.add(diff, diff, 2.0, -100)
+            bbox = diff.getbbox()
+            return im.crop(bbox)
+
+        new_img = trim(im)
+        new_img.thumbnail(size, Image.ANTIALIAS)
+        return new_img
 
     bg_h, bg_w, *_  = shape
     background = Image.new('RGBA', (bg_w, bg_h), (255, 255, 255, 255))
 
-    for filename, file_size, loc_y, loc_x in pie(tumpdir, *lamps):
-        print(file_size, file_size, loc_x, loc_y)
+    for filename, lamp in pie_files(lamps):
         img = Image.open(filename, 'r')
-        img = trim(img)
+        img = resize(img, lamp.size)
 
-        img.thumbnail((file_size, file_size), Image.ANTIALIAS)
-        img_w, img_h = file_size, file_size
-        offset =  loc_x, loc_y
+        offset = min(lamp.min_x, 0), min(lamp.min_y, bg_h-lamp.size[1])
         background.paste(img, offset, mask=img)
         img.close()
-        #filename, file_size, loc_y, loc_x = 0, 0, 0, 0
 
     dst = osp.join(tumpdir, 'out.png')
     background.save(dst)

@@ -6,4 +6,5 @@ do
     mv output.png output_$i.png;
     convert input_$i.png output_$i.png +append $i.png;
     rm output_$i.png;
+    exit;
 done;

@@ -156,15 +156,11 @@ class Lamp(db.Entity):
 
     @property
     def feature_vector(self):
-        _   = ['red', 'green', 'blue']
-        ret = {}
-        den = [getattr(self, key) for key in _]
-        for key in _:
-            ret[key] = getattr(self, key) #float(den[key] / sum(den))
+        return {name : getattr(self, name) for name in self._columns_}
 
-        ret['medoid_x'] = self.medoid_x
-        ret['medoid_y'] = self.medoid_y
-        return ret
+    @property
+    def size(self):
+        return self.max_x - self.min_x, self.max_y - self.min_y
 
 
 # pny.sql_debug(True)
