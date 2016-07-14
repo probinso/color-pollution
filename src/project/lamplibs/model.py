@@ -54,7 +54,7 @@ def re_get(orm_obj):
     return orm_obj.__class__.get(**todict(orm_obj))
 
 
-def check_tables(cls, feature=None):
+def check_tables(cls, feature=None, debug=False):
     f_args = lambda f: [x for x in inspect.getargspec(f)[0]]
 
     def re_orm(kwargs):
@@ -88,8 +88,11 @@ def check_tables(cls, feature=None):
 
         @wraps(work)
         def wrapper(*args):
-            kwargs = dict(zip(f_args(work), args))
-            contents = get_entry(**kwargs)
+            contents = None
+            if not debug:
+                kwargs   = dict(zip(f_args(work), args))
+                contents = get_entry(**kwargs)
+
             if not contents:
                 key_dict = ptrace(work)(*args)
                 contents = add_entry(**key_dict)

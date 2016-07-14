@@ -31,7 +31,7 @@ def make_cluster(radius, size, topograph):
     return clst
 
 
-@mod.check_tables(mod.Cluster, 'lamps')
+@mod.check_tables(mod.Cluster, feature='lamps', debug=True)
 def check_cluster(topograph, radius, size):
     clst = make_cluster(radius, size, topograph)
     _, _, src_image = image_info(get_resource(topograph.dst_image.label))
