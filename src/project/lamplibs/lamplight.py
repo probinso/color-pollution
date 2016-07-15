@@ -309,7 +309,7 @@ import matplotlib.pyplot as plt
 
 def pie_files(lamps):
     colors = ['red', 'green', 'blue']
-    for lamp in lamps: 
+    for lamp in lamps:
         with TemporaryDirectory() as directory:
             color_sizes = [getattr(lamp,x) for x in colors]
             patches, _  = plt.pie(color_sizes, colors=colors, startangle=90)
