@@ -42,7 +42,7 @@ def re_get(orm_obj):
         for col in x._columns_:
             try:
                 tump = getattr(x, col)
-            except: # slopy
+            except: # sloppy
                 continue
             if isinstance(tump, pny.core.SetInstance):
                 continue
@@ -79,23 +79,24 @@ def check_tables(cls, feature=None, debug=False):
             return useful_return(entry)
 
         @db_session
-        def add_entry(**kwargs):
+        def add_update_entry(**kwargs):
             kwargs = re_orm(kwargs)
             entry  = cls.get(**kwargs)
             if not entry:
                 entry = cls(**kwargs)
+            else:
+                entry.set(**kwargs)
             return useful_return(entry)
 
         @wraps(work)
         def wrapper(*args):
             contents = None
-            if not debug:
-                kwargs   = dict(zip(f_args(work), args))
-                contents = get_entry(**kwargs)
+            kwargs   = dict(zip(f_args(work), args))
+            contents = get_entry(**kwargs)
 
-            if not contents:
+            if debug or not contents:
                 key_dict = ptrace(work)(*args)
-                contents = add_entry(**key_dict)
+                contents = add_update_entry(**key_dict)
             return contents
 
         return wrapper
