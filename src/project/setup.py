@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import os.path as osp
 from setuptools import setup
 
 def read(fname):
@@ -8,14 +9,13 @@ def read(fname):
 
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
-from os import path
 
 import sys
 if sys.version_info.major < 3:
     print("I'm only for 3, please upgrade")
     sys.exit(1)
 
-here = path.abspath(path.dirname(__file__))
+here = osp.abspath(osp.dirname(__file__))
 
 setup(
   name         = 'lamplibs',
@@ -52,8 +52,12 @@ setup(
     ]
     },
   scripts = [],
-  package_data={}, #{'peval': ['db_init.sql']},
-  data_files=[(os.path.join('share','%s','%s') % ('lamplibs', x[0]), map(lambda y: x[0]+ os.path.sep +y, x[2])) for x in os.walk('images'+os.path.sep)],
+  package_data={},
+  data_files=[(
+    osp.join('share','%s','%s') %
+    ('lamplibs', x[0]),
+    map(lambda y: x[0]+ osp.sep +y, x[2])) for x in os.walk('images'+osp.sep)
+  ],
   long_description=read('README.md'),
   install_requires = [
     'appdirs',
@@ -66,6 +70,8 @@ setup(
     'Pillow',
     'scikit-learn',
     'pony',
+    'boto3',
+    'psycopg2',
   ]
 )
 

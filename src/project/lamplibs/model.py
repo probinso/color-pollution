@@ -4,25 +4,40 @@ This module describes the Model in our Model View Controller.
 """
 
 import inspect
+import json
 
 import os.path  as osp
 import pony.orm as pny
-import matplotlib.pyplot as plt
-
-from math import sqrt, pi, ceil
 
 from  shutil    import copy
-from .utility   import get_resource, ptrace
+from .utility   import ptrace, sign_path
 from .lamplight import image_info
 
 'https://editor.ponyorm.com/user/probinson/lamplibs'
 
 from . import utility
 
-DB_LOC = utility.location_resource(fname='index.db')
-DBE    = osp.exists(DB_LOC)
+VERSION = sign_path(inspect.getfile(inspect.currentframe()))
 
-db = pny.Database("sqlite", DB_LOC, create_db=True)
+db = pny.Database()
+
+
+with open('secrets.json') as cred_file: credentials = json.load(cred_file)
+db.bind('postgres', **credentials['db'])
+
+import boto3
+client = boto3.client('s3', **credentials['s3'])
+
+def get_resource(fname):
+    _ = utility.location_resource(fname)
+    bucket = client.download_file('pollution.alpha', fname, _)
+    return _
+
+
+def commit_resource(full_path):
+    label = utility.commit_resource(full_path)
+    client.upload_file(full_path, 'pollution.alpha', label)
+    return label
 
 
 from functools import wraps, partial
@@ -42,7 +57,7 @@ def re_get(orm_obj):
         for col in x._columns_:
             try:
                 tump = getattr(x, col)
-            except: # slopy
+            except: # sloppy
                 continue
             if isinstance(tump, pny.core.SetInstance):
                 continue
@@ -167,5 +182,5 @@ class Lamp(db.Entity):
         return ret
 
 
-# pny.sql_debug(True)
+pny.sql_debug(False)
 db.generate_mapping(check_tables=True, create_tables=True)

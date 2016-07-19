@@ -9,6 +9,7 @@ import argparse, argcomplete
 import os.path as osp
 import sys
 
+from . import model as mod
 from .utility import location_resource, shutil
 
 def interface(force):
@@ -21,6 +22,7 @@ def interface(force):
 
     if force:
         shutil.rmtree(location_resource('./'), True)
+        mod.db.drop_all_tables(with_all_data=True)
         print("store purged")
     else:
         print("purge ignored")

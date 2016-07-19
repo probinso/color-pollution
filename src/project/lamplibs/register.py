@@ -11,7 +11,7 @@ import sys
 
 from   .lamplight import image_info, save_images
 from   .          import model as mod
-from   .utility   import commit_resource, sign_path, TemporaryDirectory, get_resource
+from   .utility   import TemporaryDirectory
 
 
 ########################################
@@ -20,18 +20,18 @@ from   .utility   import commit_resource, sign_path, TemporaryDirectory, get_res
 def commit_register_image_data(src_image):
     with TemporaryDirectory() as tmpdir:
         [filename] = save_images(tmpdir, 'tmp', tmp_=src_image)
-        label = commit_resource(filename)
+        label = mod.commit_resource(filename)
     return _register_image_file(label)
 
 
 def commit_register_image_file(filename):
-    label = commit_resource(filename)
+    label = mod.commit_resource(filename)
     return _register_image_file(label)
 
 
 @mod.check_tables(mod.Image)
 def _register_image_file(label):
-    image_type, name, dst_data = image_info(get_resource(label))
+    image_type, name, dst_data = image_info(mod.get_resource(label))
     (h, w, _d) = dst_data.shape
     return {'label':label, 'height':h, 'width':w, 'img_type':image_type}
 
