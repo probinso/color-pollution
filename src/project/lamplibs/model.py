@@ -28,6 +28,12 @@ db.bind('postgres', **credentials['db'])
 import boto3
 client = boto3.client('s3', **credentials['s3'])
 
+def reset_bucket():
+    db.drop_all_tables(with_all_data=True)
+    #client.delete_bucket(Bucket='pollution.alpha')
+    #client.create_bucket(Bucket='pollution.alpha')
+
+
 def get_resource(fname):
     _ = utility.location_resource(fname)
     bucket = client.download_file('pollution.alpha', fname, _)

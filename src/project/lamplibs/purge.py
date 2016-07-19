@@ -22,7 +22,7 @@ def interface(force):
 
     if force:
         shutil.rmtree(location_resource('./'), True)
-        mod.db.drop_all_tables(with_all_data=True)
+        mod.reset_bucket()
         print("store purged")
     else:
         print("purge ignored")
