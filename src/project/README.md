@@ -25,7 +25,7 @@ The program requires the following libraries to run:
 - pony
 - scipy
 - scikit-learn
-- mono3
+- boto3
 - psycopg2
 - dnf install libtiff{,-devel,-tools} libjpeg-turbo{,-devel,-utils} python3-numpy postgres-devel
 
