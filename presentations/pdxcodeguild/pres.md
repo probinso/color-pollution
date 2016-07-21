@@ -20,7 +20,7 @@ Current measures for 'lighting needs' disregard metrics like 'blue light content
 
 # Strategy for Analytics
 - Standardize/Sanitize input image
-- Identify light sources
+- Identify/Locating light sources
 - Extract RGB features from each lamp
   - Area of red green blue content
   - PDF fitting
@@ -47,3 +47,4 @@ Current measures for 'lighting needs' disregard metrics like 'blue light content
 - Yield usable visualizations
 - Easily swap feature extraction
 - Conveniences must not increase complexity
+
