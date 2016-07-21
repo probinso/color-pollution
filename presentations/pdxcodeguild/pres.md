@@ -46,3 +46,4 @@ Current measures for 'lighting needs' disregard metrics like 'blue light content
 - Simple install
 - Yield usable visualizations
 - Easily swap feature extraction
+- Conveniences must not increase complexity
