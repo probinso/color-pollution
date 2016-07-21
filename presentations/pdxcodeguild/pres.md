@@ -1,6 +1,6 @@
 # Introduction
 - I am Philip
-- Python - 4+ Years
+- Python 4+ Years
   - Academic
     - Computer Graphics
     - Cryptography
