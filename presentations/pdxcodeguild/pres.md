@@ -43,4 +43,4 @@
 
 # Technical Goals
 - Don't waste compute time
-- 
+- Simple install
