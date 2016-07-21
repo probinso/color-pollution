@@ -16,15 +16,14 @@
 - Describe how light pollution effects terrestrial telescopes
 
 # Problem Statement
-Current measures for 'lighting needs' disregard metrics like 'blue light content'. Since 'blue light content' critically impacts many industries and habitats we hope to motivate a change in industry measurement standards.
-- From nighttime photographs of lit street lamps, can we classify the type of bulb by approximating spectral profile?
-- Work must be done in a reproducible way, encouraging subject participation and auditing
-- Must be easily installable
+Current measures for 'lighting needs' disregard metrics like 'blue light content'. Since 'blue light content' critically impacts many industries and habitats we hope to motivate a change in industry measurement standards. From nighttime photographs of lit street lamps, can we classify the type of bulb by approximating spectral profile?
 
-# Strategy
+# Strategy for Analytics
 - Standardize/Sanatize input image
 - Identify light sources
 - Extract RGB features from each lamp
+  - Area of red green blue content
+  - PDF fitting
 - Classify lamps
 
 # Tools used so far
@@ -39,7 +38,11 @@ Current measures for 'lighting needs' disregard metrics like 'blue light content
   - sklearn, scipy, numpy, matplotlib
   - PonyORM
 - Jupyter
+- Google Hangouts
 
 # Technical Goals
+- Work must be reproducible
 - Don't waste compute time
 - Simple install
+- Yield usable visualisations
+- Easily swap feature extraction
