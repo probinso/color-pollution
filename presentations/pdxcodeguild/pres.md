@@ -1,6 +1,17 @@
 # Goal of Talk
 In this bootcamp you will be getting exposure to general python and its application to web programming. This is a very small subset of the domains addressed with this language. I am here to talk about a problem that I'm working on in scientific computing, image processing, and machine learning.
 
+# Uses for python
+- ROSpy
+- MicroPython
+- numpy, scipy, sklearn
+- django, flask
+- pygame
+- pyglut
+- PyQt, pyGTK
+- SQLAlchemy, sqlite3, pony
+- ArcPy, geopy, googlemaps
+
 If you are interested in diverse applications of python, to help inspire your future ventures, checkout `podcast.__init__`.
 
 # Introduction
