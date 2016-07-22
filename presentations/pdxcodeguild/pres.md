@@ -1,3 +1,8 @@
+# Goal of Talk
+In this bootcamp you will be getting exposure to general python and its application to web programming. This is a very small subset of the domains addressed with this language. I am here to talk about a problem that I'm working on in scientific computing, image processing, and machine learning.
+
+If you are interested in diverse applications of python, to help inspire your future ventures, checkout `podcast.__init__`.
+
 # Introduction
 - I am Philip
 - Python 4+ Years
@@ -24,6 +29,7 @@ Current measures for 'lighting needs' disregard metrics like 'blue light content
 - Extract RGB features from each lamp
   - Area of red green blue content
   - PDF fitting
+- Store results from multiple runs
 - Classify lamps
 
 # Tools used so far
@@ -40,11 +46,18 @@ Current measures for 'lighting needs' disregard metrics like 'blue light content
 - Jupyter
 - Google Hangouts
 
-# Technical Goals
+# Technical goals
+### Met goals
 - Work must be reproducible
 - Don't waste compute time
+- Easily swap feature extraction strategy
+
+### In progress
 - Simple install
 - Yield usable visualizations
-- Easily swap feature extraction
 - Conveniences must not increase complexity
 
+### Not started
+- Simplified automatic db versioning
+- Simple user accounts
+- Web UI / REST API
