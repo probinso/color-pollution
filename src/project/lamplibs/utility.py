@@ -67,7 +67,11 @@ def commit_resource(full_path):
     label = sign_path(full_path)
     copy_directory_files(srcdir, location_resource(), fname)
     src = partial(osp.join, location_resource())
-    os.rename(src(fname), src(label))
+    if osp.isfile(src(label)):
+        # in order to rename on windows, target mustn't exist
+        os.remove(src(fname))
+    else:
+        os.rename(src(fname), src(label))
     return label
 
 
