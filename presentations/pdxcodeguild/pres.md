@@ -78,7 +78,7 @@ Current measures for 'lighting needs' disregard metrics like 'blue light content
 ### In progress
 - Simple install
 - Yield usable visualizations
-- Conveniences must not increase complexity
+- Conveniences must not increase complexity of use
 
 ### Not started
 - Simplified automatic db versioning
