@@ -11,6 +11,9 @@ In this bootcamp you will be getting exposure to general python and its applicat
 - PyQt, pyGTK
 - SQLAlchemy, sqlite3, pony
 - ArcPy, geopy, googlemaps
+- astropy
+- pymc3
+- sympy
 
 If you are interested in diverse applications of python, to help inspire your future ventures, checkout `podcast.__init__`.
 
