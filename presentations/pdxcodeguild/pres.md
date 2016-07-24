@@ -69,6 +69,9 @@ Current measures for 'lighting needs' disregard metrics like 'blue light content
   - PonyORM
 - Jupyter
 - Google Hangouts
+- Camera
+  - Nikon
+  - Cannon
 
 # Technical goals
 ### Met goals
