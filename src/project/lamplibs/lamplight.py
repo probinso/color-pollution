@@ -338,7 +338,7 @@ def pie_canvas(tumpdir, shape, *lamps):
         return im.crop(bbox) if bbox else im
 
     bg_h, bg_w, *_  = shape
-    background = Image.new('RGBA', (bg_w, bg_h), (255, 255, 255, 255))
+    background = Image.new('RGBA', (bg_w, bg_h), (255, 255, 255, 0))
 
     for filename, file_size, loc_y, loc_x in pie(tumpdir, *lamps):
         print(file_size, file_size, loc_x, loc_y)
