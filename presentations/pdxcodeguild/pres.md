@@ -73,6 +73,7 @@ Current measures for 'lighting needs' disregard metrics like 'blue light content
 - Camera
   - Nikon
   - Cannon
+- Spectra data from C&W Energy USA
 
 # Technical goals
 ### Met goals
