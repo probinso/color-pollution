@@ -93,6 +93,8 @@ def check_tables(cls, feature=None):
             if not contents:
                 key_dict = ptrace(work)(*args)
                 contents = add_entry(**key_dict)
+            else:
+                print("SKIPPED", " :: ", work.__name__)
             return contents
 
         return wrapper
