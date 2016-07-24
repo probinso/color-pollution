@@ -65,6 +65,7 @@ Current measures for 'lighting needs' disregard metrics like 'blue light content
 - Amazon Web Services (AWS)
 - ~1200 lines Python
   - imread, imhdr, Pillow
+  - colour (colour-science.org)
   - sklearn, scipy, numpy, matplotlib
   - PonyORM
 - Jupyter
