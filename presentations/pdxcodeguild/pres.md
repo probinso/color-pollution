@@ -15,7 +15,7 @@ In this bootcamp you will be getting exposure to general python and its applicat
 - pymc3
 - sympy
 
-If you are interested in diverse applications of python, to help inspire your future ventures, checkout `podcast.__init__`.
+If you are interested in diverse applications of python, to help inspire your future ventures, checkout `podcast.__init__` or `Talk Python to Me`.
 
 # Introduction
 - I am Philip
