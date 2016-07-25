@@ -29,7 +29,7 @@ If you are interested in diverse applications of python, to help inspire your fu
     - Education - PDXCodeGuild/Melinae/C&W Energy USA
     - Scientific/Data Analytic/Engineering/Visualisation - C&W Energy USA
 
-# Project What/Why
+# Project What/Why/Who
 - Develop low cost tools to quantitatively study light pollution
 - Describe human eye response to light
 - Describe how light pollution effects terrestrial telescopes
