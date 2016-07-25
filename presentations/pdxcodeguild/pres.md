@@ -41,8 +41,6 @@ Current measures for 'lighting needs' disregard metrics like 'blue light content
 
 From nighttime photographs of lit street lamps, can we classify the type of bulb by approximating spectral profile?
 
-# Usecase story
-
 # How are digital photo images made?
 - Silicon sensor system
 - RGBA
@@ -58,6 +56,8 @@ From nighttime photographs of lit street lamps, can we classify the type of bulb
   - PDF fitting
 - Store approximate spectral profile and position of lamps
 - Classify lamps
+
+# Usecase story
 
 # Tools used so far
 - GitHub
