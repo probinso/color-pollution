@@ -1,5 +1,5 @@
 # Goal of Talk
-In this bootcamp you will be getting exposure to general python and its application to web programming. This is a very small subset of the domains addressed with this language. I am here to talk about a problem that I'm working on in scientific computing, image processing, and machine learning.
+In this bootcamp you will be getting exposure to general python and its application to web programming. This is a very small subset of the domains addressed with Python. I am here to talk about a problem that I'm working on in scientific computing, image processing, and machine learning.
 
 ---
 
