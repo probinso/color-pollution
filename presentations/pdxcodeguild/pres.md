@@ -18,7 +18,9 @@ In this bootcamp you will be getting exposure to general python and its applicat
 - astropy
 - nltk
  
-If you are interested in diverse applications of python, to help inspire your future ventures, checkout `podcast.__init__` or `Talk Python to Me`.
+If you are interested in diverse applications of python, to help inspire your future ventures, checkout some podcasts
+- `podcast.__init__` 
+- `Talk Python to Me`
 
 ---
 
