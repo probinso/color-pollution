@@ -47,7 +47,7 @@ If you are interested in diverse applications of python, to help inspire your fu
 
 ---
 
-# Problem Statement
+# [Problem Statement](https://github.com/probinso/color-pollution/blob/master/presentations/pdxcodeguild/unnamed0.jpg)
 Current measures for 'lighting needs' disregard metrics like 'blue light content'. Since 'blue light content' critically impacts many industries and habitats we hope to motivate a change in industry measurement standards with low cost tech.
 
 From nighttime photographs of lit street lamps, can we classify the type of bulb by approximating spectral profile?
@@ -62,7 +62,7 @@ From nighttime photographs of lit street lamps, can we classify the type of bulb
 
 ---
 
-# Aurora Bore-ales
+# [Aurora Bore-ales](https://github.com/probinso/color-pollution/blob/master/src/notebooks/Image%20Analysis.ipynb)
 
 ---
 
@@ -78,7 +78,7 @@ From nighttime photographs of lit street lamps, can we classify the type of bulb
 
 ---
 
-# Usecase story
+# [Usecase story](https://github.com/probinso/color-pollution/blob/master/src/project/README.md)
 
 ---
 
