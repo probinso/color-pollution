@@ -4,24 +4,26 @@ In this bootcamp you will be getting exposure to general python and its applicat
 ---
 
 # Uses for python
+
 - ROSpy
 - MicroPython
 - numpy, scipy, sklearn
+- pymc3
+- sympy
 - django, flask
 - pygame
 - pyglut
 - PyQt, pyGTK
-- SQLAlchemy, sqlite3, pony
 - ArcPy, geopy, googlemaps
 - astropy
-- pymc3
-- sympy
-
+- nltk
+ 
 If you are interested in diverse applications of python, to help inspire your future ventures, checkout `podcast.__init__` or `Talk Python to Me`.
 
 ---
 
 # Introduction
+
 - I am Philip
 - Python 4+ Years
   - Academic
@@ -36,6 +38,7 @@ If you are interested in diverse applications of python, to help inspire your fu
 ---
 
 # Project What/Why/Who
+
 - Develop low cost tools to quantitatively study light pollution
 - Describe human eye response to light
 - Describe how light pollution effects terrestrial telescopes
@@ -52,6 +55,7 @@ From nighttime photographs of lit street lamps, can we classify the type of bulb
 ---
 
 # How are digital photo images made?
+
 - Silicon sensor system
 - RGBA
 - Consequences of file formats
@@ -63,6 +67,7 @@ From nighttime photographs of lit street lamps, can we classify the type of bulb
 ---
 
 # Strategy for Analytics
+
 - Standardize/Sanitize input image
 - Identify/Locating light sources
 - Extract RGB features from each lamp
@@ -78,6 +83,7 @@ From nighttime photographs of lit street lamps, can we classify the type of bulb
 ---
 
 # Tools used so far
+
 - GitHub
   - Version Control
   - ZenHub
@@ -98,6 +104,7 @@ From nighttime photographs of lit street lamps, can we classify the type of bulb
 ---
 
 # Technical goals
+
 - Met goals
   - Work must be reproducible
   - Don't waste compute time
