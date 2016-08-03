@@ -28,9 +28,6 @@ If you are interested in diverse applications of python, to help inspire your fu
 
 - I am Philip
 - Python 4+ Years
-  - Academic
-    - Computer Graphics
-    - Cryptography
   - Industry
     - Integration Tests - EMC
     - Process Management/Visualization - Galois Inc./Melinae
