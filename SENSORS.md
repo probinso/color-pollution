@@ -9,7 +9,7 @@ Traditionally, the term *color* refers to **human visible light**. Although this
 ### Human Eye
 The human eye refracts electromagnetic radiation at the cornea, through a focusing lens, and projects an inverted image of the world onto a the fovia, containing rod cells and cone cells of three types that act as sensors of electromagnetic radiation. L-cone, M-cone, S-cone cells have peak sensor response around wavelengths perceived as red, green, and blue light respectively. The spectra rendered by these cone cells in the human eye span ~400nm-700nm.
 
-![Human Eye](http://cdn.picturecorrect.com/wp-content/uploads/2015/02/image-sensors-11.jpg)
+![Human Eye](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Eyesection.svg/1200px-Eyesection.svg.png)
 
 Transduction of light into an electrical signal has four steps
 
