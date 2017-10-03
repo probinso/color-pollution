@@ -1,7 +1,6 @@
 # Course Authors
 ## Philip Robinson
-I have a BS in Computer Science and a minor in mathematics from Western Washington University, where I focused on Cryptography. I then worked in probabilistic programming languages at Galois Inc, gaining me exposure to machine learning and statistics. Python has been my primary langauge for the past four years. I'm currently most excited about scientific computing, open course models, and teaching.
-- [personal site](http://probinso.dyn-o-saur.com)
+I am a graudate student of Oregon Health Sciences University and am working as a Research Assistant to use FMRI data for early diagnosis of Autism Spectrum Disorders. I have a BS in Computer Science and a minor in mathematics from Western Washington University, where I focused on Cryptography. I then worked in supporting the development of probabilistic programming languages at Galois Inc, gaining me exposure to machine learning and statistics. Python has been my primary langauge for the majority of my career.
 - [github](https://github.com/probinso)
 - [linkedin](https://www.linkedin.com/in/philip-robinson-2878642a)
 
